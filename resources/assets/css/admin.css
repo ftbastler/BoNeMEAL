@@ -1,0 +1,15 @@
+/* ADMIN CUSTOM STYLES */
+.sidebar {
+  margin-top: 0; }
+
+.navbar-top-links li a {
+  padding-top: 20.5px;
+  padding-bottom: 20.5px; }
+
+.navbar {
+  box-shadow: none; }
+  .navbar .container-fluid {
+    border-bottom: 1px solid #e7e7e7; }
+
+
+/*# sourceMappingURL=admin.css.map */
