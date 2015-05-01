@@ -36,5 +36,7 @@
 	</footer>
 
 	<script src="{{ asset('/scripts/site.js') }}" type="text/javascript"></script>
+
+	@yield('scripts')
 </body>
 </html>

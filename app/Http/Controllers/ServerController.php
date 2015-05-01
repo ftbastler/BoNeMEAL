@@ -43,7 +43,7 @@ class ServerController extends Controller {
 	public function store()
 	{
 		$rules = array(
-			'name'       => 'required|min:3',
+			'name'       => 'required|min:3|unique:servers',
 			'db_host'      => 'required',
 			'db_username'      => 'required',
 			'db_password'      => 'required',
@@ -103,7 +103,7 @@ class ServerController extends Controller {
 	public function update($id)
 	{
 		$rules = array(
-			'name'       => 'required|min:3',
+			'name'       => 'required|min:3|unique:servers,name,'.$id,
 			'db_host'      => 'required',
 			'db_username'      => 'required',
 			'db_password'      => 'required',

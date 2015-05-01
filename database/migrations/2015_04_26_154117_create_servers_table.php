@@ -15,7 +15,7 @@ class CreateServersTable extends Migration {
 		Schema::create('servers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
+			$table->string('name')->unique();
 			$table->string('db_host');
 			$table->string('db_username');
 			$table->string('db_password');

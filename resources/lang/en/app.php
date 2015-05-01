@@ -120,7 +120,11 @@ return [
 	"users"						=> "Users",
 	"rememberMe"				=> "Remember me",
 	"performanceNote"			=> "The more servers you will add, the longer it will take to query them all - thus performance may drop.",
-	"currentlyNotPunished"		=> "Currently not banned or muted."
+	"currentlyNotPunished"		=> "Currently not banned or muted.",
+	"currentlyBanned"			=> "Currently banned",
+	"currentlyMuted"			=> "Currently muted",
+	"updates"					=> "Updates",
+	"details"					=> "Details",
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.

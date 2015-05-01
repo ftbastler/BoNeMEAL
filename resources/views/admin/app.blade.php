@@ -34,5 +34,7 @@
 	</div>
 
 	<script src="{{ asset('/scripts/admin.js') }}" type="text/javascript"></script>
+
+	@yield('scripts')
 </body>
 </html>
