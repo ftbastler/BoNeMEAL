@@ -18,7 +18,6 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-top-links">
 				<li><a href="{{ url('/home') }}">{{ trans('app.home') }}</a></li>
-				<li><a href="{{ url('/about') }}">{{ trans('app.about') }}</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-top-links navbar-right">
 			@if (Auth::guest())

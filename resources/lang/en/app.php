@@ -123,8 +123,11 @@ return [
 	"currentlyNotPunished"		=> "Currently not banned or muted.",
 	"currentlyBanned"			=> "Currently banned",
 	"currentlyMuted"			=> "Currently muted",
-	"updates"					=> "Updates",
+	"updateCheck"				=> "Update Check",
 	"details"					=> "Details",
+	"viewDetails"				=> "View details",
+	"notifications"				=> "Notifications",
+	"loading"					=> "Loading",
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.

@@ -25,7 +25,7 @@
 			</div>
 			<a href="{{ url('/admin/active-bans') }}">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
+					<span class="pull-left">{{ trans('app.viewDetails') }}</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -47,7 +47,7 @@
 			</div>
 			<a href="{{ url('/admin/active-mutes') }}">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
+					<span class="pull-left">{{ trans('app.viewDetails') }}</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -69,7 +69,7 @@
 			</div>
 			<a href="{{ url('/admin/users') }}">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
+					<span class="pull-left">{{ trans('app.viewDetails') }}</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -91,7 +91,7 @@
 			</div>
 			<a href="{{ url('/admin/servers') }}">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span>
+					<span class="pull-left">{{ trans('app.viewDetails') }}</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -148,10 +148,10 @@
 	<div class="col-lg-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				{{ trans('app.updates') }}
+				<i class="fa fa-refresh"></i> {{ trans('app.updateCheck') }}
 			</div>
 			<div class="panel-body">
-				Checking...
+				<div id="update" class="updates">{{ trans('app.loading') }}...</div>
 			</div>
 		</div>
 		<div class="panel panel-default">
@@ -210,4 +210,10 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+checkUpdates();
+</script>
 @endsection

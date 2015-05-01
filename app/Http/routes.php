@@ -13,6 +13,7 @@
 
 Route::get('/', 'StaticPageController@index');
 Route::get('/about', 'StaticPageController@about');
+Route::get('/version', 'StaticPageController@version');
 
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/search', 'PlayerController@search');
