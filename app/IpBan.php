@@ -12,14 +12,14 @@ class IpBan extends Model {
 
 	public function getActorUuidAttribute()
 	{	
-		$this->attributes['actor_uuid'] = unpack("H*", $this->attributes['actor_id'])[1];
+		$this->attributes['actor_uuid'] = id_to_uuid($this->attributes['actor_id']);
 		return $this->attributes['actor_uuid'];
 	}
 
 	public function setActorUuidAttribute($value)
 	{
 		$this->attributes['actor_uuid'] = $value;
-		$this->attributes['actor_id'] = pack("H*", $value);
+		$this->attributes['actor_id'] = uuid_to_id($value);
 	}
 
 }

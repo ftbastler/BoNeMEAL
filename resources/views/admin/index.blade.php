@@ -62,8 +62,8 @@
 						<i class="fa fa-user-plus fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">{{ 0 }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.userAccountsForApproval', 0)) }}</div>
+						<div class="huge">{{ count($newAccounts) }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.userAccountsForApproval', count($newAccounts))) }}</div>
 					</div>
 				</div>
 			</div>
@@ -81,15 +81,15 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-users fa-5x"></i>
+						<i class="fa fa-server fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">{{ count($players) }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.totalPlayer', count($players))) }}</div>
+						<div class="huge">{{ count($servers) }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.totalServer', count($servers))) }}</div>
 					</div>
 				</div>
 			</div>
-			<a href="{{ url('/admin/players') }}">
+			<a href="{{ url('/admin/servers') }}">
 				<div class="panel-footer">
 					<span class="pull-left">View Details</span>
 					<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

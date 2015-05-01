@@ -12,26 +12,26 @@ class IpBanRecord extends Model {
 
 	public function getActorUuidAttribute()
 	{	
-		$this->attributes['actor_uuid'] = unpack("H*", $this->attributes['actor_id'])[1];
+		$this->attributes['actor_uuid'] = id_to_uuid($this->attributes['actor_id']);
 		return $this->attributes['actor_uuid'];
 	}
 
 	public function setActorUuidAttribute($value)
 	{
 		$this->attributes['actor_uuid'] = $value;
-		$this->attributes['actor_id'] = pack("H*", $value);
+		$this->attributes['actor_id'] = uuid_to_id($value);
 	}
 
 	public function getPastActorUuidAttribute()
 	{	
-		$this->attributes['past_actor_uuid'] = unpack("H*", $this->attributes['pastActor_id'])[1];
+		$this->attributes['past_actor_uuid'] = id_to_uuid($this->attributes['pastActor_id']);
 		return $this->attributes['past_actor_uuid'];
 	}
 
 	public function setPastActorUuidAttribute($value)
 	{
 		$this->attributes['past_actor_uuid'] = $value;
-		$this->attributes['pastActor_id'] = pack("H*", $value);
+		$this->attributes['pastActor_id'] = uuid_to_id($value);
 	}
 
 }

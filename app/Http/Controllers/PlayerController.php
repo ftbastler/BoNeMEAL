@@ -5,50 +5,62 @@ use Illuminate\Support\Facades\Session;
 
 class PlayerController extends Controller {
 
-	public function index()
+	public function __construct()
 	{
-		//return redirect('/');
+		$this->middleware('installed');
 	}
 
-	public function show($name)
+	public function index()
 	{
-		$player = \App\Player::where('name', $name)->first();
+		$players = \App\Player::get();
+		dd($players);
+	}
 
-		if(!$player)
-			abort(404, 'A player with that name does not exist.');
+	public function show($players)
+	{
+		$activity = collect();
+		$activeBans = collect();
+		$activeMutes = collect();
 
-		$bans = $player->bans;
-		
-		$activeBans = $player->bans()->active()->get();
-		$activeMutes = $player->mutes()->active()->get();
+		foreach($players as $player) {
+			$activeBans = $activeBans->merge($player->bans()->active()->get());
+			$activeMutes = $activeMutes->merge($player->mutes()->active()->get());
 
-		$mutes = $player->mutes;
-		$kicks = $player->kicks;
-		$warnings = $player->warnings;
+			$bans = $player->bans;
 
-		$pastBans = $player->pastBans;
-		$pastMutes = $player->pastMutes;
+			$mutes = $player->mutes;
+			$kicks = $player->kicks;
+			$warnings = $player->warnings;
 
-		$activity = collect()->merge($bans)->merge($mutes)->merge($kicks)->merge($warnings)->merge($pastBans)->merge($pastMutes);
+			$pastBans = $player->pastBans;
+			$pastMutes = $player->pastMutes;
+
+			$activity = $activity->merge($bans)->merge($mutes)->merge($kicks)->merge($warnings)->merge($pastBans)->merge($pastMutes);
+		}
 
 		$activity->sortBy(function($item) {
 			return -1 * $item->created_at->timestamp;
 		});
 
-		return view('player', compact('player', 'activity', 'bans', 'activeBans', 'mutes', 'activeMutes', 'kicks', 'warnings', 'pastBans', 'pastMutes'));
+		$player = $players[0];
+
+		return view('player', compact('player', 'activeBans', 'activeMutes', 'activity'));
 	}
 
 	public function search(Request $request) {
 		$query = $request->input('playername');
 
-		$player = \App\Player::where('name', $query)->get();
+		foreach(\App\Server::get() as $server) {
+			$player = \App\Player::on($server->id)->where('name', $query)->first();
 
-		if(count($player) < 1) {
-			Session::flash('error', trans('app.playerNotFound'));
-			return redirect('/')->withInput();
+			if(!$player)
+				continue;
+
+			return redirect('/players/'.$player->uuid);
 		}
 
-		return redirect('/player/'.$query);
+		Session::flash('error', trans('app.playerNotFound'));
+		return redirect('/')->withInput();
 	}
 
 }

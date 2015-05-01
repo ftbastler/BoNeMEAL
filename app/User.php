@@ -10,6 +10,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
+	protected $connection = 'local';
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -37,5 +39,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $guarded = ['role'];
+
+	public function scopeNeedActivation($query)
+	{
+		return $query->where('role', '=', 0);
+	}
+
+	public function getReadableRoleAttribute() {
+		$roles = array(0 => trans('app.role.normalUser'), 3 => trans('app.role.moderator'), 6 => trans('app.role.admin'), 8 => trans('app.role.superuser'));
+		return $roles[$this->attributes['role']];
+	}
 
 }

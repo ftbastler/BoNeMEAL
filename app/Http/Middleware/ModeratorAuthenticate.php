@@ -41,8 +41,8 @@ class ModeratorAuthenticate {
 			}
 			else
 			{
-				Session::flash('msgs', [trans('app.noPermission')]);
-				return redirect('/');
+				Session::flash('message', trans('app.noPermission'));
+				return \Redirect::back();
 			}
 		}
 

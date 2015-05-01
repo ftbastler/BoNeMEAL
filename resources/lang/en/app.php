@@ -19,10 +19,25 @@ return [
 		"activeBan"		=> "active ban|active bans",
 		"activeMute"	=> "active mute|active mutes",
 		"userAccountsForApproval" => "user accounts for approval",
-		"totalPlayer"	=> "total player|total players"
+		"totalServer"	=> "total server|total servers",
 	],
 
-	"name"						=> "BoNeMEAL",
+	"table" => [
+		"email"			=> "E-Mail",
+		"name"			=> "Username",
+		"role"			=> "Role",
+		"created"		=> "Created",
+		"player"		=> "Player",
+		"uuid"			=> "UUID",
+		"ip"			=> "IP",
+		"lastSeen"		=> "Last seen",
+		"server"		=> "Server",
+		"reason"		=> "Reason",
+		"actor"			=> "Actor",
+		"expires"		=> "Expires",
+	],
+
+	"bonemeal"					=> "BoNeMEAL",
 	"home"						=> "Home",
 	"login"						=> "Login",
 	"logout"					=> "Logout",
@@ -68,6 +83,7 @@ return [
 	"noteAdded"					=> "note added",
 	"unbannedBy"				=> "Unbanned :time by :actor.",
 	"unmutedBy"					=> "Unmuted :time by :actor.",
+	"onServer"					=> "on :server",
 
 	"noJs"						=> "Javascript is deactivated!",
 	"noJsText"					=> "Please activate Javascript in your browser and refresh this page.",
@@ -88,9 +104,26 @@ return [
 	"mutePlayer"				=> "Mute player",
 	"warnPlayer"				=> "Warn player",
 	"addNotePlayer"				=> "Add note to player",
+	"delete"					=> "delete",
+	"remove"					=> "remove",
+	"servers"					=> "Servers",
+	"addServer"					=> "Add server",
+	"editServer"				=> "Edit server",
+	"saveServer"				=> "Save server",
+	"serverName"				=> "Server name",
+	"createdServer"				=> "Server successfully created.",
+	"updatedServer"				=> "Server successfully updated.",
+	"removedServer"				=> "Server successfully removed.",
+	"error404Title"				=> "Oops, Error 404!",
+	"error404Text"				=> "Sorry, the requested page could not be found.",
+	"footerNotice"				=> "This site is not affiliated with Minecraft or Mojang.",
+	"users"						=> "Users",
+	"rememberMe"				=> "Remember me",
+	"performanceNote"			=> "The more servers you will add, the longer it will take to query them all - thus performance may drop.",
+	"currentlyNotPunished"		=> "Currently not banned or muted."
 
 
-	// A lot of time has been put into this app - and still it's completely free. Please give us some credit with this copyright notice in return. Thanks.
+	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",
 
 ];

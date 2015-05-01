@@ -7,7 +7,8 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">{{ trans('app.register') }}</div>
 				<div class="panel-body">
-					<p>{{ trans('app.signupForMod') }} ({{ trans('app.notice') }}: {{ trans('app.adminMustEnableAccount') }})</p>
+					<p>{{ trans('app.signupForMod') }}<br />
+					{{ trans('app.notice') }}: {{ trans('app.adminMustEnableAccount') }}</p>
 
 					@include('partials/validationErrors')
 

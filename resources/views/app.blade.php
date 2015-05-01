@@ -31,7 +31,7 @@
 	<footer>
 		<div class="container">
 			<hr />
-			<p>&copy; {{ date('Y') }} <a href="https://github.com/ftbastler/BoNeMEAL">{{ trans('app.copyright') }}</a></p>
+			<p>&copy; {{ date('Y') }} <a href="https://github.com/ftbastler/BoNeMEAL">{{ trans('app.copyright') }}</a> &ndash; {{ trans('app.footerNotice') }}</p>
 		</div>
 	</footer>
 

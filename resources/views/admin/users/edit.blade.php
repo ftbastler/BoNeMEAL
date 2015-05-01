@@ -1,0 +1,27 @@
+@extends('admin.app')
+
+@section('content')
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">{{ trans('app.editUser') }} (#{{ $user->id }})</h1>
+	</div>
+</div>
+
+@include('partials.validationErrors')
+
+{!! Form::model($user, array('action' => array('UserController@update', $user->id), 'method' => 'PUT')) !!}
+
+<div class="form-group">
+	{!! Form::label('name', trans('app.userName')) !!}
+	{!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('role', trans('app.userRole')) !!}
+	{!! Form::select('role', array(0 => trans('app.role.normalUser'), 3 => trans('app.role.moderator'), 6 => trans('app.role.admin'), 8 => trans('app.role.superuser')), Input::old('role'), array('class' => 'form-control'.($user->role > 8 ? 'disabled' : ''))) !!}
+</div>
+
+{!! Form::submit(trans('app.saveUser'), array('class' => 'btn btn-primary')) !!}
+
+{!! Form::close() !!}
+@endsection

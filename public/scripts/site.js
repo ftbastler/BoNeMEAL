@@ -12666,9 +12666,8 @@ if (typeof jQuery === 'undefined') {
 // APPLICATION SCRIPTS
 
 $(document).ready(function() {
-	$('[rel=dataTable]').DataTable({
-		responsive: true
-	});
+	$('.flashmsg').delay(3000).fadeOut(500);
 });
 
+// SITE SCRIPTS
 //# sourceMappingURL=site.js.map

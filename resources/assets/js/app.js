@@ -1,7 +1,5 @@
 // APPLICATION SCRIPTS
 
 $(document).ready(function() {
-	$('[rel=dataTable]').DataTable({
-		responsive: true
-	});
+	$('.flashmsg').delay(3000).fadeOut(500);
 });

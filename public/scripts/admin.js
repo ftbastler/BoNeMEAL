@@ -27890,6 +27890,12 @@ $(function() {
 // APPLICATION SCRIPTS
 
 $(document).ready(function() {
+	$('.flashmsg').delay(3000).fadeOut(500);
+});
+
+// ADMIN SCRIPTS
+
+$(document).ready(function() {
 	$('[rel=dataTable]').DataTable({
 		responsive: true
 	});

@@ -25,7 +25,10 @@
 			@include('partials.navigation', ['admin' => true])
 
 			<div id="page-wrapper">
+				@include('partials.flash')
+				
 				@yield('content')
+				<br />
 			</div>
 
 	</div>

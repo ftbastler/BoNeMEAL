@@ -23,7 +23,7 @@
 				<tbody>
 					@foreach($players as $item)
 					<tr>
-						<td><a href="{{ url('/admin/player', $item->name) }}">{{ $item->name }}</a></td>
+						<td><a href="{{ url('/admin/players', $item->uuid) }}">{{ $item->name }}</a></td>
 						<td>{{ $item->uuid }}</td>
 						<td>{{ $item->ip }}</td>
 						<td>{{ $item->lastSeen->diffForHumans() }}</td>

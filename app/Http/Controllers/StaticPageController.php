@@ -4,7 +4,7 @@ class StaticPageController extends Controller {
 
 	public function __construct()
 	{
-		//$this->middleware('guest');
+		$this->middleware('installed');
 	}
 
 	public function index()

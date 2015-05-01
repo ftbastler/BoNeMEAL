@@ -6,7 +6,7 @@
 		<center><h1>{{ trans('app.causedTroubleQuestion') }}</h1></center>
 		<br />
 		<div class="container col-md-6 col-md-offset-3">
-			{!! Form::open(array('url' => '/player/search', 'method' => 'GET', 'class' => 'form')) !!}
+			{!! Form::open(array('url' => '/players/search', 'method' => 'GET', 'class' => 'form')) !!}
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 			<div class="input-group {{ session('error') ? 'has-error' : '' }}">

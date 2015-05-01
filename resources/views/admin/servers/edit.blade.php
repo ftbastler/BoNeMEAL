@@ -1,0 +1,47 @@
+@extends('admin.app')
+
+@section('content')
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">{{ trans('app.editServer') }} (#{{ $server->id }})</h1>
+	</div>
+</div>
+
+@include('partials.validationErrors')
+
+{!! Form::model($server, array('action' => array('ServerController@update', $server->id), 'method' => 'PUT')) !!}
+
+<div class="form-group">
+	{!! Form::label('name', trans('app.serverName')) !!}
+	{!! Form::text('name', Input::old('name'), array('class' => 'form-control', 'placeholder' => 'Creative')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('db_host', trans('app.dbHost')) !!}
+	{!! Form::text('db_host', Input::old('db_host'), array('class' => 'form-control', 'placeholder' => 'localhost')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('db_username', trans('app.dbUsername')) !!}
+	{!! Form::text('db_username', Input::old('db_username'), array('class' => 'form-control', 'placeholder' => 'root')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('db_password', trans('app.dbPassword')) !!}
+	{!! Form::text('db_password', Input::old('db_password'), array('class' => 'form-control')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('db_database', trans('app.dbDatabase')) !!}
+	{!! Form::text('db_database', Input::old('db_database'), array('class' => 'form-control', 'placeholder' => 'banManager')) !!}
+</div>
+
+<div class="form-group">
+	{!! Form::label('db_prefix', trans('app.dbPrefix')) !!}
+	{!! Form::text('db_prefix', Input::old('db_prefix'), array('class' => 'form-control', 'placeholder' => 'bm_')) !!}
+</div>
+
+{!! Form::submit(trans('app.saveServer'), array('class' => 'btn btn-primary')) !!}
+
+{!! Form::close() !!}
+@endsection

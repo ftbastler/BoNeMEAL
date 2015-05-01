@@ -73,6 +73,7 @@ return [
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
+	"role"                 => "The :attribute has to be a valid user role.",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,6 +107,11 @@ return [
 		"name" 		=> "Name",
 		"email" 	=> "E-Mail Address",
 		"password"	=> "Password",
+		"db_host" => "Database Host",
+		"db_username" => "Database Username",
+		"db_password" => "Database Password",
+		"db_database" => "Database",
+		"db_prefix" => "Database Prefix",
 	],
 
 ];

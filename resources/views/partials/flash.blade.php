@@ -1,12 +1,8 @@
-@if (count(session('msgs')) > 0)
-<div class="container">
+@if (session('message'))
+<div class="flashmsg">
 	<div class="alert alert-box alert-info">
 		<strong>{{ trans('app.notice') }}</strong><br>
-		<ul>
-			@foreach (session('msgs') as $msg)
-			<li>{{ $msg }}</li>
-			@endforeach
-		</ul>
+		{{ session('message') }}
 	</div>
 </div>
 @endif

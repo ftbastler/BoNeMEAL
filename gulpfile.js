@@ -15,6 +15,7 @@ elixir(function(mix) {
 	mix.sass('app.scss', 'resources/assets/css/');
 	mix.sass('site.scss', 'resources/assets/css/');
 	mix.sass('admin.scss', 'resources/assets/css/');
+	mix.sass('install.scss', 'resources/assets/css/');
 
 	mix.styles([
 
@@ -31,6 +32,7 @@ elixir(function(mix) {
 		'jquery.js',
 		'bootstrap.js',
 		'app.js',
+		'site.js',
 
 		], 'public/scripts/site.js', 'resources/assets/js');
 
@@ -58,8 +60,26 @@ elixir(function(mix) {
 		'dataTables.bootstrap.js',
 		'sb-admin.js',
 		'app.js',
+		'admin.js',
 
 		], 'public/scripts/admin.js', 'resources/assets/js');
+
+	mix.styles([
+
+		'bootstrap-theme.css',
+		'font-awesome.css',
+		'timeline.css',
+		'install.css',
+
+		], 'public/styles/install.css', 'resources/assets/css');
+
+	mix.scripts([
+
+		'jquery.js',
+		'bootstrap.js',
+		'install.js',
+
+		], 'public/scripts/install.js', 'resources/assets/js');
 
 
 	//mix.phpUnit();

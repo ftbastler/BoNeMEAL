@@ -12,7 +12,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ url('/') }}">{{ trans('app.name') }}</a>
+			<a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('images/mc_bone.png') }}" style="width: 25px; margin-right: 5px; display: inline;" /> {{ trans('app.bonemeal') }}</a>
 		</div>
 
 		<div class="collapse navbar-collapse">
@@ -24,7 +24,13 @@
 			@if (Auth::guest())
 				<li><a href="{{ url('/auth/login') }}">{{ trans('app.login') }}</a></li>
 			@else
-				<li><a href="{{ url('/admin') }}">{{ trans('app.adminPanel') }}</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ url('/admin') }}">{{ trans('app.adminPanel') }}</a></li>
+						<li><a href="{{ url('/auth/logout') }}">{{ trans('app.logout') }}</a></li>
+					</ul>
+				</li>
 			@endif
 			</ul>
 		</div>
@@ -55,6 +61,9 @@
 					<a href="{{ url('/admin/players') }}"><i class="fa fa-users fa-fw"></i> {{ trans('app.players') }}</a>
 				</li>
 				<li>
+					<a href="{{ url('/admin/users') }}"><i class="fa fa-user fa-fw"></i> {{ trans('app.users') }}</a>
+				</li>
+				<li>
 					<a href="#"><i class="fa fa-gavel fa-fw"></i> {{ trans('app.activePunishments') }}<span class="fa fa-fw arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
@@ -69,8 +78,11 @@
 					<a href="#"><i class="fa fa-edit fa-fw"></i> {{ trans('app.configuration') }}<span class="fa fa-fw arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
-							<a href="{{ url('/admin/config/app') }}">{{ trans('app.app') }}</a>
+							<a href="{{ url('/admin/servers') }}">{{ trans('app.servers') }}</a>
 						</li>
+						<!--<li>
+							<a href="{{ url('/admin/config/app') }}">{{ trans('app.app') }}</a>
+						</li>-->
 					</ul>
 				</li>
 			</ul>
