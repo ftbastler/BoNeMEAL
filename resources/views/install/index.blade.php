@@ -19,16 +19,21 @@
 			</noscript>
 			
 			<h3>Requirements</h3>
+			<p>As we are running Laravel, this web app has a few <a href="http://laravel.com/docs/5.0#server-requirements">server requirements</a>.</p>
 			<ul>
 				<li>Ban-Management has to be installed on your Minecraft server</li>
 				<li>Ban-Management needs be connected to a MySQL database</li>
-				<li>PHP 5.3.7 or higher must be installed on your web server</li>
-				<li>MCrypt PHP Extension has to be installed on your web server</li>
+				<li>PHP 5.4 or higher must be installed on your web server {!! version_compare(PHP_VERSION, '5.4.0') >= 0 ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
+				<li>MCrypt PHP Extension has to be installed on your web server {!! extension_loaded('mcrypt') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
+				<li>OpenSSL PHP Extension has to be installed on your web server {!! extension_loaded('openssl') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
+				<li>Mbstring PHP Extension has to be installed on your web server {!! extension_loaded('mbstring') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
+				<li>Tokenizer PHP Extension has to be installed on your web server {!! extension_loaded('tokenizer') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
+				<li>JSON PHP Extension has to be installed on your web server {!! extension_loaded('json') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
 			</ul>
 
 			<br />
 			<h3>Terms and Conditions</h3>
-			<p><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">BoNeMEAL</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/ftbastler/BoNeMEAL" property="cc:attributionName" rel="cc:attributionURL">ftbastler and contributors</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</p>
+			<p><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">BoNeMEAL</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/ftbastler/BoNeMEAL" property="cc:attributionName" rel="cc:attributionURL">ftbastler and contributors</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a> (see <a href="https://github.com/ftbastler/BoNeMEAL/blob/master/LICENSE.md">LICENSE</a>).</p>
 			<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 			<p><i>By downloading and/or installing the software you agree with these terms and conditions.</i></p>
 		</div>
