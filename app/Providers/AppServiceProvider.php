@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider {
 		if(\Schema::connection('local')->hasTable('servers')) {
 			$servers = \App\Server::get();
 
-			$ids = [];
 			foreach ($servers as $server) {
 				\Config::set('database.connections.'.$server->id.'.driver', 'mysql');
 				\Config::set('database.connections.'.$server->id.'.host', $server->db_host);
@@ -36,11 +35,7 @@ class AppServiceProvider extends ServiceProvider {
 				\Config::set('database.connections.'.$server->id.'.charset', 'utf8');
 				\Config::set('database.connections.'.$server->id.'.strict', false);
 				\Config::set('database.connections.'.$server->id.'.prefix', $server->db_prefix);
-
-				array_push($ids, 's'.$server->id);
 			}
-
-			//\Config::set('servers', $ids);
 		}
 	}
 

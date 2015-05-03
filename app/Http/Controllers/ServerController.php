@@ -57,6 +57,20 @@ class ServerController extends Controller {
 			->withErrors($validator)
 			->withInput(\Input::except('db_password'));
 		} else {
+			$connect = @mysqli_connect(\Input::get('db_host'), \Input::get('db_username'), \Input::get('db_password'), \Input::get('db_database'));
+			
+			if(!$connect) {
+				\Session::flash('message', trans('app.dbNotConnect'));
+				return redirect('/admin/servers/create')->withInput();
+			}
+
+			$query = mysql_query('SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
+
+			if(!$query || mysql_num_rows($query) <= 0) {
+				\Session::flash('message', trans('app.missingDbTables'));
+				return redirect('/admin/servers/create')->withInput();
+			} 
+
 			$server = new \App\Server;
 			$server->name       = \Input::get('name');
 			$server->db_host      = \Input::get('db_host');
@@ -116,6 +130,20 @@ class ServerController extends Controller {
 			return redirect('/admin/servers/'.$id.'/edit')
 			->withErrors($validator);
 		} else {
+			$connect = @mysqli_connect(\Input::get('db_host'), \Input::get('db_username'), \Input::get('db_password'), \Input::get('db_database'));
+			
+			if(!$connect) {
+				\Session::flash('message', trans('app.dbNotConnect'));
+				return redirect('/admin/servers/create')->withInput();
+			}
+
+			$query = mysql_query('SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
+
+			if(!$query || mysql_num_rows($query) <= 0) {
+				\Session::flash('message', trans('app.missingDbTables'));
+				return redirect('/admin/servers/create')->withInput();
+			} 
+
 			$server = \App\Server::findOrFail($id);
 			$server->name       = \Input::get('name');
 			$server->db_host      = \Input::get('db_host');

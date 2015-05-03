@@ -153,6 +153,8 @@ return [
 	"flushCache"				=> "Flush cache",
 	"clearedCache"				=> "Cache successfully cleared.",
 	"message"					=> "Message",
+	"dbNotConnect"				=> "Can not connect to database.",
+	"missingDbTables"			=> "Can not find Ban-Management tables in this database. Are you sure your database prefix is correct?",
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.

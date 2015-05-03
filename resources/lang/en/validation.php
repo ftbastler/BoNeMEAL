@@ -111,7 +111,7 @@ return [
 		"db_host" => "Database Host",
 		"db_username" => "Database Username",
 		"db_password" => "Database Password",
-		"db_database" => "Database",
+		"db_database" => "Database Name",
 		"db_prefix" => "Database Prefix",
 	],
 
