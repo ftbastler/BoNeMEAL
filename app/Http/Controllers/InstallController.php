@@ -88,10 +88,14 @@ class InstallController extends Controller {
 
 		file_put_contents(base_path() . DIRECTORY_SEPARATOR . '.env', $env);
 
-		return '<script>window.location = "'.url('/install/finish').'";</script>';
+		//I know it's fake - until I find out how to display stuff while still running some code
+		return '<script>setTimeout(function() { window.location = "'.url('/install/finish').'"; }, 2500);</script>';
 	}
 
 	public function finish() {
+		if(!file_exists(base_path() . DIRECTORY_SEPARATOR . '.env'))
+			return redirect('/install');
+
 		file_put_contents(base_path() . DIRECTORY_SEPARATOR . 'installed.lock', time() ?: 1);
 		return view('install.finish');
 	}
