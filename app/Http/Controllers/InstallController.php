@@ -30,7 +30,7 @@ class InstallController extends Controller {
 		'key' => 'required|min:32|max:32',
 
 		'name' => 'required|max:255',
-		'email' => 'required|email|max:255|unique:users',
+		'email' => 'required|email|max:255', //unique:users removed, as user table does not yet exist
 		'password' => 'required|confirmed|min:6',
 		];
 
@@ -47,9 +47,12 @@ class InstallController extends Controller {
 		try {
 			define('STDIN', fopen("php://stdin","r"));
 
-			\Artisan::call('migrate:install');
+			//\Artisan::call('migrate:install');
 			\Artisan::call('migrate', [
-				'--path' => 'database/migrations'
+				'--path' => 'database/migrations',
+				'--env' => 'install',
+				'--quiet' => true, 
+				'--force' => true
 				]);
 		} catch(\Exception $e) {
 			echo '<script>$("#output").append(\'Error while installing application: '.$e->getMessage().'<br /><br />Please go back and try again or report this bug to our issue tracker.\');</script>';

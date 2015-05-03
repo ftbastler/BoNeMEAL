@@ -13,7 +13,7 @@
 			<h1>Finished</h1><hr/>
 			<p class="lead">Congratulations! <b>BoNeMEAL</b> has been installed successfully.</p>
 
-			<p>Thanks for using <b>BoNeMEAL</b> to manage your bans. We hope you will have a great experience with this app. Remember to stay awesome and report all bugs using our <a href="https://github.com/ftbastler/BoNeMEAL/issues">issue tracker</a>.<br />
+			<p>Thanks for using <b>BoNeMEAL</b> to manage your bans. We hope you will have a great experience with this web app. Remember to stay awesome and report all bugs using our <a href="https://github.com/ftbastler/BoNeMEAL/issues">issue tracker</a> and check for updates regularly.<br />
 			Now, let's get this party started!</p>
 		</div>
 
