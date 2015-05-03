@@ -17,27 +17,27 @@
 </div>
 
 <div class="form-group">
-	{!! Form::label('db_host', trans('app.dbHost')) !!}
+	{!! Form::label('db_host', trans('validation.attributes.db_host')) !!}
 	{!! Form::text('db_host', Input::old('db_host'), array('class' => 'form-control', 'placeholder' => 'localhost')) !!}
 </div>
 
 <div class="form-group">
-	{!! Form::label('db_username', trans('app.dbUsername')) !!}
+	{!! Form::label('db_username', trans('validation.attributes.db_username')) !!}
 	{!! Form::text('db_username', Input::old('db_username'), array('class' => 'form-control', 'placeholder' => 'root')) !!}
 </div>
 
 <div class="form-group">
-	{!! Form::label('db_password', trans('app.dbPassword')) !!}
+	{!! Form::label('db_password', trans('validation.attributes.db_password')) !!}
 	{!! Form::text('db_password', Input::old('db_password'), array('class' => 'form-control')) !!}
 </div>
 
 <div class="form-group">
-	{!! Form::label('db_database', trans('app.dbDatabase')) !!}
+	{!! Form::label('db_database', trans('validation.attributes.db_database')) !!}
 	{!! Form::text('db_database', Input::old('db_database'), array('class' => 'form-control', 'placeholder' => 'banManager')) !!}
 </div>
 
 <div class="form-group">
-	{!! Form::label('db_prefix', trans('app.dbPrefix')) !!}
+	{!! Form::label('db_prefix', trans('validation.attributes.db_prefix')) !!}
 	{!! Form::text('db_prefix', Input::old('db_prefix'), array('class' => 'form-control', 'placeholder' => 'bm_')) !!}
 </div>
 

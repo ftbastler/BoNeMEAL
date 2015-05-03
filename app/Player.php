@@ -12,6 +12,8 @@ class Player extends Model {
 
 	protected $table = 'players';
 
+	public $timestamps = false;
+
 	public function bans()
 	{
 		return $this->hasManyRelation('App\PlayerBan');
@@ -58,6 +60,11 @@ class Player extends Model {
 		$this->attributes['uuid'] = $value;
 		$this->attributes['id'] = uuid_to_id($value);
 	}
+
+	public function setCreatedAttribute($value)
+    {
+        $this->attributes['lastSeen'] = $value->timestamp;
+    }
 
 	/**
 	 * A little bit of hacking to make Laravel work with multiple databases

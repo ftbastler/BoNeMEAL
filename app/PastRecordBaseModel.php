@@ -10,6 +10,8 @@ class PastRecordBaseModel extends Model {
 
 	protected $dates = ['created', 'pastCreated', 'expired'];
 
+	public $timestamps = false;
+
 	public function getPastActorUuidAttribute()
 	{	
 		$this->attributes['past_actor_uuid'] = id_to_uuid($this->attributes['pastActor_id']);
@@ -69,6 +71,24 @@ class PastRecordBaseModel extends Model {
 		return \App\Server::find($this->getConnectionName())->name;
 	}
 
+	public function getServerIdAttribute() {
+		return \App\Server::find($this->getConnectionName())->id;
+	}
+
+	public function setCreatedAttribute($value)
+	{
+		$this->attributes['created'] = $value->timestamp;
+	}
+
+	public function setPastCreatedAttribute($value)
+	{
+		$this->attributes['pastCreated'] = $value->timestamp;
+	}
+
+	public function setExpiresAttribute($value)
+	{
+		$this->attributes['expires'] = $value->timestamp;
+	}
 
 	/**
 	 * A little bit of hacking to make Laravel work with multiple databases

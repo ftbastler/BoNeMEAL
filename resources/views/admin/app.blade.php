@@ -28,7 +28,7 @@
 				@include('partials.flash')
 				
 				@yield('content')
-				<br />
+				<br /><br />
 			</div>
 
 	</div>

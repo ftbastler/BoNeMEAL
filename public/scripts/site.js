@@ -12666,7 +12666,7 @@ if (typeof jQuery === 'undefined') {
 // APPLICATION SCRIPTS
 
 $(document).ready(function() {
-	$('.flashmsg').delay(3000).fadeOut(500);
+	$('.flashmsg').delay(4000).fadeOut(500);
 });
 
 // SITE SCRIPTS

@@ -25,6 +25,11 @@
 					</div>
 				</div>
 				@endif
+
+				@if(isset($admin) && $admin)
+				<hr />
+				<a href="{{ url('/admin/bans/'.$item->serverId.'/'.$item->id) }}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+				@endif
 			</div>
 		</div>
 	</li>
@@ -74,6 +79,11 @@
 							</div>
 						</div>
 						@endif
+
+						@if(isset($admin) && $admin)
+						<hr />
+						<a href="{{ url('/admin/mutes/'.$item->serverId.'/'.$item->id) }}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+						@endif
 					</div>
 				</div>
 			</li>
@@ -108,6 +118,10 @@
 							</div>
 							<div class="timeline-body">
 								<pre>{{ $item->message }}</pre>
+								@if(isset($admin) && $admin)
+								<hr />
+								<a href="{{ url('/admin/notes/'.$item->serverId.'/'.$item->id) }}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+								@endif
 							</div>
 						</div>
 					</li>
@@ -123,6 +137,10 @@
 								</div>
 								<div class="timeline-body">
 									<pre>{{ $item->reason }}</pre>
+									@if(isset($admin) && $admin)
+									<hr />
+									<a href="{{ url('/admin/warnings/'.$item->serverId.'/'.$item->id) }}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+									@endif
 								</div>
 							</div>
 						</li>

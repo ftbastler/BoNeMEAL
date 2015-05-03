@@ -12,8 +12,4 @@ class StaticPageController extends Controller {
 		return view('index');
 	}
 
-	public function version() {
-		return file_get_contents(base_path() . DIRECTORY_SEPARATOR . 'version') ?: null;
-	}
-
 }

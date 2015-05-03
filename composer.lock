@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1b5df31c116c521147d7343c109193f",
+    "hash": "ac5701fedde9d0d9dce098634d6622ed",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -779,102 +779,6 @@
                 "schedule"
             ],
             "time": "2015-01-11 23:07:46"
-        },
-        {
-            "name": "nayjest/builder",
-            "version": "v1.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Nayjest/Builder.git",
-                "reference": "5d0f99d7798523c7782907845e8d626250530e0a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Nayjest/Builder/zipball/5d0f99d7798523c7782907845e8d626250530e0a",
-                "reference": "5d0f99d7798523c7782907845e8d626250530e0a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "mockery/mockery": "dev-master@dev",
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Nayjest\\Builder\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vitalii Stepanenko",
-                    "email": "mail@vitaliy.in"
-                }
-            ],
-            "description": "PHP package for instantiating objects using configurations",
-            "time": "2015-03-25 10:32:30"
-        },
-        {
-            "name": "nayjest/grids",
-            "version": "v0.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Nayjest/Grids.git",
-                "reference": "c33e25be67072d860df6c9fa1e9bf880e1317c56"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Nayjest/Grids/zipball/c33e25be67072d860df6c9fa1e9bf880e1317c56",
-                "reference": "c33e25be67072d860df6c9fa1e9bf880e1317c56",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": ">=4.2",
-                "nayjest/builder": "1.1.*",
-                "php": ">=5.4.0"
-            },
-            "suggest": {
-                "illuminate/html": "Required to work with Laravel 5.X",
-                "maatwebsite/excel": "Required to work with Excel export component"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Nayjest\\Grids\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Vitalii [Nayjest] Stepanenko",
-                    "email": "mail@vitaliy.in",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Grids for Laravel 4 & Laravel 5 frameworks",
-            "homepage": "https://github.com/Nayjest/Grids",
-            "keywords": [
-                "bootstrap",
-                "database",
-                "eloquent",
-                "grid",
-                "html",
-                "laravel",
-                "laravel-5",
-                "laravel5",
-                "tables"
-            ],
-            "time": "2015-04-24 09:59:03"
         },
         {
             "name": "nesbot/carbon",
@@ -2111,16 +2015,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2071,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2417,16 +2321,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.6.4",
+            "version": "4.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2"
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/163232991e652e6efed2f8470326fffa61e848e2",
-                "reference": "163232991e652e6efed2f8470326fffa61e848e2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3afe303d873a4d64c62ef84de491b97b006fbdac",
+                "reference": "3afe303d873a4d64c62ef84de491b97b006fbdac",
                 "shasum": ""
             },
             "require": {
@@ -2485,7 +2389,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-11 05:23:21"
+            "time": "2015-04-29 15:18:52"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

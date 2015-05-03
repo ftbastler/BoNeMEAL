@@ -12,28 +12,57 @@
 */
 
 Route::get('/', 'StaticPageController@index');
-Route::get('/about', 'StaticPageController@about');
 Route::get('/version', 'StaticPageController@version');
 
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/search', 'PlayerController@search');
 Route::get('/players/{player}', 'PlayerController@show');
 
+Route::get('/api', 'ApiController@index');
+Route::get('/api/version', 'ApiController@version');
+Route::get('/api/search-playername/{server}/{query}', 'ApiController@searchPlayerName');
+
 Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::get('/players', 'PlayerAdminController@index');
 	Route::get('/players/search', 'PlayerAdminController@search');
 	Route::get('/players/{player}', 'PlayerAdminController@show');
-	Route::get('/players/{player}/ban', 'PlayerAdminController@banPlayer');
-	Route::get('/players/{player}/mute', 'PlayerAdminController@mutePlayer');
-	Route::get('/players/{player}/warn', 'PlayerAdminController@warnPlayer');
-	Route::get('/players/{player}/note', 'PlayerAdminController@notePlayer');
 
 	Route::resource('/servers', 'ServerController');
 	Route::resource('/users', 'UserController');
 
+	Route::get('/bans', 'PlayerBanController@index');
+	Route::get('/bans/create/{player?}', 'PlayerBanController@create');
+	Route::post('/bans', 'PlayerBanController@store');
+	Route::get('/bans/{server}/{id}', 'PlayerBanController@edit');
+	Route::put('/bans/{server}/{id}', 'PlayerBanController@update');
+	Route::delete('/bans/{server}/{id}', 'PlayerBanController@destroy');
+
+	Route::get('/mutes', 'PlayerMuteController@index');
+	Route::get('/mutes/create/{player?}', 'PlayerMuteController@create');
+	Route::post('/mutes', 'PlayerMuteController@store');
+	Route::get('/mutes/{server}/{id}', 'PlayerMuteController@edit');
+	Route::put('/mutes/{server}/{id}', 'PlayerMuteController@update');
+	Route::delete('/mutes/{server}/{id}', 'PlayerMuteController@destroy');
+
+	Route::get('/notes', 'PlayerNoteController@index');
+	Route::get('/notes/create/{player?}', 'PlayerNoteController@create');
+	Route::post('/notes', 'PlayerNoteController@store');
+	Route::get('/notes/{server}/{id}', 'PlayerNoteController@edit');
+	Route::put('/notes/{server}/{id}', 'PlayerNoteController@update');
+	Route::delete('/notes/{server}/{id}', 'PlayerNoteController@destroy');
+
+	Route::get('/warnings', 'PlayerWarningController@index');
+	Route::get('/warnings/create/{player?}', 'PlayerWarningController@create');
+	Route::post('/warnings', 'PlayerWarningController@store');
+	Route::get('/warnings/{server}/{id}', 'PlayerWarningController@edit');
+	Route::put('/warnings/{server}/{id}', 'PlayerWarningController@update');
+	Route::delete('/warnings/{server}/{id}', 'PlayerWarningController@destroy');
+
 	Route::get('/', 'AdminController@index');
 	Route::get('/active-bans', 'AdminController@activeBans');
 	Route::get('/active-mutes', 'AdminController@activeMutes');
+
+	Route::get('/flush-cache', 'AdminController@flushCache');
 });
 
 Route::group(array('prefix' => '/install', 'middleware' => 'install'), function() {
@@ -59,29 +88,19 @@ Route::bind('player', function($value)
 
 	foreach(\App\Server::get() as $server) {
 		$item = \App\Player::on($server->id)->find($id);
-
-		if($item)
-			array_push($player, $item);
+		if($item) array_push($player, $item);
 	}
 
 	if(count($player) < 0)
-		abort(404);
+		abort(404, 'Player not found.');
 	
 	return $player;
 });
 
-/*
 Route::bind('server', function($value)
 {
-	$value = str_replace('s', '', $value);
 	$server = \App\Server::find((int) $value);
-
-	if(!$server)
-		abort(404, 'Can not find specific server.');
-
-	\Config::set('database.default', 's'.$server->id);
-	\Session::flash('server', $server);
+	if(!$server) abort(404, 'Server not found.');
 
 	return $server;
 });
-*/

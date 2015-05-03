@@ -10,6 +10,8 @@ class RecordBaseModel extends Model {
 
 	protected $dates = ['created', 'updated', 'expires'];
 
+	public $timestamps = false;
+
 	public function getPlayerUuidAttribute()
 	{	
 		$this->attributes['player_uuid'] = id_to_uuid($this->attributes['player_id']);
@@ -50,6 +52,25 @@ class RecordBaseModel extends Model {
 
 	public function getServerAttribute() {
 		return \App\Server::find($this->getConnectionName())->name;
+	}
+
+	public function getServerIdAttribute() {
+		return \App\Server::find($this->getConnectionName())->id;
+	}
+
+	public function setCreatedAttribute($value)
+	{
+		$this->attributes['created'] = $value->timestamp;
+	}
+
+	public function setUpdatedAttribute($value)
+	{
+		$this->attributes['updated'] = $value->timestamp;
+	}
+
+	public function setExpiresAttribute($value)
+	{
+		$this->attributes['expires'] = $value->timestamp;
 	}
 
 	/**

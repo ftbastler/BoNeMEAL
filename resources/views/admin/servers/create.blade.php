@@ -9,7 +9,7 @@
 
 @include('partials.validationErrors')
 
-{!! Form::open(array('url' => '/admin/servers')) !!}
+{!! Form::open(array('url' => '/admin/servers', 'method' => 'post')) !!}
 
 <div class="form-group">
 	{!! Form::label('name', trans('app.serverName')) !!}

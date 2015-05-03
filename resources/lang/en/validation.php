@@ -74,6 +74,7 @@ return [
 	"url"                  => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
 	"role"                 => "The :attribute has to be a valid user role.",
+	"future"               => "The :attribute has to be a valid expire datetime.",
 
 	/*
 	|--------------------------------------------------------------------------

@@ -39,11 +39,12 @@ class PlayerAdminController extends Controller {
 			$mutes = $player->mutes;
 			$kicks = $player->kicks;
 			$warnings = $player->warnings;
+			$notes = $player->notes;
 
 			$pastBans = $player->pastBans;
 			$pastMutes = $player->pastMutes;
 
-			$activity = $activity->merge($bans)->merge($mutes)->merge($kicks)->merge($warnings)->merge($pastBans)->merge($pastMutes);
+			$activity = $activity->merge($bans)->merge($mutes)->merge($kicks)->merge($warnings)->merge($pastBans)->merge($pastMutes)->merge($notes);
 		}
 
 		$activity->sortBy(function($item) {
@@ -69,23 +70,6 @@ class PlayerAdminController extends Controller {
 
 		Session::flash('search_error', trans('app.playerNotFound'));
 		return \Redirect::back()->withInput();
-	}
-
-	public function banPlayer($player, Request $request) {
-		abort(404);
-		return view('admin.players.punish', compact('player'));
-	}
-
-	public function mutePlayer(Request $request) {
-		abort(404);
-	}
-
-	public function warnPlayer(Request $request) {
-		abort(404);
-	}
-
-	public function notePlayer(Request $request) {
-		abort(404);
 	}
 
 }

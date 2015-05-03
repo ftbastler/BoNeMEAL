@@ -26,20 +26,20 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="{{ url('/admin') }}">{{ trans('app.adminPanel') }}</a></li>
-						<li><a href="{{ url('/auth/logout') }}">{{ trans('app.logout') }}</a></li>
+						<li><a href="{{ url('/admin') }}"><i class="fa fa-cog"></i> {{ trans('app.adminPanel') }}</a></li>
+						<li><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out"></i> {{ trans('app.logout') }}</a></li>
 					</ul>
 				</li>
 			@endif
 			</ul>
 		</div>
 	</div>
-	@if (isset($admin))
+	@if (isset($admin) && $admin)
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
 				<li class="sidebar-search">
-					{!! Form::open(array('url' => '/admin/player/search', 'method' => 'GET', 'class' => 'form')) !!}
+					{!! Form::open(array('url' => '/admin/players/search', 'method' => 'GET', 'class' => 'form')) !!}
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 					<div class="input-group {{ session('search_error') ? 'has-error' : '' }}">
@@ -63,7 +63,7 @@
 					<a href="{{ url('/admin/users') }}"><i class="fa fa-user fa-fw"></i> {{ trans('app.users') }}</a>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-gavel fa-fw"></i> {{ trans('app.activePunishments') }}<span class="fa fa-fw arrow"></span></a>
+					<a href="#"><i class="fa fa-list-alt fa-fw"></i> {{ trans('app.activePunishments') }} <span class="fa fa-fw arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
 							<a href="{{ url('/admin/active-bans') }}">{{ trans('app.activeBans') }}</a>
@@ -74,10 +74,30 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-edit fa-fw"></i> {{ trans('app.configuration') }}<span class="fa fa-fw arrow"></span></a>
+					<a href="#"><i class="fa fa-gavel fa-fw"></i> {{ trans('app.punishPlayer') }} <span class="fa fa-fw arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li>
+							<a href="{{ url('/admin/bans/create') }}">{{ trans('app.banPlayer') }}</a>
+						</li>
+						<li>
+							<a href="{{ url('/admin/mutes/create') }}">{{ trans('app.mutePlayer') }}</a>
+						</li>
+						<li>
+							<a href="{{ url('/admin/warnings/create') }}">{{ trans('app.warnPlayer') }}</a>
+						</li>
+						<li>
+							<a href="{{ url('/admin/notes/create') }}">{{ trans('app.addNotePlayer') }}</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-edit fa-fw"></i> {{ trans('app.configuration') }} <span class="fa fa-fw arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li>
 							<a href="{{ url('/admin/servers') }}">{{ trans('app.servers') }}</a>
+						</li>
+						<li>
+							<a href="{{ url('/admin/flush-cache') }}">{{ trans('app.flushCache') }}</a>
 						</li>
 						<!--<li>
 							<a href="{{ url('/admin/config/app') }}">{{ trans('app.app') }}</a>

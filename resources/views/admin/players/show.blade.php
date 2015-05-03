@@ -26,11 +26,11 @@
 		{{ trans('app.punish') }} <span class="caret"></span>
 	</button>
 	<ul class="dropdown-menu" role="menu">
-		<li><a href="{{ url('/admin/player', [$player->name, 'ban']) }}"><i class="fa fa-ban"></i> {{ trans('app.banPlayer') }}</a></li>
-		<li><a href="{{ url('/admin/player', [$player->name, 'mute']) }}"><i class="fa fa-microphone-slash"></i> {{ trans('app.mutePlayer') }}</a></li>
-		<li><a href="{{ url('/admin/player', [$player->name, 'warn']) }}"><i class="fa fa-comment"></i> {{ trans('app.warnPlayer') }}</a></li>
+		<li><a href="{{ url('/admin/bans/create', $player->uuid) }}"><i class="fa fa-ban"></i> {{ trans('app.banPlayer') }}</a></li>
+		<li><a href="{{ url('/admin/mutes/create', $player->uuid) }}"><i class="fa fa-microphone-slash"></i> {{ trans('app.mutePlayer') }}</a></li>
+		<li><a href="{{ url('/admin/warnings/create', $player->uuid) }}"><i class="fa fa-comment"></i> {{ trans('app.warnPlayer') }}</a></li>
 		<li class="divider"></li>
-		<li><a href="{{ url('/admin/player', [$player->name, 'note']) }}"><i class="fa fa-paperclip"></i> {{ trans('app.addNotePlayer') }}</a></li>
+		<li><a href="{{ url('/admin/notes/create', $player->uuid) }}"><i class="fa fa-paperclip"></i> {{ trans('app.addNotePlayer') }}</a></li>
 	</ul>
 </div>
 
@@ -38,7 +38,7 @@
 	<div class="col-md-12">
 		<ul class="timeline">
 			@foreach($activity as $item)		
-			@include('partials.timelineItem', ['item' => $item])
+			@include('partials.timelineItem', ['item' => $item, 'admin' => true])
 			@endforeach
 		</ul>
 	</div>

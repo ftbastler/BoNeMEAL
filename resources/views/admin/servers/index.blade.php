@@ -19,7 +19,7 @@
 					<tr>
 						<th>{{ trans('app.table.name') }}</th>
 						<th>{{ trans('app.table.db_host') }}</th>
-						<th>{{ trans('app.table.db_username') }}</th>
+						<th>{{ trans('app.table.db_database') }}</th>
 						<th>{{ trans('app.table.created') }}</th>
 						<th></th>
 					</tr>
@@ -29,7 +29,7 @@
 					<tr>
 						<td><a href="{{ url('/admin/servers', [$item->id, 'edit']) }}">{{ $item->name }}</a></td>
 						<td>{{ $item->db_host }}</td>
-						<td>{{ $item->db_username }}</td>
+						<td>{{ $item->db_database }}</td>
 						<td>{{ $item->created_at->diffForHumans() }}</td>
 						<td>
 							{!! Form::open(array('url' => '/admin/servers/' . $item->id, 'class' => 'pull-right')) !!}
