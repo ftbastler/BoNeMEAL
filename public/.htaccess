@@ -7,8 +7,10 @@ Allow from all
 
     RewriteEngine On
 
-    # Important!
-	RewriteBase /git/BoNeMEAL/public
+    # Important: RewriteBase
+    # If you installed the web app in a sub-directory you have to set this.
+    # Note: No trailing slash! (f.e. /ban-management/public)
+    RewriteBase /
 
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
