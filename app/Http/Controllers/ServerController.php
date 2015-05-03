@@ -59,17 +59,18 @@ class ServerController extends Controller {
 		} else {
 			$connect = @mysqli_connect(\Input::get('db_host'), \Input::get('db_username'), \Input::get('db_password'), \Input::get('db_database'));
 			
-			if(!$connect) {
+			if(!$connect || mysqli_connect_errno()) {
 				\Session::flash('message', trans('app.dbNotConnect'));
+				\Session::flash('messageDetails', mysqli_connect_error());
 				return redirect('/admin/servers/create')->withInput();
 			}
 
-			$query = mysql_query('SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
+			$query = mysqli_query($connect, 'SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
 
-			if(!$query || mysql_num_rows($query) <= 0) {
+			if(!$query || mysqli_num_rows($query) <= 0) {
 				\Session::flash('message', trans('app.missingDbTables'));
 				return redirect('/admin/servers/create')->withInput();
-			} 
+			}
 
 			$server = new \App\Server;
 			$server->name       = \Input::get('name');
@@ -132,17 +133,18 @@ class ServerController extends Controller {
 		} else {
 			$connect = @mysqli_connect(\Input::get('db_host'), \Input::get('db_username'), \Input::get('db_password'), \Input::get('db_database'));
 			
-			if(!$connect) {
+			if(!$connect || mysqli_connect_errno()) {
 				\Session::flash('message', trans('app.dbNotConnect'));
-				return redirect('/admin/servers/create')->withInput();
+				\Session::flash('messageDetails', mysqli_connect_error());
+				return redirect('/admin/servers/'.$id.'/edit')->withInput();
 			}
 
-			$query = mysql_query('SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
+			$query = mysqli_query($connect, 'SHOW TABLES LIKE "'.\Input::get('db_prefix').'players"');
 
-			if(!$query || mysql_num_rows($query) <= 0) {
+			if(!$query || mysqli_num_rows($query) <= 0) {
 				\Session::flash('message', trans('app.missingDbTables'));
-				return redirect('/admin/servers/create')->withInput();
-			} 
+				return redirect('/admin/servers/'.$id.'/edit')->withInput();
+			}
 
 			$server = \App\Server::findOrFail($id);
 			$server->name       = \Input::get('name');
