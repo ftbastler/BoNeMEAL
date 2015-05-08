@@ -77,7 +77,7 @@ class InstallController extends Controller {
 		$env .= "APP_TIMEZONE=" . \Input::get('timezone');
 		$env .= PHP_EOL . PHP_EOL;
 
-		$env .= "# The application's base url. No trailing slash! Remember to change it in your public/.htaccess file as well.";
+		$env .= "# The application's base url. No trailing slash!";
 		$env .= PHP_EOL;
 		$env .= "APP_URL=" . \Input::get('host');
 		$env .= PHP_EOL . PHP_EOL;
