@@ -42,7 +42,7 @@
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">{{ trans('app.login') }}</button>
 
-								<a class="btn btn-link" href="{{ url('/auth/password/email') }}">{{ trans('app.forgotPassword') }}</a>
+								<!--<a class="btn btn-link" href="{{ url('/auth/password/email') }}">{{ trans('app.forgotPassword') }}</a>-->
 								<a class="btn btn-link" href="{{ url('/auth/register') }}">{{ trans('app.createAccount') }}</a>
 							</div>
 						</div>
