@@ -25,7 +25,7 @@ elixir(function(mix) {
 		'app.css',
 		'site.css'
 
-		], 'public/styles/site.css', 'resources/assets/css');
+		], '../styles/site.css', 'resources/assets/css');
 
 	mix.scripts([
 
@@ -34,7 +34,7 @@ elixir(function(mix) {
 		'app.js',
 		'site.js',
 
-		], 'public/scripts/site.js', 'resources/assets/js');
+		], '../scripts/site.js', 'resources/assets/js');
 
 
 	mix.styles([
@@ -50,7 +50,7 @@ elixir(function(mix) {
 		'app.css',
 		'admin.css',
 
-		], 'public/styles/admin.css', 'resources/assets/css');
+		], '../styles/admin.css', 'resources/assets/css');
 
 	mix.scripts([
 
@@ -65,7 +65,7 @@ elixir(function(mix) {
 		'app.js',
 		'admin.js',
 
-		], 'public/scripts/admin.js', 'resources/assets/js');
+		], '../scripts/admin.js', 'resources/assets/js');
 
 	mix.styles([
 
@@ -74,7 +74,7 @@ elixir(function(mix) {
 		'timeline.css',
 		'install.css',
 
-		], 'public/styles/install.css', 'resources/assets/css');
+		], '../styles/install.css', 'resources/assets/css');
 
 	mix.scripts([
 
@@ -82,7 +82,7 @@ elixir(function(mix) {
 		'bootstrap.js',
 		'install.js',
 
-		], 'public/scripts/install.js', 'resources/assets/js');
+		], '../scripts/install.js', 'resources/assets/js');
 
 
 	//mix.phpUnit();
