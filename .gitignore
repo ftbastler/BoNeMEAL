@@ -1,0 +1,4 @@
+/application/node_modules
+.env
+installed.lock
+database.sqlite
