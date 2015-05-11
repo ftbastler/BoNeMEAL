@@ -1,5 +1,5 @@
 <?php
-
+#Translation by Townville
 return [
 
 	"page" => [
@@ -18,7 +18,7 @@ return [
 		"server"		=> "Server|Server",
 		"activeBan"		=> "Aktiver Ban|Aktive Bans",
 		"activeMute"	=> "Aktiver Mute|Aktive Mutes",
-		"userAccountsForApproval" => "Ausstehende Zustimmung für Accounts|Ausstehende Zustimmungen für Accounts",
+		"userAccountsForApproval" => "Ausstehende Zustimmung für Account|Ausstehende Zustimmungen für Accounts",
 		"totalServer"	=> "Insgesamter Server|Insgesamte Server",
 	],
 
