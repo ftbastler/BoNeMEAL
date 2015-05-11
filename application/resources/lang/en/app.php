@@ -40,6 +40,13 @@ return [
 		"db_database"	=> "Database Name",
 	],
 
+	"role" => [
+		"superuser" 		=> "Superuser",
+		"normalUser" 		=> "Normal User",
+		"moderator" 		=> "Moderator",
+		"admin" 		    => "Admin",
+	],
+
 	"bonemeal"					=> "BoNeMEAL",
 	"home"						=> "Home",
 	"login"						=> "Login",
