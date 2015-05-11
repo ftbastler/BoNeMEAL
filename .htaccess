@@ -8,8 +8,8 @@ Allow from all
     RewriteEngine On
 
     # Important: RewriteBase
-    # If you installed the web app in a sub-directory you have to set this accordingly.
-    # Note: No trailing slash! (f.e. /BoNeMEAL or /mc-server/ban-management)
+    # If you installed the web app on a subsite, you have to set this to the URL (not the file path!) of the subsite.
+    # Note: No trailing slash! (e.g. /BoNeMEAL or /mc-server/ban-management)
     RewriteBase /BoNeMEAL
 
     # Redirect Trailing Slashes...
