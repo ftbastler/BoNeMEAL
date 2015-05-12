@@ -1,5 +1,7 @@
 <?php
-#Translation by Townville
+
+// German translation by @Townville
+
 return [
 
 	"page" => [
