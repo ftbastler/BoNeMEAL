@@ -5,4 +5,5 @@ Please [check this page](https://github.com/ftbastler/BoNeMEAL/wiki/Reporting-is
 
 ## Contributing code
 
+To contribute fork this repository and create a pull request. Explain what you did and why you did it.
 More information will follow.
