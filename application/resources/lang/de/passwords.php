@@ -15,8 +15,8 @@ return [
 
 	"password" => "Passwort muss mindestens 6 Zeichen lang sein.",
 	"user" => "Wir konnten keinen Benutzer mit der E-Mail Adresse finden.",
-	"token" => "Dieser Password Zurücksetzen Schlüssel ist falsch.",
-	"sent" => "Wir haben dir ein Zurücksetzungslink geschickt!",
+	"token" => "Dieser Passwort Zurücksetzen Schlüssel ist leider falsch.",
+	"sent" => "Wir haben dir ein Zurücksetzungslink an deine E-Mail Adresse geschickt!",
 	"reset" => "Dein Passwort wurde zurückgesetzt!",
 
 ];
