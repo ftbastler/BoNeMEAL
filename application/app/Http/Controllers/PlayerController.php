@@ -47,7 +47,7 @@ class PlayerController extends Controller {
 		return view('player', compact('player', 'activeBans', 'activeMutes', 'activity'));
 	}
 
-	public function search($playername = null, Request $request = null) {
+	public function search(Request $request = null, $playername = null) {
 		$query = $playername ?: $request->input('playername');
 
 		foreach(\App\Server::get() as $server) {

@@ -7,6 +7,7 @@ class AdminController extends Controller {
 		$this->middleware('installed');
 		$this->middleware('auth');
 		$this->middleware('mod');
+		$this->middleware('servers');
 	}
 
 	public function index()

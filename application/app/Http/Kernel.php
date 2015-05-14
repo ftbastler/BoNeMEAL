@@ -31,6 +31,7 @@ class Kernel extends HttpKernel {
 		'mod' => 'App\Http\Middleware\ModeratorAuthenticate',
 		'install' => 'App\Http\Middleware\VerifyNotInstalled',
 		'installed' => 'App\Http\Middleware\VerifyInstalled',
+		'servers' => 'App\Http\Middleware\VerifyServers',
 	];
 
 }

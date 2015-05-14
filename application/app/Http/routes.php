@@ -15,12 +15,14 @@ Route::get('/', 'StaticPageController@index');
 Route::get('/version', 'StaticPageController@version');
 
 Route::get('/players', 'PlayerController@index');
-Route::get('/players/search/{query?}', 'PlayerController@search');
+Route::get('/players/search/{query}', 'PlayerController@search');
+Route::post('/players/search', 'PlayerController@search');
 Route::get('/players/{player}', 'PlayerController@show');
 
 Route::get('/api', 'ApiController@index');
 Route::get('/api/version', 'ApiController@version');
-Route::get('/api/search-playername/{server}/{query}', 'ApiController@searchPlayerName');
+Route::get('/api/search-playername/{server?}/{query}', 'ApiController@searchPlayerName');
+Route::get('/api/search-playername-all/{query}', 'ApiController@searchPlayerNameAll');
 
 Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::get('/players', 'PlayerAdminController@index');

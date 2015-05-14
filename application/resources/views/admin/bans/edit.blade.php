@@ -42,6 +42,6 @@
 <script type="text/javascript">
 	$("#autocomplete").autocomplete("{{ url('/') }}", function() {
 		return "{{ $server->id }}";
-	}, "#results");
+	});
 </script>
 @endsection

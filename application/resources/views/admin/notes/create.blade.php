@@ -45,6 +45,6 @@
 
 	$("#autocomplete").autocomplete("{{ url('/') }}", function() {
 		return $("#server").val();
-	}, "#results");
+	});
 </script>
 @endsection

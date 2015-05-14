@@ -12,6 +12,7 @@ class PlayerNoteController extends Controller {
 		$this->middleware('installed');
 		$this->middleware('auth');
 		$this->middleware('admin');
+		$this->middleware('servers');
 	}
 
 	/**

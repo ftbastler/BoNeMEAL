@@ -2,8 +2,9 @@
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Session;
 
-class Authenticate {
+class VerifyServers {
 
 	/**
 	 * The Guard implementation.
@@ -32,16 +33,9 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest())
+		if (\App\Server::get()->count() <= 0)
 		{
-			if ($request->ajax())
-			{
-				return response('Unauthorized.', 401);
-			}
-			else
-			{
-				return redirect()->guest('auth/login')->with('redirect_url', $request->url());
-			}
+			return redirect('/admin/servers/create')->with('message', trans('app.addServerFirst'));
 		}
 
 		return $next($request);
