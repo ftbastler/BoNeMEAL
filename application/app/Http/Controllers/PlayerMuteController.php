@@ -181,7 +181,7 @@ class PlayerMuteController extends Controller {
 		$mute->delete();
 
 		\Session::flash('message', trans('app.removedMute'));
-		return redirect('/admin/mutes');
+		return redirect('/admin');
 	}
 
 }

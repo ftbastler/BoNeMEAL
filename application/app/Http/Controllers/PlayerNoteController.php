@@ -158,7 +158,7 @@ class PlayerNoteController extends Controller {
 		$note->delete();
 
 		\Session::flash('message', trans('app.removedNote'));
-		return redirect('/admin/notes');
+		return redirect('/admin');
 	}
 
 }

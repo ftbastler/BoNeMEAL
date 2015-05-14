@@ -181,7 +181,7 @@ class PlayerBanController extends Controller {
 		$ban->delete();
 
 		\Session::flash('message', trans('app.removedBan'));
-		return redirect('/admin/bans');
+		return redirect('/admin');
 	}
 
 }

@@ -158,7 +158,7 @@ class PlayerWarningController extends Controller {
 		$warning->delete();
 
 		\Session::flash('message', trans('app.removedWarning'));
-		return redirect('/admin/warnings');
+		return redirect('/admin');
 	}
 
 }

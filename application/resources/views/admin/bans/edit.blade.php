@@ -9,6 +9,11 @@
 
 @include('partials.validationErrors')
 
+{!! Form::open(array('url' => '/admin/bans/' . $server->id . '/' . $ban->id, 'class' => 'pull-right')) !!}
+{!! Form::hidden('_method', 'DELETE') !!}
+{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning')) !!}
+{!! Form::close() !!}
+
 <div class="row">
 	<div class="col-lg-12">
 		{!! Form::model($ban, array('action' => array('PlayerBanController@update', $server->id, $ban->id), 'method' => 'PUT')) !!}

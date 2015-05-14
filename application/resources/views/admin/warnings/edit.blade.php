@@ -9,6 +9,11 @@
 
 @include('partials.validationErrors')
 
+{!! Form::open(array('url' => '/admin/warnings/' . $server->id . '/' . $warning->id, 'class' => 'pull-right')) !!}
+{!! Form::hidden('_method', 'DELETE') !!}
+{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning')) !!}
+{!! Form::close() !!}
+
 <div class="row">
 	<div class="col-lg-12">
 		{!! Form::model($warning, array('action' => array('PlayerWarningController@update', $server->id, $warning->id), 'method' => 'PUT')) !!}

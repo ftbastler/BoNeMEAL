@@ -9,6 +9,11 @@
 
 @include('partials.validationErrors')
 
+{!! Form::open(array('url' => '/admin/notes/' . $server->id . '/' . $note->id, 'class' => 'pull-right')) !!}
+{!! Form::hidden('_method', 'DELETE') !!}
+{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning')) !!}
+{!! Form::close() !!}
+
 <div class="row">
 	<div class="col-lg-12">
 		{!! Form::model($note, array('action' => array('PlayerNoteController@update', $server->id, $note->id), 'method' => 'PUT')) !!}
