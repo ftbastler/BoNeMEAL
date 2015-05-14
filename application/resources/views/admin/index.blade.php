@@ -102,6 +102,17 @@
 
 <div class="row">
 	<div class="col-lg-8">
+		@if(count($outdatedServers) > 0)
+			<div class="alert alert-danger alert-box">
+				<h4>{{ trans('app.warning') }}</h4>
+				<p>{{ trans('app.followingServersOutdated') }}</p>
+				<ul>
+				@foreach($outdatedServers as $server)
+					<li>{{ $server }}</li>
+				@endforeach
+				</ul>
+			</div>
+		@endif
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				{{ trans('app.recentKicks') }}

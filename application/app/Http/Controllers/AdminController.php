@@ -35,6 +35,8 @@ class AdminController extends Controller {
 			$recentBanRecords = collect();
 			$recentMuteRecords = collect();
 
+			$outdatedServers = [];
+			
 			foreach(\App\Server::get() as $server) {
 				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->orderBy('created', 'desc')->take(25)->get());
 				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());
@@ -43,6 +45,11 @@ class AdminController extends Controller {
 				$recentKicks = $recentKicks->merge(\App\PlayerKick::on($server->id)->orderBy('created', 'desc')->take(25)->get());
 				$recentNotes = $recentNotes->merge(\App\PlayerNote::on($server->id)->orderBy('created', 'desc')->take(25)->get());
 				$recentWarnings = $recentWarnings->merge(\App\PlayerWarning::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+			
+				if(\App\PlayerBan::on($server->id)->outdated()->get()->count() > 0)
+					array_push($outdatedServers, $server->name);
+				elseif(\App\PlayerMute::on($server->id)->outdated()->get()->count() > 0)
+					array_push($outdatedServers, $server->name);
 			}
 
 			$activity = collect()->merge($recentBans)->merge($recentBanRecords)->merge($recentMutes)->merge($recentMuteRecords)->merge($recentKicks)->merge($recentWarnings)->merge($recentNotes);
@@ -78,7 +85,7 @@ class AdminController extends Controller {
 				return -1 * $item->created_at->timestamp;
 			})->slice(0, 5);
 
-			return compact('activity', 'activeMutes', 'activeBans', 'newAccounts', 'players', 'servers', 'recentBans', 'recentBanRecords', 'recentMutes', 'recentMuteRecords', 'recentKicks', 'recentWarnings', 'recentNotes');
+			return compact('activity', 'activeMutes', 'activeBans', 'newAccounts', 'players', 'servers', 'recentBans', 'recentBanRecords', 'recentMutes', 'recentMuteRecords', 'recentKicks', 'recentWarnings', 'recentNotes', 'outdatedServers');
 		});
 
 		return view('admin.index', $data);

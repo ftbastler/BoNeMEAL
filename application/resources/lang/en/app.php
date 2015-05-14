@@ -153,6 +153,7 @@ return [
 	"newMute"					=> "New mute",
 	"newWarning"				=> "New warning",
 	"newNote"					=> "New note",
+	"newKick"					=> "New kick",
 	"editBan"					=> "Edit ban",
 	"editNote"					=> "Edit note",
 	"editMute"					=> "Edit mute",
@@ -163,6 +164,7 @@ return [
 	"dbNotConnect"				=> "Can not connect to database.",
 	"missingDbTables"			=> "Can not find Ban-Management tables in this database. Are you sure your database prefix is correct?",
 	"toggleDetails"				=> "Toggle details",
+	"followingServersOutdated"	=> "We have found some outdated servers. We assume you did not run the Ban-Management plugin for quite a while, since there are active temp bans which shoud have expired by now. The following servers are outdated:",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",
