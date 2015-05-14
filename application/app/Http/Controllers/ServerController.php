@@ -11,7 +11,7 @@ class ServerController extends Controller {
 	{
 		$this->middleware('installed');
 		$this->middleware('auth');
-		$this->middleware('admin');
+		$this->middleware('superuser');
 	}
 
 	/**
