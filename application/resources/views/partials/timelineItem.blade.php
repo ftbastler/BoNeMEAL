@@ -8,7 +8,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title">{{ ucfirst(trans('app.banned')) }}</h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>
@@ -54,7 +54,7 @@
 			<div class="timeline-heading">
 				<h4 class="timeline-title"><s>{{ ucfirst(trans('app.banned')) }}</s></h4>
 				<p>
-					<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+					<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 					<small class="text-muted"><i class="fa fa-user"></i> {{ $item->pastActor->name }}</small>
 					<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 				</p>
@@ -84,7 +84,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title">{{ ucfirst(trans('app.muted')) }}</h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>
@@ -130,7 +130,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title"><s>{{ ucfirst(trans('app.muted')) }}</s></h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->pastActor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>
@@ -160,7 +160,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title">{{ ucfirst(trans('app.noteAdded')) }}</h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>
@@ -190,7 +190,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title">{{ ucfirst(trans('app.warned')) }}</h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>
@@ -220,7 +220,7 @@
 		<div class="timeline-heading">
 			<h4 class="timeline-title">{{ trans('app.kicked') }}</h4>
 			<p>
-				<small class="text-muted"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
+				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
 			</p>

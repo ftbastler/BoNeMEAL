@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+@unless($player->name == "Console")
 <div class="container">
 	<div class="jumbotron">
 		<div class="media">
@@ -11,15 +12,17 @@
 				<h1 class="media-heading">{{ $player->name }}</h1>
 				<hr />
 				<span>
+				<h3>
 				@if($activeBans->count() > 0)
-					<h3><i class="fa fa-ban text-muted" rel="tooltip" data-placement="right" title="{{ trans('app.currentlyBanned') }}"></i></h3>
+					<i class="fa fa-ban text-muted" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyBanned') }}"></i>
 				@endif
 				@if($activeMutes->count() > 0)
-					<h3><i class="fa fa-microphone-slash text-muted" rel="tooltip" data-placement="right" title="{{ trans('app.currentlyMuted') }}"></i></h3>
+					<i class="fa fa-microphone-slash text-muted" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyMuted') }}"></i>
 				@endif
 				@if($activeBans->count() <= 0 && $activeMutes->count() <= 0)
-					<h4>{{ trans('app.currentlyNotPunished') }}</h4>
+					{{ trans('app.currentlyNotPunished') }}
 				@endif
+				</h3>
 				</span>
 
 				<p>
@@ -42,4 +45,12 @@
 		</div>
 	</div>
 </div>
+@else
+<div class="container">
+<center>
+	<img class="media-object img-rounded" src="https://minotar.net/helm/Console/500.png" alt="Console" style="width: 300px; height: 300px;">
+	<h3>{{ getRandomEasterEggMessage() }}</h3>
+</center>
+</div>
+@endunless
 @endsection

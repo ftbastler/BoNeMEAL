@@ -1,6 +1,7 @@
 @extends('admin.app')
 
 @section('content')
+@unless($player->name == "Console")
 <div class="row">
 	<div class="col-lg-10">
 		<h1 class="page-header">{{ trans('app.player') }}: {{ $player->name }}</h1>
@@ -43,4 +44,13 @@
 		</ul>
 	</div>
 </div>
+@else
+<div class="container">
+<br />
+<center>
+	<img class="media-object img-rounded" src="https://minotar.net/helm/Console/500.png" alt="Console" style="width: 300px; height: 300px;">
+	<h3>{{ getRandomEasterEggMessage() }}</h3>
+</center>
+</div>
+@endunless
 @endsection

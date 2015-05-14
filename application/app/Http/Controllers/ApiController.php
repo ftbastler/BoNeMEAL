@@ -5,8 +5,8 @@ class ApiController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('installed');
-		$this->middleware('auth');
-		$this->middleware('admin');
+		//$this->middleware('auth');
+		//$this->middleware('admin');
 		//$this->middleware('server');
 	}
 

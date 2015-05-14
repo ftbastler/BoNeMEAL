@@ -2,3 +2,4 @@
 .env
 installed.lock
 database.sqlite
+.htaccess

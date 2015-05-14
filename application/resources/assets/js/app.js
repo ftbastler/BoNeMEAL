@@ -12,6 +12,10 @@ $(document).ready(function() {
 	}
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 $.fn.autocomplete = function(baseurl, server) {
 	if(baseurl == null)
 		throw new Exception('No base url given!');
