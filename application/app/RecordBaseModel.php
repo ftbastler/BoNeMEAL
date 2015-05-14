@@ -50,6 +50,10 @@ class RecordBaseModel extends Model {
 		return $this->created;
 	}
 
+	public function getOldAttribute() {
+		return false; // or: $this->created_at->diffInDays() >= 90
+	}
+
 	public function getServerAttribute() {
 		return \App\Server::find($this->getConnectionName())->name;
 	}

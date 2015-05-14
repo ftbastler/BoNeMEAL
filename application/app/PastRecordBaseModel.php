@@ -67,6 +67,10 @@ class PastRecordBaseModel extends Model {
 		return $this->pastCreated;
 	}
 
+	public function getOldAttribute() {
+		return $this->created_at->diffInDays() >= 30;
+	}
+
 	public function getServerAttribute() {
 		return \App\Server::find($this->getConnectionName())->name;
 	}
