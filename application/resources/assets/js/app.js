@@ -2,6 +2,14 @@
 
 $(document).ready(function() {
 	$('.flashmsg').delay(4000).fadeOut(500);
+
+	if($('.timeline .collapse').length > 0) {
+		$('#toggleAllTimelineItems').show();
+
+		$('#toggleAllTimelineItems').click(function() {
+			$('.timeline .collapse').collapse('toggle');
+		});
+	}
 });
 
 $.fn.autocomplete = function(baseurl, server) {

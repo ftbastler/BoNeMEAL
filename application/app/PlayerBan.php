@@ -17,4 +17,8 @@ class PlayerBan extends RecordBaseModel {
 		return $query->where('expires', '<', Carbon::now()->timestamp)->where('expires', '!=', 0);
 	}
 
+	public function getOldAttribute() {
+		return false;
+	}
+
 }

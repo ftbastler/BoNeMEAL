@@ -13139,6 +13139,14 @@ if (typeof jQuery === 'undefined') {
 
 $(document).ready(function() {
 	$('.flashmsg').delay(4000).fadeOut(500);
+
+	if($('.timeline .collapse').length > 0) {
+		$('#toggleAllTimelineItems').show();
+
+		$('#toggleAllTimelineItems').click(function() {
+			$('.timeline .collapse').collapse('toggle');
+		});
+	}
 });
 
 $.fn.autocomplete = function(baseurl, server) {
@@ -13147,64 +13155,36 @@ $.fn.autocomplete = function(baseurl, server) {
 
 	var el = $(this);
 
-	/*
-	$(this).keyup(function() {
-		$(el).parent().removeClass('has-success');
+	var typeahead = el.typeahead({ source: [] }).data('typeahead');
 
-		if($(el).val().length < 2) {
-			$(results).html("");
+	el.keyup(function() {
+		el.parent().removeClass('has-success');
+
+		if(el.val().length <= 1)
 			return;
-		} 
 
-		$(results).html("...");
+		if(server == null || server <= 0) {
+			$.get(baseurl + "/api/search-playername-all/" + el.val(), function(data) {
+				typeahead.setSource(data.results);
 
-		$.get(baseurl + "/api/search-playername/" + server() + "/" + $(el).val(), function(data) {
-			if(data.results.length <= 0) {
-				$(results).html("");
-				return;
-			}
-			
-			if(data.results[0] == $("#autocomplete").val()) {
-				$(el).parent().addClass('has-success');
-				$(results).html("");
-				return;
-			}
+				if(data.results[0] == data.query) {
+					el.parent().addClass('has-success');
+				}
+			},'json');
+		} else {
+			var serverId = server();
+			if(!serverId)
+				throw new Exception('Server callback returned nothing.');
 
-			$(results).html(data.results);
-		})
-	}).keyup();
-*/
+			$.get(baseurl + "/api/search-playername/" + serverId + "/" + el.val(), function(data) {
+				typeahead.setSource(data.results);
 
-var typeahead = el.typeahead({ source: [] }).data('typeahead');
-
-el.keyup(function() {
-	el.closest('form-group').removeClass('has-success');
-
-	if(el.val().length <= 1)
-		return;
-
-	if(server == null || server <= 0) {
-		$.get(baseurl + "/api/search-playername-all/" + el.val(), function(data) {
-			typeahead.setSource(data.results);
-
-			if(data.results[0] == data.query) {
-				el.closest('form-group').addClass('has-success');
-			}
-		},'json');
-	} else {
-		var serverId = server();
-		if(!serverId)
-			throw new Exception('Server callback returned nothing.');
-
-		$.get(baseurl + "/api/search-playername/" + serverId + "/" + el.val(), function(data) {
-			typeahead.setSource(data.results);
-
-			if(data.results[0] == data.query) {
-				el.closest('form-group').addClass('has-success');
-			}
-		},'json');
-	}
-});
+				if(data.results[0] == data.query) {
+					el.parent().addClass('has-success');
+				}
+			},'json');
+		}
+	});
 };
 // SITE SCRIPTS
 //# sourceMappingURL=site.js.map

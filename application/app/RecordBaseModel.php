@@ -51,7 +51,7 @@ class RecordBaseModel extends Model {
 	}
 
 	public function getOldAttribute() {
-		return false; // or: $this->created_at->diffInDays() >= 90
+		return $this->created_at->diffInDays() >= 60;
 	}
 
 	public function getServerAttribute() {

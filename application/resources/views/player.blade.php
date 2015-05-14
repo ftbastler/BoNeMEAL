@@ -22,9 +22,12 @@
 				@endif
 				</span>
 
+				<p>
 				@unless(Auth::guest())
-					<a href="{{ url('/admin/players/'.$player->uuid) }}" class="btn btn-default"><i class="fa fa-edit"></i> {{ trans('app.edit') }}</a>
+					<a href="{{ url('/admin/players/'.$player->uuid) }}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> {{ trans('app.edit') }}</a>
 				@endunless
+				<a href="#" style="display: none;" id="toggleAllTimelineItems" class="btn btn-sm btn-default">{{ trans('app.toggleAllTimelineItems') }}</a>
+				</p>
 			</div>
 		</div>
 	</div>
