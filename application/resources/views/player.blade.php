@@ -21,6 +21,10 @@
 					<h4>{{ trans('app.currentlyNotPunished') }}</h4>
 				@endif
 				</span>
+
+				@unless(Auth::guest())
+					<a href="{{ url('/admin/players/'.$player->uuid) }}" class="btn btn-default"><i class="fa fa-edit"></i> {{ trans('app.edit') }}</a>
+				@endunless
 			</div>
 		</div>
 	</div>

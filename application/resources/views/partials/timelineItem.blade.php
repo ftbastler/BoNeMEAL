@@ -212,7 +212,7 @@
 </li>
 @elseif(get_class($item) == "App\PlayerKick")
 <li class="timeline">
-	<div class="timeline-badge info"><i class="fa fa-gavel fa-fw"></i></div>
+	<div class="timeline-badge info"><i class="fa fa-user-times fa-fw"></i></div>
 	<div class="timeline-panel">
 	@if($item->old)
 		<div class="collapse" id="collapse7_{{ $item->serverId }}_{{ $item->id }}">
