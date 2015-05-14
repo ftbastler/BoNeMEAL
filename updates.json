@@ -1,4 +1,4 @@
 {
   "title": "BoNeMEAL v1.1.0",
-  "body": "<a href=\"https://github.com/ftbastler/BoNeMEAL/releases/tag/v1.1.0\">More info</a>"
+  "body": "<ul><li>Added German translation</li><li>Added button to delete punishments</li><li>Added auto-complete for player search</li><li>Added warning for outdated servers</li><li>Changed old timeline items to collapse</li><li>Changed required access-role for server configuration to superuser</li><li>Fixed latest punishments tables on dashboard</li></ul>"
 }
