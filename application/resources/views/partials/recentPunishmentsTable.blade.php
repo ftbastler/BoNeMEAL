@@ -14,7 +14,7 @@
 				<tr>
 					<td>{{ $item->player->name }}</td>
 					<td>{{ $item->actor->name }}</td>
-					<td>{{ $item->created->diffForHumans() }}</td>
+					<td>{{ $item->created_at->diffForHumans() }}</td>
 					<td><a href="{{ url('/admin/players', $item->player->uuid) }}">{{ trans('app.details') }}</a></td>
 				</tr>
 			@endforeach
