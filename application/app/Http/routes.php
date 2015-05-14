@@ -15,7 +15,7 @@ Route::get('/', 'StaticPageController@index');
 Route::get('/version', 'StaticPageController@version');
 
 Route::get('/players', 'PlayerController@index');
-Route::get('/players/search', 'PlayerController@search');
+Route::get('/players/search/{query?}', 'PlayerController@search');
 Route::get('/players/{player}', 'PlayerController@show');
 
 Route::get('/api', 'ApiController@index');
