@@ -36,13 +36,13 @@ class AdminController extends Controller {
 			$recentMuteRecords = collect();
 
 			foreach(\App\Server::get() as $server) {
-				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->orderBy('created')->take(25)->get());
-				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->orderBy('created')->take(25)->get());
-				$recentMutes = $recentMutes->merge(\App\PlayerMute::on($server->id)->orderBy('created')->take(25)->get());
-				$recentMuteRecords = $recentMuteRecords->merge(\App\PlayerMuteRecord::on($server->id)->orderBy('created')->take(25)->get());
-				$recentKicks = $recentKicks->merge(\App\PlayerKick::on($server->id)->orderBy('created')->take(25)->get());
-				$recentNotes = $recentNotes->merge(\App\PlayerNote::on($server->id)->orderBy('created')->take(25)->get());
-				$recentWarnings = $recentWarnings->merge(\App\PlayerWarning::on($server->id)->orderBy('created')->take(25)->get());
+				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentMutes = $recentMutes->merge(\App\PlayerMute::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentMuteRecords = $recentMuteRecords->merge(\App\PlayerMuteRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentKicks = $recentKicks->merge(\App\PlayerKick::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentNotes = $recentNotes->merge(\App\PlayerNote::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentWarnings = $recentWarnings->merge(\App\PlayerWarning::on($server->id)->orderBy('created', 'desc')->take(25)->get());
 			}
 
 			$activity = collect()->merge($recentBans)->merge($recentBanRecords)->merge($recentMutes)->merge($recentMuteRecords)->merge($recentKicks)->merge($recentWarnings)->merge($recentNotes);
