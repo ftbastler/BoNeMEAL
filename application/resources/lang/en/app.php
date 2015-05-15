@@ -93,6 +93,7 @@ return [
 	"muted"						=> "muted",
 	"unmuted"					=> "unmuted",
 	"warned"					=> "warned",
+	"kicked"					=> "kicked",
 	"noteAdded"					=> "note added",
 	"unbannedBy"				=> "Unbanned :time by :actor.",
 	"unmutedBy"					=> "Unmuted :time by :actor.",

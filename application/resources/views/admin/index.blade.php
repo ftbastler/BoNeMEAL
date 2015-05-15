@@ -218,12 +218,12 @@
 		{
 			value: {{ $numBans }},
 			color:"#d9534f",
-			label: "{{  ucfirst(Lang::choice('app.choice.ban', $numBans)) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.ban', $numBans)) }}"
 		},
 		{
 			value: {{ $numMutes }},
 			color: "#f0ad4e",
-			label: "{{  ucfirst(Lang::choice('app.choice.mute', $numMutes)) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.mute', $numMutes)) }}"
 		}
 		];
 
