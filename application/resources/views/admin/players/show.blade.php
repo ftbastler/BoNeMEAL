@@ -6,15 +6,17 @@
 	<div class="col-lg-10">
 		<h1 class="page-header">{{ trans('app.player') }}: {{ $player->name }}</h1>
 		<span>
+		<h3>
 			@if($activeBans->count() > 0)
-			<h1><i class="fa fa-ban text-muted" rel="tooltip" data-placement="right" title="{{ trans('app.currentlyBanned') }}"></i></h1>
+			<i class="fa fa-ban" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyBanned') }}"></i>
 			@endif
 			@if($activeMutes->count() > 0)
-			<h1><i class="fa fa-microphone-slash text-muted" rel="tooltip" data-placement="right" title="{{ trans('app.currentlyMuted') }}"></i></h1>
+			<i class="fa fa-microphone-slash" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyMuted') }}"></i>
 			@endif
 			@if($activeBans->count() <= 0 && $activeMutes->count() <= 0)
-			<h4>{{ trans('app.currentlyNotPunished') }}</h4>
+			{{ trans('app.currentlyNotPunished') }}
 			@endif
+		</h3>
 		</span>
 	</div>
 	<div class="col-lg-2">

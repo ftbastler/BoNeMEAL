@@ -14,10 +14,10 @@
 				<span>
 				<h3>
 				@if($activeBans->count() > 0)
-					<i class="fa fa-ban text-muted" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyBanned') }}"></i>
+					<i class="fa fa-ban" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyBanned') }}"></i>
 				@endif
 				@if($activeMutes->count() > 0)
-					<i class="fa fa-microphone-slash text-muted" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyMuted') }}"></i>
+					<i class="fa fa-microphone-slash" data-toggle="tooltip" data-placement="top" title="{{ trans('app.currentlyMuted') }}"></i>
 				@endif
 				@if($activeBans->count() <= 0 && $activeMutes->count() <= 0)
 					{{ trans('app.currentlyNotPunished') }}
