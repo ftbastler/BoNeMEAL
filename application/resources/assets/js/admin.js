@@ -7,16 +7,18 @@ $(document).ready(function() {
 
 	moment.locale(window.navigator.language);
 
-	var val = $('#datetimepicker').val();
-	$('#datetimepicker').datetimepicker({
-		icons: {
-			time: "fa fa-clock-o",
-			date: "fa fa-calendar",
-			up: "fa fa-arrow-up",
-			down: "fa fa-arrow-down"
-		},
-		locale: window.navigator.language
-	}).data("DateTimePicker").date(moment(val));
+	if($('#datetimepicker').length > 0) {
+		var val = $('#datetimepicker').val();
+		$('#datetimepicker').datetimepicker({
+			icons: {
+				time: "fa fa-clock-o",
+				date: "fa fa-calendar",
+				up: "fa fa-arrow-up",
+				down: "fa fa-arrow-down"
+			},
+			locale: window.navigator.language
+		}).data("DateTimePicker").date(moment(val));
+	}
 });
 
 function checkUpdates() {

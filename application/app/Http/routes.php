@@ -65,6 +65,7 @@ Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::get('/active-mutes', 'AdminController@activeMutes');
 
 	Route::get('/flush-cache', 'AdminController@flushCache');
+	Route::get('/activity', 'AdminController@activity');
 });
 
 Route::group(array('prefix' => '/install', 'middleware' => 'install'), function() {

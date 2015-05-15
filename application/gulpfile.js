@@ -32,6 +32,7 @@ elixir(function(mix) {
 		'jquery.js',
 		'bootstrap.js',
 		'bootstrap3-typeahead.js',
+		'chart.js',
 		'app.js',
 		'site.js',
 
@@ -63,6 +64,7 @@ elixir(function(mix) {
 		'moment.js',
 		'bootstrap-datetimepicker.js',
 		'bootstrap3-typeahead.js',
+		'chart.js',
 		'sb-admin.js',
 		'app.js',
 		'admin.js',

@@ -20,6 +20,9 @@ return [
 		"activeMute"	=> "active mute|active mutes",
 		"newAccount"	=> "new user account|new user accounts",
 		"totalServer"	=> "total server|total servers",
+		"peacefulPlayer" => "peaceful player|peaceful players",
+		"bannedPlayer"	=> "banned player|banned players",
+		"mutedPlayer"	=> "muted player|muted players",
 	],
 
 	"table" => [
@@ -168,6 +171,10 @@ return [
 	"followingServersOutdated"	=> "We have found some outdated servers. We assume you did not run the Ban-Management plugin for quite a while, since there are active temp bans which shoud have expired by now. The following servers are outdated:",
 	"edit"						=> "Edit",
 	"playerNotExist"			=> "A player with that name does not exist.",
+	"activity"					=> "Activity",
+	"onlinePlayers"				=> "Online players",
+	"playerSplit"				=> "Player split",
+	"punishmentSplit"			=> "Punishment type split",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",
