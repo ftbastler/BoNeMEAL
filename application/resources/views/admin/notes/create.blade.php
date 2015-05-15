@@ -21,7 +21,6 @@
 		<div class="form-group">
 			{!! Form::label('player', trans('app.player')) !!}
 			{!! Form::text('player', isset($player) ? $player->name : Input::old('player'), array('class' => 'form-control', 'id' => 'autocomplete')) !!}
-			<p id="results"></p>
 		</div>
 
 		<div class="form-group">

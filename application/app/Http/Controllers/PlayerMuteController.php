@@ -178,6 +178,18 @@ class PlayerMuteController extends Controller {
 	public function destroy($server, $id)
 	{
 		$mute = \App\PlayerMute::on($server->id)->findOrFail($id);
+
+		$record = new \App\PlayerMuteRecord;
+		$record->setConnection($server->id);
+		$record->player_id = $mute->player_id;
+		$record->reason = $mute->reason;
+		$record->expired = $mute->expires;
+		$record->actor_id = \App\Player::on($server->id)->where('name', '=', 'Console')->firstOrFail()->id;
+		$record->pastActor_id = $mute->actor_id;
+		$record->pastCreated = $mute->created;
+		$record->created = Carbon::now();
+		$record->save();
+
 		$mute->delete();
 
 		\Session::flash('message', trans('app.removedMute'));

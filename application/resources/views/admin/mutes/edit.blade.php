@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">{{ trans('app.editmute') }} (#{{ $mute->id }} on {{ $server->name }})</h1>
+		<h1 class="page-header">{{ trans('app.editMute') }} (#{{ $mute->id }} on {{ $server->name }})</h1>
 	</div>
 </div>
 
@@ -21,7 +21,6 @@
 		<div class="form-group">
 			{!! Form::label('player', trans('app.player')) !!}
 			{!! Form::text('player', Input::old('player') ?: $mute->player->name, array('class' => 'form-control', 'id' => 'autocomplete')) !!}
-			<p id="results"></p>
 		</div>
 
 		<div class="form-group">

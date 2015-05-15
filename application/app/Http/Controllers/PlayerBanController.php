@@ -178,6 +178,18 @@ class PlayerBanController extends Controller {
 	public function destroy($server, $id)
 	{
 		$ban = \App\PlayerBan::on($server->id)->findOrFail($id);
+
+		$record = new \App\PlayerBanRecord;
+		$record->setConnection($server->id);
+		$record->player_id = $ban->player_id;
+		$record->reason = $ban->reason;
+		$record->expired = $ban->expires;
+		$record->actor_id = \App\Player::on($server->id)->where('name', '=', 'Console')->firstOrFail()->id;
+		$record->pastActor_id = $ban->actor_id;
+		$record->pastCreated = $ban->created;
+		$record->created = Carbon::now();
+		$record->save();
+
 		$ban->delete();
 
 		\Session::flash('message', trans('app.removedBan'));
