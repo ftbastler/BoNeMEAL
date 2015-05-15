@@ -89,9 +89,9 @@ class PastRecordBaseModel extends Model {
 		$this->attributes['pastCreated'] = $value->timestamp;
 	}
 
-	public function setExpiresAttribute($value)
+	public function setExpiredAttribute($value)
 	{
-		$this->attributes['expires'] = $value->timestamp;
+		$this->attributes['expired'] = $value->timestamp;
 	}
 
 	/**
