@@ -20,7 +20,7 @@ return [
 		"server"		=> "Server|Server",
 		"activeBan"		=> "Aktiver Ban|Aktive Bans",
 		"activeMute"	=> "Aktiver Mute|Aktive Mutes",
-		"userAccountsForApproval" => "Ausstehende Zustimmung für Account|Ausstehende Zustimmungen für Accounts",
+		"newAccount"	=> "neuer Account|neue Accounts",
 		"totalServer"	=> "Insgesamter Server|Insgesamte Server",
 	],
 

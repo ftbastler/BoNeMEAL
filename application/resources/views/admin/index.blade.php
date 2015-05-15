@@ -63,7 +63,7 @@
 					</div>
 					<div class="col-xs-9 text-right">
 						<div class="huge">{{ count($newAccounts) }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.userAccountsForApproval', count($newAccounts))) }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.newAccount', count($newAccounts))) }}</div>
 					</div>
 				</div>
 			</div>

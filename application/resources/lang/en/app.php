@@ -18,7 +18,7 @@ return [
 		"server"		=> "server|servers",
 		"activeBan"		=> "active ban|active bans",
 		"activeMute"	=> "active mute|active mutes",
-		"userAccountsForApproval" => "user accounts for approval",
+		"newAccount"	=> "new user account|new user accounts",
 		"totalServer"	=> "total server|total servers",
 	],
 
@@ -167,6 +167,7 @@ return [
 	"toggleAllTimelineItems"	=> "Toggle all",
 	"followingServersOutdated"	=> "We have found some outdated servers. We assume you did not run the Ban-Management plugin for quite a while, since there are active temp bans which shoud have expired by now. The following servers are outdated:",
 	"edit"						=> "Edit",
+	"playerNotExist"			=> "A player with that name does not exist.",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",
