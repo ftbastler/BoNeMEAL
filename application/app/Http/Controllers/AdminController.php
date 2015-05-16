@@ -12,7 +12,7 @@ class AdminController extends Controller {
 
 	public function index()
 	{
-		$data = \Cache::remember('dashboardData', 2, function() {
+		$data = \Cache::remember('dashboardData', 5, function() {
 			$activeBans = collect();
 			$activeMutes = collect();
 			$players = collect();

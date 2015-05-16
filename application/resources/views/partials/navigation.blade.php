@@ -2,7 +2,7 @@
 @if (isset($admin))
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 @else
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 @endif
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -16,10 +16,11 @@
 		</div>
 
 		<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-top-links">
+			<ul class="nav navbar-nav">
 				<li><a href="{{ url('/home') }}">{{ trans('app.home') }}</a></li>
+				<li><a href="{{ url('/statistics') }}">{{ trans('app.statistics') }}</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-top-links navbar-right">
+			<ul class="nav navbar-nav navbar-right">
 			@if (Auth::guest())
 				<li><a href="{{ url('/auth/login') }}">{{ trans('app.login') }}</a></li>
 			@else

@@ -15,14 +15,17 @@ class PlayerAdminController extends Controller {
 
 	public function index()
 	{
-		$players = collect();
-		foreach(\App\Server::get() as $server) {
-			$players = $players->merge(\App\Player::on($server->id)->get());
-		}
+		$data = \Cache::remember('playerIndexData', 5, function() {
+			$players = collect();
+			foreach(\App\Server::get() as $server) {
+				$players = $players->merge(\App\Player::on($server->id)->get());
+			}
 
-		$players = $players->unique();
+			$players = $players->unique();
+			return compact('players');
+		});
 
-		return view('admin.players.index', compact('players'));
+		return view('admin.players.index', $data);
 	}
 
 	public function show($players)

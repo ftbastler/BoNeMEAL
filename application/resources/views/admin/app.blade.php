@@ -21,19 +21,19 @@
 	<!--[if lte IE 8]>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/excanvas.min.js"></script>
 	<![endif]-->
-	</head>
-	<body>
-		<div id="wrapper">
 
-			@include('partials.navigation', ['admin' => true])
+	@yield('styles')
+</head>
+<body>
+	<div id="wrapper">
+		@include('partials.navigation', ['admin' => true])
 
-			<div id="page-wrapper">
-				@include('partials.flash')
-				
-				@yield('content')
-				<br /><br />
-			</div>
-
+		<div id="page-wrapper">
+			@include('partials.flash')
+			
+			@yield('content')
+			<br /><br />
+		</div>
 	</div>
 
 	<script src="{{ asset('/scripts/admin.js') }}" type="text/javascript"></script>

@@ -20,7 +20,7 @@ return [
 		"activeMute"	=> "active mute|active mutes",
 		"newAccount"	=> "new user account|new user accounts",
 		"totalServer"	=> "total server|total servers",
-		"peacefulPlayer" => "peaceful player|peaceful players",
+		"normalPlayer"	=> "normal player|normal players",
 		"bannedPlayer"	=> "banned player|banned players",
 		"mutedPlayer"	=> "muted player|muted players",
 	],
@@ -176,6 +176,10 @@ return [
 	"onlinePlayers"				=> "Online players",
 	"playerSplit"				=> "Player split",
 	"punishmentSplit"			=> "Punishment type split",
+	"goToHome"					=> "Go to homepage",
+	"statistics"				=> "Statistics",
+	"frontTitle"				=> "Am I being detained?!",
+	"frontText"					=> "With BoNeMEAL you can check your punishments, when and why you got them and when they will expire.",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",

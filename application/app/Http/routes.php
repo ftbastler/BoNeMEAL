@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'StaticPageController@index');
-Route::get('/version', 'StaticPageController@version');
+Route::get('/statistics', 'StatsController@index');
 
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/search/{query}', 'PlayerController@search');

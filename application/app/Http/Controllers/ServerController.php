@@ -81,6 +81,8 @@ class ServerController extends Controller {
 			$server->db_prefix = \Input::get('db_prefix');
 			$server->save();
 
+			\Cache::flush();
+
 			\Session::flash('message', trans('app.createdServer'));
 			return \Redirect::to('/admin/servers');
 		}
@@ -155,6 +157,8 @@ class ServerController extends Controller {
 			$server->db_prefix = \Input::get('db_prefix');
 			$server->save();
 
+			\Cache::flush();
+
 			\Session::flash('message', trans('app.updatedServer'));
 			return \Redirect::to('/admin/servers');
 		}
@@ -170,6 +174,8 @@ class ServerController extends Controller {
 	{
 		$server = \App\Server::findOrFail($id);
 		$server->delete();
+
+		\Cache::flush();
 
 		\Session::flash('message', trans('app.removedServer'));
 		return \Redirect::to('/admin/servers');

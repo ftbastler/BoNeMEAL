@@ -150,14 +150,6 @@
 	<div class="col-lg-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<i class="fa fa-refresh"></i> {{ trans('app.updateCheck') }}
-			</div>
-			<div class="panel-body">
-				<div id="update" class="updates">{{ trans('app.loading') }}...</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
 				<i class="fa fa-rss fa-fw"></i> {{ trans('app.activity') }}
 			</div>
 			<div class="panel-body">
@@ -167,6 +159,15 @@
 					@endforeach
 				</div>
 				<a href="{{ url('/admin/activity') }}" class="btn btn-block btn-default">{{ trans('app.details') }}</a>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-refresh"></i> {{ trans('app.updateCheck') }}
+			</div>
+			<div class="panel-body">
+				<div id="update" class="updates">{{ trans('app.loading') }}...</div>
 			</div>
 		</div>
 	</div>
@@ -210,7 +211,7 @@
 		{
 			value: {{ count($players) - count($activeBans) - count($activeMutes) }},
 			color: "#2196f3",
-			label: "{{ ucfirst(Lang::choice('app.choice.peacefulPlayer', count($players) - count($activeBans) - count($activeMutes))) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.normalPlayer', count($players) - count($activeBans) - count($activeMutes))) }}"
 		}
 		];
 
