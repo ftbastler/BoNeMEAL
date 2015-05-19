@@ -94,7 +94,7 @@ Route::bind('player', function($value)
 		if($item) array_push($player, $item);
 	}
 
-	if(count($player) < 0)
+	if(count($player) <= 0)
 		abort(404, 'Player not found.');
 	
 	return $player;
