@@ -29,7 +29,7 @@
 						<option>en</option>
 						<option>de</option>
 					</select>
-					<span class="help-block">Is your language not available? Become a contributor and help us translate BoNeMEAL!</span>
+					<span class="help-block">Is your language not available? Become a <a href="https://github.com/ftbastler/BoNeMEAL/blob/master/CONTRIBUTING.md" target="_blank">contributor</a> and help us translate BoNeMEAL!</span>
 				</div>
 				<div class="form-group">
 					<label>Timezone</label>
@@ -180,8 +180,8 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Security Key</label><input type="text" class="form-control" name="key" maxlength="32" value="{{ \Input::old('key') ?: $secKey }}" required readonly />
-					<span class="help-block">This key was generated randomly only for your site. Don't give it away!</span>
+					<label>Security Key</label><input type="text" class="form-control" name="key" minlength="32" maxlength="32" value="{{ \Input::old('key') ?: $secKey }}" required readonly />
+					<span class="help-block">This 32-char long key was generated randomly only for your site. Don't give it away!</span>
 				</div>
 			</div>
 

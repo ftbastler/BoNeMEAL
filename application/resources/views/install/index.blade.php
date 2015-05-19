@@ -19,10 +19,9 @@
 			</noscript>
 			
 			<h3>Requirements</h3>
+			<p>First of all be sure to have the Ban-Management plugin installed on your Minecraft server and that the plugin is connected to a MySQL database.</p>
 			<p>As we are running Laravel, this web app has a few <a href="http://laravel.com/docs/5.0#server-requirements">server requirements</a>.</p>
 			<ul>
-				<li>Ban-Management has to be installed on your Minecraft server</li>
-				<li>Ban-Management needs be connected to a MySQL database</li>
 				<li>PHP 5.4 or higher must be installed on your web server {!! version_compare(PHP_VERSION, '5.4.0') >= 0 ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
 				<li>MCrypt PHP Extension has to be installed on your web server {!! extension_loaded('mcrypt') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
 				<li>OpenSSL PHP Extension has to be installed on your web server {!! extension_loaded('openssl') ? '<i class="fa fa-check text-success"></i>' : '<i class="fa fa-exclamation-triangle text-danger"></i>' !!}</li>
