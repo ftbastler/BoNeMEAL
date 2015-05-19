@@ -19,7 +19,6 @@
 <div class="container space space-inside well">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
-		<center>
 		{!! Form::open(array('url' => '/players/search', 'method' => 'POST', 'class' => 'form')) !!}
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -34,10 +33,8 @@
 
 			@if(session('error'))
 			<div class="help-block">{{ session('error') }}</div>
-			<br />
 			@endif
 		{!! Form::close() !!}
-		</center>
 		</div>
 	</div>
 </div>
