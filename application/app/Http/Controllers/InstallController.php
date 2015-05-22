@@ -19,7 +19,18 @@ class InstallController extends Controller {
 
 		$secKey = $this->generateSecretKey(32);
 
-		return view('install.config', compact('host', 'secKey'));
+		$langs = [];
+
+		$path = base_path() . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang';
+		foreach (new \DirectoryIterator($path) as $file) {
+			if ($file->isDot()) continue;
+
+			if ($file->isDir()) {
+				array_push($langs, $file->getFilename());
+			}
+		}
+
+		return view('install.config', compact('host', 'secKey', 'langs'));
 	}
 
 	public function install() {

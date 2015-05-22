@@ -26,8 +26,9 @@
 				<div class="form-group">
 					<label>Locale</label>
 					<select name="locale" size="1" class="form-control">
-						<option>en</option>
-						<option>de</option>
+						@foreach($langs as $lang)
+							<option{!! ($lang == 'en' ? ' selected="selected"' : '') !!}>{{ $lang }}</option>
+						@endforeach
 					</select>
 					<span class="help-block">Is your language not available? Become a <a href="https://github.com/ftbastler/BoNeMEAL/blob/master/CONTRIBUTING.md" target="_blank">contributor</a> and help us translate BoNeMEAL!</span>
 				</div>
