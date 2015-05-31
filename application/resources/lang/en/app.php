@@ -178,6 +178,8 @@ return [
 	"punishmentSplit"			=> "Punishment type split",
 	"goToHome"					=> "Go to homepage",
 	"statistics"				=> "Statistics",
+	"generalStats"				=> "General stats",
+	"serverStats"				=> "Server stats",
 	"frontTitle"				=> "Am I being detained?!",
 	"frontText"					=> "With BoNeMEAL you can check your punishments, when and why you got them and when they will expire.",
 
