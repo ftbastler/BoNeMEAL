@@ -7,6 +7,7 @@
 	<meta name="description" content="{{ trans('app.page.description') }}">
 	<meta name="generator" content="BoNeMEAL">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
+	<meta name="robots" content="noindex, nofollow">
 
 	<title>{{ trans('app.page.title') }}</title>
 
