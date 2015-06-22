@@ -225,6 +225,21 @@
 			value: {{ $numMutes }},
 			color: "#f0ad4e",
 			label: "{{ ucfirst(Lang::choice('app.choice.mute', $numMutes)) }}"
+		},
+		{
+			value: {{ $numKicks }},
+			color: "#2196f3",
+			label: "{{ ucfirst(Lang::choice('app.choice.kick', $numKicks)) }}"
+		},
+		{
+			value: {{ $numWarnings }},
+			color: "#9c27b0",
+			label: "{{ ucfirst(Lang::choice('app.choice.warning', $numWarnings)) }}"
+		},
+		{
+			value: {{ $numNotes }},
+			color: "#5cb85c",
+			label: "{{ ucfirst(Lang::choice('app.choice.note', $numNotes)) }}"
 		}
 		];
 

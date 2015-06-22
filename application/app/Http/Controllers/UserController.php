@@ -2,7 +2,6 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -34,7 +33,7 @@ class UserController extends Controller {
 	{
 		// To create a user, the user would signup through /auth/register.
 		// That's why we will not need a form to create a user.
-		abort(404);
+		return redirect('/auth/register');
 	}
 
 	/**
@@ -56,7 +55,8 @@ class UserController extends Controller {
 	 */
 	public function show($id)
 	{
-		abort(404);
+		$user = \App\User::findOrFail($id);
+		return view('admin.users.show', compact('user'));
 	}
 
 	/**
@@ -68,8 +68,8 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		$user = \App\User::findOrFail($id);
-		if($user->role >= 8) {
-			\Session::flash('message', trans('app.canNotEditSuperuser'));
+		if(\Auth::user()->role < $user->role) {
+			\Session::flash('message', trans('app.insufficientPermission'));
 			return \Redirect::to('/admin/users');
 		}
 
@@ -86,13 +86,15 @@ class UserController extends Controller {
 	{		
 		\Validator::extend('role', function($attribute, $value, $parameters)
 		{
-			return ($value == 0 || $value == 3 || $value == 6) && $value < 8;
+			return ($value == 0 || $value == 3 || $value == 6 || $value == 8);
 		});
 
 		$rules = array(
-			'name'       => 'required|min:3',
+			'name'       => 'required|min:3|max:255',
 			'role'      => 'required|numeric|role',
-			);
+			'email'		=> 'required|email|max:255|unique:users,'.$id,
+			'password' => 'confirmed|min:6'
+		);
 		
 		$validator = \Validator::make(\Input::all(), $rules);
 
@@ -102,13 +104,18 @@ class UserController extends Controller {
 		} else {
 			$user = \App\User::findOrFail($id);
 
-			if($user->role >= 8) {
-				\Session::flash('message', trans('app.canNotEditSuperuser'));
+			if(\Auth::user()->role < $user->role) {
+				\Session::flash('message', trans('app.insufficientPermission'));
 				return \Redirect::to('/admin/users');
 			}
 
-			$user->name       = \Input::get('name');
+			$user->name      = \Input::get('name');
 			$user->role      = \Input::get('role');
+			$user->email      = \Input::get('email');
+
+			if(\Input::get('password') != "")
+				$user->password     = bcrypt(\Input::get('password'));
+
 			$user->save();
 
 			\Session::flash('message', trans('app.updatedUser'));

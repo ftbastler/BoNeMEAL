@@ -22,6 +22,7 @@ elixir(function(mix) {
 		'bootstrap-theme.css',
 		'font-awesome.css',
 		'timeline.css',
+		'bootstrap3-dialog.css',
 		'app.css',
 		'site.css'
 
@@ -32,6 +33,7 @@ elixir(function(mix) {
 		'jquery.js',
 		'bootstrap.js',
 		'bootstrap3-typeahead.js',
+		'bootstrap3-dialog.js',
 		'chart.js',
 		'app.js',
 		'site.js',
@@ -48,6 +50,7 @@ elixir(function(mix) {
 		'dataTables.bootstrap.css',
 		'dataTables.responsive.css',
 		'bootstrap-datetimepicker.css',
+		'bootstrap3-dialog.css',
 		'sb-admin.css',
 		'app.css',
 		'admin.css',
@@ -64,6 +67,7 @@ elixir(function(mix) {
 		'moment.js',
 		'bootstrap-datetimepicker.js',
 		'bootstrap3-typeahead.js',
+		'bootstrap3-dialog.js',
 		'chart.js',
 		'sb-admin.js',
 		'app.js',
@@ -75,6 +79,7 @@ elixir(function(mix) {
 
 		'bootstrap-theme.css',
 		'font-awesome.css',
+		'bootstrap3-dialog.css',
 		'timeline.css',
 		'install.css',
 
@@ -84,6 +89,7 @@ elixir(function(mix) {
 
 		'jquery.js',
 		'bootstrap.js',
+		'bootstrap3-dialog.js',
 		'install.js',
 
 		], '../scripts/install.js', 'resources/assets/js');

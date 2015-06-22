@@ -26,6 +26,7 @@ return [
 	],
 
 	"table" => [
+		"id"			=> "Id",
 		"email"			=> "E-Mail",
 		"name"			=> "Username",
 		"role"			=> "Role",
@@ -44,6 +45,7 @@ return [
 	],
 
 	"role" => [
+		"role"				=> "Role",
 		"superuser" 		=> "Superuser",
 		"normalUser" 		=> "Normal User",
 		"moderator" 		=> "Moderator",
@@ -62,6 +64,7 @@ return [
 	"email"						=> "E-Mail Address",
 	"password"					=> "Password",
 	"confirmPassword"			=> "Confirm Password",
+	"newPassword"					=> "New Password",
 	"forgotPassword"			=> "Forgot password",
 	"resetPassword"				=> "Reset password",
 	"sendPasswordResetLink"		=> "Send password reset link",
@@ -79,7 +82,8 @@ return [
 									It's designed to extend the <a href=\"http://dev.bukkit.org/bukkit-plugins/ban-management/\">Ban Management</a> Bukkit plugin created by confuserr by providing a clean, easy and responsive way to manage your bans - even across different servers.
 									The combination of the Ban-Management plugin together with BoNeMEAL is the best way of banning, kicking, muting and warning players for server netwoks of any scale.",
 	"learnMore"					=> "Learn more",
-	"noPermission"				=> "You have insufficient permissions to access that page.",
+	"noPermission"				=> "You have no permission to access that page.",
+	"insufficientPermission"	=> "You have insufficient permissions to do that.",
 	"causedTroubleQuestion"		=> "Caused trouble?",
 	"enterPlayerName"			=> "Enter your player name...",
 	"check"						=> "Check",
@@ -182,6 +186,30 @@ return [
 	"serverStats"				=> "Server stats",
 	"frontTitle"				=> "Am I being detained?!",
 	"frontText"					=> "With BoNeMEAL you can check your punishments, when and why you got them and when they will expire.",
+	"removedMuteRecord"			=> "Successfully removed mute record.",
+	"removedBanRecord"			=> "Successfully removed ban record.",
+	"removedKick"				=> "Successfully removed kick record.",
+	"removedBan"				=> "Successfully removed ban.",
+	"removedMute"				=> "Successfully removed mute.",
+	"removedWarning"			=> "Successfully removed warning.",
+	"removedNote"				=> "Successfully removed note.",
+	"removedUser"				=> "Successfully deleted user.",
+	"canNotEditSuperuser"		=> "You can not edit a superuser.",
+	"user"						=> "User",
+	"editUser"					=> "Edit user",
+	"dangerZone"				=> "Danger Zone",
+	"dangerZoneDesc"			=> "Changing anything in here may lock the user out of their account.",
+	"addUser"					=> "To add a new user, tell them to signup for an account at <a href=\":url\">:url</a>.",
+	"ok"						=> "Okay",
+	"bannedPlayer"				=> "Successfully banned player.",
+	"mutedPlayer"				=> "Successfully muted player.",
+	"warnedPlayer"				=> "Successfully warned player.",
+	"notedPlayer"				=> "Successfully attached note to player.",
+	"updatedBan"				=> "Updated ban successfully.",
+	"updatedMute"				=> "Updated mute successfully.",
+	"updatedNote"				=> "Updated note successfully.",
+	"updatedWarning"			=> "Updated warning successfully.",
+
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",

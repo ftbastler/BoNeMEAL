@@ -1,20 +1,28 @@
 // APPLICATION SCRIPTS
 
-$(document).ready(function() {
-	$('.flashmsg').delay(4000).fadeOut(500);
+$.fn.confirmDelete = function() {
+	var el = $(this);
 
-	if($('.timeline .collapse').length > 0) {
-		$('#toggleAllTimelineItems').show();
+	el.click(function(e) {
+		e.preventDefault();
 
-		$('#toggleAllTimelineItems').click(function() {
-			$('.timeline .collapse').collapse('toggle');
+		var dialog = BootstrapDialog.confirm({
+			title: 'Confirm delete',
+			message: 'Are you sure you want to <b>delete</b> this entry?',
+			btnCancelLabel: 'No, cancel',
+			btnOKLabel: 'Yes, delete',
+			btnOKClass: 'btn-warning',
+			type: BootstrapDialog.TYPE_WARNING,
+			callback: function(result) {
+				if(result) {
+					el.parent().submit();
+				} else {
+					dialog.close();
+				}
+			}
 		});
-	}
-});
-
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+	});
+};
 
 $.fn.autocomplete = function(baseurl, server) {
 	if(baseurl == null)
@@ -53,3 +61,23 @@ $.fn.autocomplete = function(baseurl, server) {
 		}
 	});
 };
+
+$(document).ready(function() {
+	$('.flashmsg').delay(4000).fadeOut(500);
+
+	if($('.timeline .collapse').length > 0) {
+		$('#toggleAllTimelineItems').show();
+
+		$('#toggleAllTimelineItems').click(function() {
+			$('.timeline .collapse').collapse('toggle');
+		});
+	}
+
+	$('.confirmDelete').each(function() {
+		$(this).confirmDelete();
+	});
+});
+
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+});

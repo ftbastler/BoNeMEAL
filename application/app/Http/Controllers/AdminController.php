@@ -24,6 +24,9 @@ class AdminController extends Controller {
 
 			$numBans = 0;
 			$numMutes = 0;
+			$numWarnings = 0;
+			$numKicks = 0;
+			$numNotes = 0;
 			
 			foreach(\App\Server::get() as $server) {
 				$activeBans = $activeBans->merge(\App\PlayerBan::on($server->id)->active()->get());
@@ -34,6 +37,9 @@ class AdminController extends Controller {
 				$numBans += \App\PlayerBanRecord::on($server->id)->count();
 				$numMutes += \App\PlayerMute::on($server->id)->count();
 				$numMutes += \App\PlayerMuteRecord::on($server->id)->count();
+				$numWarnings += \App\PlayerWarning::on($server->id)->count();
+				$numKicks += \App\PlayerKick::on($server->id)->count();
+				$numNotes += \App\PlayerNote::on($server->id)->count();
 
 				if(\App\PlayerBan::on($server->id)->outdated()->count() > 0)
 					array_push($outdatedServers, $server->name);
@@ -55,7 +61,7 @@ class AdminController extends Controller {
 				$lastSeenStats[$date->formatLocalized('%d %B')] = isset($playerStats[$date->format('Y-m-d')]) ? count($playerStats[$date->format('Y-m-d')]) : 0;
 			}
 
-			return compact('activeMutes', 'activeBans', 'newAccounts', 'players', 'servers', 'outdatedServers', 'lastSeenStats', 'numBans', 'numMutes');
+			return compact('activeMutes', 'activeBans', 'newAccounts', 'players', 'servers', 'outdatedServers', 'lastSeenStats', 'numBans', 'numMutes', 'numKicks', 'numWarnings', 'numNotes');
 		});
 
 		return view('admin.index', $data, $this->fetchActivity());

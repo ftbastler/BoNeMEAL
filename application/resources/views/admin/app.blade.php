@@ -29,9 +29,7 @@
 	<div id="wrapper">
 		@include('partials.navigation', ['admin' => true])
 
-		<div id="page-wrapper">
-			@include('partials.flash')
-			
+		<div id="page-wrapper">			
 			@yield('content')
 			<br /><br />
 		</div>
@@ -40,5 +38,7 @@
 	<script src="{{ asset('/scripts/admin.js') }}" type="text/javascript"></script>
 
 	@yield('scripts')
+
+	@include('partials.flash')
 </body>
 </html>

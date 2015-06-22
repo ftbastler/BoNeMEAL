@@ -40,7 +40,7 @@ class InstallController extends Controller {
 		'timezone' => 'required',
 		'key' => 'required|min:32|max:32',
 
-		'name' => 'required|max:255',
+		'name' => 'required|min:3|max:255',
 		'email' => 'required|email|max:255', //unique:users removed, as user table does not yet exist
 		'password' => 'required|confirmed|min:6',
 		];

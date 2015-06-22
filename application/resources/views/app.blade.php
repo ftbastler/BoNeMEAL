@@ -29,8 +29,6 @@
 	@include('partials.navigation')
 
 	<div class="content">
-		@include('partials.flash')
-
 		@yield('content')
 	</div>
 
@@ -44,5 +42,7 @@
 	<script src="{{ asset('/scripts/site.js') }}" type="text/javascript"></script>
 
 	@yield('scripts')
+
+	@include('partials.flash')
 </body>
 </html>

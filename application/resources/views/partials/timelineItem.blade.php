@@ -65,6 +65,14 @@
 				@endif
 				<br />
 				<strong>{{ trans('app.unbannedBy', ['time' => $item->created->diffForHumans(), 'actor' => $item->actor->name]) }}</strong>
+
+				@if(isset($admin) && $admin)
+				<hr />
+				{!! Form::open(array('url' => '/admin/ban-records/' . $item->serverId . '/' . $item->id)) !!}
+				{!! Form::hidden('_method', 'DELETE') !!}
+				{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
+				{!! Form::close() !!}
+				@endif
 			</div>
 		@if($item->old)
 		<br /></div>
@@ -141,6 +149,14 @@
 			@endif
 			<br />
 			<strong>{{ trans('app.unmutedBy', ['time' => $item->created->diffForHumans(), 'actor' => $item->actor->name]) }}</strong>
+
+			@if(isset($admin) && $admin)
+			<hr />
+			{!! Form::open(array('url' => '/admin/mute-records/' . $item->serverId  . '/' . $item->id)) !!}
+			{!! Form::hidden('_method', 'DELETE') !!}
+			{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
+			{!! Form::close() !!}
+			@endif
 		</div>
 		@if($item->old)
 		<br /></div>
@@ -228,6 +244,14 @@
 		<div class="timeline-body">
 			@if($item->reason)
 			{{ ucfirst(trans('app.reason')) }}: {{ $item->reason }}
+			@endif
+
+			@if(isset($admin) && $admin)
+			<hr />
+			{!! Form::open(array('url' => '/admin/kicks/' . $item->serverId  . '/' . $item->id)) !!}
+			{!! Form::hidden('_method', 'DELETE') !!}
+			{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
+			{!! Form::close() !!}
 			@endif
 		</div>
 		@if($item->old)

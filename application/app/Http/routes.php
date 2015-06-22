@@ -39,12 +39,16 @@ Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::put('/bans/{server}/{id}', 'PlayerBanController@update');
 	Route::delete('/bans/{server}/{id}', 'PlayerBanController@destroy');
 
+	Route::delete('/ban-records/{server}/{id}', 'PlayerBanRecordController@destroy');
+
 	Route::get('/mutes', 'PlayerMuteController@index');
 	Route::get('/mutes/create/{player?}', 'PlayerMuteController@create');
 	Route::post('/mutes', 'PlayerMuteController@store');
 	Route::get('/mutes/{server}/{id}', 'PlayerMuteController@edit');
 	Route::put('/mutes/{server}/{id}', 'PlayerMuteController@update');
 	Route::delete('/mutes/{server}/{id}', 'PlayerMuteController@destroy');
+
+	Route::delete('/mute-records/{server}/{id}', 'PlayerMuteRecordController@destroy');
 
 	Route::get('/notes', 'PlayerNoteController@index');
 	Route::get('/notes/create/{player?}', 'PlayerNoteController@create');
@@ -59,6 +63,8 @@ Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::get('/warnings/{server}/{id}', 'PlayerWarningController@edit');
 	Route::put('/warnings/{server}/{id}', 'PlayerWarningController@update');
 	Route::delete('/warnings/{server}/{id}', 'PlayerWarningController@destroy');
+
+	Route::delete('/kicks/{server}/{id}', 'PlayerKickController@destroy');
 
 	Route::get('/', 'AdminController@index');
 	Route::get('/active-bans', 'AdminController@activeBans');

@@ -34,7 +34,7 @@
 						<td>
 							{!! Form::open(array('url' => '/admin/servers/' . $item->id, 'class' => 'pull-right')) !!}
 							{!! Form::hidden('_method', 'DELETE') !!}
-							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning')) !!}
+							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
 							{!! Form::close() !!}
 						</td>
 						</tr>

@@ -1,17 +1,18 @@
 @if (session('message'))
-<div class="flashmsg">
-	<div class="alert alert-box alert-info">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<strong>{{ trans('app.notice') }}</strong><br>
-		{{ session('message') }}
+<script>
+	var dialog = BootstrapDialog.show({
+		title: "{{ trans('app.notice') }}",
+		message: "{{ session('message') }} @if (session('messageDetails'))<br /><br /><p>{{ trans('app.details') }}:<br />{{ session('messageDetails') }}</p>@endif",
+		buttons: [{
+			label: "{{ trans('app.ok') }}",
+			action: function(dialog) {
+				dialog.close();
+			}
+		}]
+	});
 
-			@if (session('messageDetails'))
-			<br /><br />
-			<p>
-				{{ trans('app.details') }}:<br />
-				{{ session('messageDetails') }}
-			</p>
-		@endif
-	</div>
-</div>
+	setTimeout(function() {
+		dialog.close();
+	}, 6000);
+</script>
 @endif

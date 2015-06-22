@@ -7,6 +7,8 @@
 	</div>
 </div>
 
+<p>{!! trans('app.addUser', ['url' => url('/auth/register')]) !!}</p>
+
 <div class="row">
 	<div class="col-lg-12">
 		@if(count($users) > 0)
@@ -14,8 +16,8 @@
 			<table class="table table-striped table-bordered table-hover" rel="dataTable">
 				<thead>
 					<tr>
-						<th>{{ trans('app.table.email') }}</th>
 						<th>{{ trans('app.table.name') }}</th>
+						<th>{{ trans('app.table.email') }}</th>
 						<th>{{ trans('app.table.role') }}</th>
 						<th>{{ trans('app.table.created') }}</th>
 						<th></th>
@@ -25,20 +27,16 @@
 					@foreach($users as $item)
 					<tr>
 						<td>
-						@if($item->role != 8)
-							<a href="{{ url('/admin/users', [$item->id, 'edit']) }}">{{ $item->email }}</a>
-						@else
-							{{ $item->email }}
-						@endif
+							<a href="{{ url('/admin/users', $item->id) }}">{{ $item->name }}</a>
 						</td>
-						<td>{{ $item->name }}</td>
+						<td>{{ $item->email }}</td>
 						<td>{{ $item->readableRole }} ({{ $item->role }})</td>
 						<td>{{ $item->created_at->diffForHumans() }}</td>
 						<td>
-						@if($item->role != 8)
+						@if(\Auth::user()->role >= $item->role)
 							{!! Form::open(array('url' => '/admin/users/' . $item->id, 'class' => 'pull-right')) !!}
 							{!! Form::hidden('_method', 'DELETE') !!}
-							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning')) !!}
+							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
 							{!! Form::close() !!}
 						@endif
 						</td>
