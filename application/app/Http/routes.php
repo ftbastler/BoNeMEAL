@@ -72,6 +72,9 @@ Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 
 	Route::get('/flush-cache', 'AdminController@flushCache');
 	Route::get('/activity', 'AdminController@activity');
+
+	Route::get('/config', 'ConfigurationController@index');
+	Route::post('/config', 'ConfigurationController@update');
 });
 
 Route::group(array('prefix' => '/install', 'middleware' => 'install'), function() {

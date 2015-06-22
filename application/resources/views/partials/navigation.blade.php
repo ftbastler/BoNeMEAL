@@ -100,9 +100,9 @@
 						<li>
 							<a href="{{ url('/admin/flush-cache') }}">{{ trans('app.flushCache') }}</a>
 						</li>
-						<!--<li>
-							<a href="{{ url('/admin/config/app') }}">{{ trans('app.app') }}</a>
-						</li>-->
+						<li>
+							<a href="{{ url('/admin/config') }}">{{ trans('app.settings') }}</a>
+						</li>
 					</ul>
 				</li>
 			</ul>

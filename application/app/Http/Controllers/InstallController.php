@@ -19,16 +19,7 @@ class InstallController extends Controller {
 
 		$secKey = $this->generateSecretKey(32);
 
-		$langs = [];
-
-		$path = base_path() . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'lang';
-		foreach (new \DirectoryIterator($path) as $file) {
-			if ($file->isDot()) continue;
-
-			if ($file->isDir()) {
-				array_push($langs, $file->getFilename());
-			}
-		}
+		$langs = get_all_installed_langs();
 
 		return view('install.config', compact('host', 'secKey', 'langs'));
 	}
@@ -100,7 +91,7 @@ class InstallController extends Controller {
 		file_put_contents(base_path() . DIRECTORY_SEPARATOR . '.env', $env);
 
 		//I know it's fake - until I find out how to display stuff while still running some code
-		return '<script>setTimeout(function() { window.location = "'.url('/install/finish').'"; }, 2500);</script>';
+		return '<script>setTimeout(function() { window.location = "'.url('/install/finish').'"; }, 2541);</script>';
 	}
 
 	public function finish() {

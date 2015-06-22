@@ -209,6 +209,8 @@ return [
 	"updatedMute"				=> "Updated mute successfully.",
 	"updatedNote"				=> "Updated note successfully.",
 	"updatedWarning"			=> "Updated warning successfully.",
+	"settings"					=> "Settings",
+	"savedSettings"				=> "Your settings have been saved.",
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
