@@ -64,6 +64,7 @@
 				{{ ucfirst(trans('app.reason')) }}: {{ $item->reason }}
 				@endif
 				<br />
+				@if($item->duration != null)<p>{{ trans('app.lastedFor', ['duration' => $item->duration]) }}</p>@endif
 				<strong>{{ trans('app.unbannedBy', ['time' => $item->created->diffForHumans(), 'actor' => $item->actor->name]) }}</strong>
 
 				@if(isset($admin) && $admin)
@@ -148,6 +149,7 @@
 			{{ ucfirst(trans('app.reason')) }}: {{ $item->reason }}
 			@endif
 			<br />
+			@if($item->duration != null)<p>{{ trans('app.lastedFor', ['duration' => $item->duration]) }}</p>@endif
 			<strong>{{ trans('app.unmutedBy', ['time' => $item->created->diffForHumans(), 'actor' => $item->actor->name]) }}</strong>
 
 			@if(isset($admin) && $admin)

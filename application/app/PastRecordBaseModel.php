@@ -94,6 +94,14 @@ class PastRecordBaseModel extends Model {
 		$this->attributes['expired'] = $value->timestamp;
 	}
 
+	public function getDurationAttribute()
+	{	
+		if($this->expired->timestamp == 0)
+			return null;
+		
+		return $this->expired->diffForHumans($this->pastCreated, true);
+	}
+
 	/**
 	 * A little bit of hacking to make Laravel work with multiple databases
 	 */

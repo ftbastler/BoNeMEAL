@@ -35,7 +35,7 @@
 	</span>
 </a>
 @elseif(get_class($item) == "App\PlayerKick")
-<a href="{{ url('/admin/kicks/'.$item->serverId.'/'.$item->id) }}" class="list-group-item">
+<a href="{{ url('/admin/players/'.$item->player->uuid) }}" class="list-group-item">
 	<i class="fa fa-user-times fa-fw"></i> {{ trans('app.newKick') }} ({{ $item->player->name }})
 	<span class="pull-right text-muted small"><em>{{ $item->created->diffForHumans() }}</em>
 	</span>

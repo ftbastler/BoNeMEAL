@@ -100,6 +100,7 @@ return [
 	"kicked"					=> "kicked",
 	"noteAdded"					=> "note added",
 	"unbannedBy"				=> "Unbanned :time by :actor.",
+	"lastedFor"					=> "Lasted for :duration.",
 	"unmutedBy"					=> "Unmuted :time by :actor.",
 	"onServer"					=> "on :server",
 
@@ -130,7 +131,7 @@ return [
 	"editServer"				=> "Edit server",
 	"saveServer"				=> "Save server",
 	"serverName"				=> "Server name",
-	"createdServer"				=> "Server successfully created.",
+	"createdServer"				=> "Server successfully added.",
 	"updatedServer"				=> "Server successfully updated.",
 	"removedServer"				=> "Server successfully removed.",
 	"error404Title"				=> "Oops, Error 404!",
@@ -213,6 +214,7 @@ return [
 	"updatedWarning"			=> "Updated warning successfully.",
 	"settings"					=> "Settings",
 	"savedSettings"				=> "Your settings have been saved.",
+	"addServerFirst"			=> "Please add your first server before you start working with BoNeMEAL.",
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.

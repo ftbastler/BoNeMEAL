@@ -77,6 +77,14 @@ class RecordBaseModel extends Model {
 		$this->attributes['expires'] = $value->timestamp;
 	}
 
+	public function getDurationAttribute()
+	{	
+		if($this->expires->timestamp == 0)
+			return null;
+		
+		return $this->expires->diffForHumans($this->created, true);
+	}
+
 	/**
 	 * A little bit of hacking to make Laravel work with multiple databases
 	 */
