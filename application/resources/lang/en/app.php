@@ -135,6 +135,8 @@ return [
 	"removedServer"				=> "Server successfully removed.",
 	"error404Title"				=> "Oops, Error 404!",
 	"error404Text"				=> "Sorry, the requested page could not be found.",
+	"error401Title"				=> "Oops, Error 401!",
+	"error401Text"				=> "Unauthorized.",
 	"footerNotice"				=> "This site is not affiliated with Minecraft or Mojang.",
 	"users"						=> "Users",
 	"rememberMe"				=> "Remember me",

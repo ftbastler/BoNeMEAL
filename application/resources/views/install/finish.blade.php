@@ -13,7 +13,7 @@
 			<h1>Finished</h1><hr/>
 			<p class="lead">Congratulations! <b>BoNeMEAL</b> has been installed successfully.</p>
 			
-			<div class="alert alert-box alert-warning">Note: Please make sure your <kbd>/application</kbd> folder and its contents are not publicly accessible to avoid any security threats.</div>
+			<div class="alert alert-box alert-warning">Note: Please make sure your <kbd>/application</kbd> folder and its contents are not publicly accessible to avoid any security threats. Check the <a href="https://github.com/ftbastler/BoNeMEAL/wiki/Installation-and-Setup">documentation</a> for more info.</div>
 
 			<p>Thanks for using <b>BoNeMEAL</b> to manage your bans. We hope you will have a great experience with this web app. Remember to stay awesome and report all bugs using our <a href="https://github.com/ftbastler/BoNeMEAL/issues">issue tracker</a> and check for updates regularly.<br />
 			Now, let's get this party started!</p>
