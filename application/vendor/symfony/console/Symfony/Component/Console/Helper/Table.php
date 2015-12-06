@@ -165,7 +165,7 @@ class Table
         if ($row instanceof TableSeparator) {
             $this->rows[] = $row;
 
-            return;
+            return $this;
         }
 
         if (!is_array($row)) {
@@ -179,7 +179,7 @@ class Table
         reset($this->rows);
 
         foreach ($row as $key => $cellValue) {
-            if (!strstr($cellValue, "\n")) {
+            if (false === strpos($cellValue, "\n")) {
                 continue;
             }
 

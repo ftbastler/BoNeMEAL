@@ -10,7 +10,7 @@ Allow from all
     # Important: RewriteBase
     # If you installed the web app on a subsite, you have to set this to the URL (not the file path!) of the subsite.
     # Note: No trailing slash! (e.g. /BoNeMEAL or /mc-server/ban-management)
-    RewriteBase /BoNeMEAL
+    RewriteBase /git/BoNeMEAL
 
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
