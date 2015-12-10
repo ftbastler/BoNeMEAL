@@ -35,7 +35,7 @@ class VerifyInstalled {
 	{
 		if (!file_exists(base_path() . DIRECTORY_SEPARATOR . 'installed.lock'))
 		{
-			return redirect('/install');
+			return redirect('/index.php/install');
 		}
 
 		return $next($request);
