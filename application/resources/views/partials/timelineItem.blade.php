@@ -23,7 +23,7 @@
 			@else
 			{{ ucfirst(trans('app.expires')) }} {{ $item->expires->diffForHumans() }}.
 			<br /><br />
-			
+
 			<div class="progress">
 				<div class="progress-bar" role="progressbar" aria-valuenow="{{ timePasedToPercent($item->expires, $item->created) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ timePasedToPercent($item->expires, $item->created) }}%;">
 					{{ timePasedToPercent($item->expires, $item->created) }}%
@@ -214,7 +214,22 @@
 			</p>
 		</div>
 		<div class="timeline-body">
-			<pre>{{ $item->reason }}</pre>
+			@if($item->reason)
+				{{ ucfirst(trans('app.reason')) }}: {{ $item->reason }}
+			@endif
+			<br />
+			@if($item->expires->timestamp == 0)
+				{{ trans('app.noExpire') }}
+			@else
+				{{ ucfirst(trans('app.expires')) }} {{ $item->expires->diffForHumans() }}.
+			<br /><br />
+
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuenow="{{ timePasedToPercent($item->expires, $item->created) }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ timePasedToPercent($item->expires, $item->created) }}%;">
+					{{ timePasedToPercent($item->expires, $item->created) }}%
+				</div>
+			</div>
+			@endif
 			@if(isset($admin) && $admin)
 			<hr />
 			<a href="{{ url('/admin/warnings/'.$item->serverId.'/'.$item->id) }}" class="btn btn-default"><i class="fa fa-edit"></i></a>
