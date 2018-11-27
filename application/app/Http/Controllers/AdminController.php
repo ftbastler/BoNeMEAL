@@ -27,7 +27,7 @@ class AdminController extends Controller {
 			$numWarnings = 0;
 			$numKicks = 0;
 			$numNotes = 0;
-			
+
 			foreach(\App\Server::get() as $server) {
 				$activeBans = $activeBans->merge(\App\PlayerBan::on($server->id)->active()->get());
 				$activeMutes = $activeMutes->merge(\App\PlayerMute::on($server->id)->active()->get());
@@ -95,6 +95,20 @@ class AdminController extends Controller {
 		return view('admin.activePunishments', $data);
 	}
 
+	public function activeWarnings()
+	{
+		$data = \Cache::remember('activeWarningsData', 1, function() {
+			$activeItems = collect();
+			foreach(\App\Server::get() as $server) {
+				$activeItems = $activeItems->merge(\App\PlayerWarning::on($server->id)->active()->get());
+			}
+			$title = trans('app.activeWarnings');
+			return compact('activeItems', 'title');
+		});
+
+		return view('admin.activePunishments', $data);
+	}
+
 	public function activity() {
 		$data = $this->fetchActivity();
 
@@ -119,7 +133,7 @@ class AdminController extends Controller {
 			$recentNotes = collect();
 			$recentBanRecords = collect();
 			$recentMuteRecords = collect();
-			
+
 			foreach(\App\Server::get() as $server) {
 				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->orderBy('created', 'desc')->take(25)->get());
 				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());

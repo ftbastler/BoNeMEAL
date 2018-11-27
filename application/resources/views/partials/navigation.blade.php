@@ -70,6 +70,9 @@
 							<a href="{{ url('/admin/active-bans') }}">{{ trans('app.activeBans') }}</a>
 						</li>
 						<li>
+							<a href="{{ url('/admin/active-warnings') }}">{{ trans('app.activeWarnings') }}</a>
+						</li>
+						<li>
 							<a href="{{ url('/admin/active-mutes') }}">{{ trans('app.activeMutes') }}</a>
 						</li>
 					</ul>
