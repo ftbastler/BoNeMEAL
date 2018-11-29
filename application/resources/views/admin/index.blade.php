@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">{{ trans('app.dashboard') }}</h1>
-		
+
 		@include('partials.noscript')
 	</div>
 </div>
@@ -18,8 +18,8 @@
 						<i class="fa fa-ban fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">{{ count($activeBans) }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.activeBan', count($activeBans))) }}</div>
+						<div class="huge">{{ $activeBans }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.activeBan', $activeBans)) }}</div>
 					</div>
 				</div>
 			</div>
@@ -40,8 +40,8 @@
 						<i class="fa fa-microphone-slash fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">{{ count($activeMutes) }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.activeMute', count($activeMutes))) }}</div>
+						<div class="huge">{{ $activeMutes }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.activeMute', $activeMutes)) }}</div>
 					</div>
 				</div>
 			</div>
@@ -62,8 +62,8 @@
 						<i class="fa fa-user-plus fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">{{ count($newAccounts) }}</div>
-						<div>{{ ucfirst(Lang::choice('app.choice.newAccount', count($newAccounts))) }}</div>
+						<div class="huge">{{ $newAccounts }}</div>
+						<div>{{ ucfirst(Lang::choice('app.choice.newAccount', $newAccounts)) }}</div>
 					</div>
 				</div>
 			</div>
@@ -161,7 +161,7 @@
 				<a href="{{ url('/admin/activity') }}" class="btn btn-block btn-default">{{ trans('app.details') }}</a>
 			</div>
 		</div>
-		
+
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class="fa fa-refresh"></i> {{ trans('app.updateCheck') }}
@@ -199,19 +199,19 @@
 
 		var data1 = [
 		{
-			value: {{ count($activeBans) }},
+			value: {{ $activeBans }},
 			color:"#d9534f",
-			label: "{{ ucfirst(Lang::choice('app.choice.bannedPlayer', count($activeBans))) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.bannedPlayer', $activeBans)) }}"
 		},
 		{
-			value: {{ count($activeMutes) }},
+			value: {{ $activeMutes }},
 			color: "#f0ad4e",
-			label: "{{ ucfirst(Lang::choice('app.choice.mutedPlayer', count($activeMutes))) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.mutedPlayer', $activeMutes)) }}"
 		},
 		{
-			value: {{ count($players) - count($activeBans) - count($activeMutes) }},
+			value: {{ $numPlayers - $activeBans - $activeMutes }},
 			color: "#2196f3",
-			label: "{{ ucfirst(Lang::choice('app.choice.normalPlayer', count($players) - count($activeBans) - count($activeMutes))) }}"
+			label: "{{ ucfirst(Lang::choice('app.choice.normalPlayer', $numPlayers - $activeBans - $activeMutes)) }}"
 		}
 		];
 
