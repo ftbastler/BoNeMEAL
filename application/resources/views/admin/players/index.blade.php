@@ -38,3 +38,14 @@
 	</div>
 </div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[rel=dataTable]').DataTable({
+		responsive: true,
+		order: [[3, "desc"]] // Last seen players first
+	});
+});
+</script>
+@endsection
