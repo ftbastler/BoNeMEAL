@@ -69,6 +69,7 @@ Route::group(array('prefix' => '/admin', 'middleware' => 'auth'), function() {
 	Route::get('/', 'AdminController@index');
 	Route::get('/active-bans', 'AdminController@activeBans');
 	Route::get('/active-mutes', 'AdminController@activeMutes');
+	Route::get('/active-warnings', 'AdminController@activeWarnings');
 
 	Route::get('/flush-cache', 'AdminController@flushCache');
 	Route::get('/activity', 'AdminController@activity');

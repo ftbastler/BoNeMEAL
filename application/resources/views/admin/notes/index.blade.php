@@ -15,21 +15,19 @@
 					<tr>
 						<th>{{ trans('app.table.player') }}</th>
 						<th>{{ trans('app.table.server') }}</th>
-						<th>{{ trans('app.table.reason') }}</th>
+						<th>{{ trans('app.table.note') }}</th>
 						<th>{{ trans('app.table.actor') }}</th>
-						<th>{{ trans('app.table.expires') }}</th>
 						<th>{{ trans('app.table.created') }}</th>
 					</tr>
 				</thead>
 				<tbody>
-					@forelse($activeItems as $item)
+					@forelse($allNotes as $note)
 					<tr>
-						<td><a href="{{ url('/admin/players', $item->player->uuid) }}">{{ $item->player->name }}</a></td>
-						<td>{{ $item->server }}</td>
-						<td>{{ $item->reason }}</td>
-						<td>{{ $item->actor->name }}</td>
-						<td>{{ $item->expires->timestamp == 0 ? trans('app.never') : $item->expires->diffForHumans() }}</td>
-						<td>{{ $item->created_at->toDayDateTimeString() }}</td>
+						<td><a href="{{ url('/admin/players', $note->player->uuid) }}">{{ $note->player->name }}</a></td>
+						<td>{{ $note->server }}</td>
+						<td>{{ $note->message }}</td>
+						<td>{{ $note->actor->name }}</td>
+						<td>{{ $note->created_at->toDayDateTimeString() }}</td>
 					</tr>
 					@empty
 						<tr class='info'><td colspan=6>{{ trans('app.noData') }}</td></tr>
@@ -43,11 +41,11 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('[rel=dataTable]').DataTable({
-			responsive: true,
-			order: [[5, "desc"]] // Most recent punishments first
-		});
+$(document).ready(function() {
+	$('[rel=dataTable]').DataTable({
+		responsive: true,
+		order: [[4, "desc"]] // Most recent notes first
 	});
+});
 </script>
 @endsection

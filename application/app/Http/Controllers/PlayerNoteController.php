@@ -22,7 +22,16 @@ class PlayerNoteController extends Controller {
 	 */
 	public function index()
 	{
-		return redirect('/admin');
+		$data = \Cache::remember('playerNotesData', 1, function() {
+			$allNotes = collect();
+			foreach(\App\Server::get() as $server) {
+				$allNotes = $allNotes->merge(\App\PlayerNote::on($server->id)->with('actor','player')->get());
+			}
+			$title = trans('app.allNotes');
+			return compact('allNotes', 'title');
+		});
+
+		return view('admin.notes.index', $data);
 	}
 
 	/**
@@ -56,7 +65,7 @@ class PlayerNoteController extends Controller {
 			'message' => 'required',
 			'player' => 'required',
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {
@@ -119,7 +128,7 @@ class PlayerNoteController extends Controller {
 			'message' => 'required',
 			'player' => 'required',
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {

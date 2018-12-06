@@ -61,6 +61,9 @@
 					<a href="{{ url('/admin/players') }}"><i class="fa fa-users fa-fw"></i> {{ trans('app.players') }}</a>
 				</li>
 				<li>
+					<a href="{{ url('/admin/notes') }}"><i class="fa fa-edit fa-fw"></i> {{ trans('app.allNotes') }}</a>
+				</li>
+				<li>
 					<a href="{{ url('/admin/users') }}"><i class="fa fa-user fa-fw"></i> {{ trans('app.users') }}</a>
 				</li>
 				<li>
@@ -68,6 +71,9 @@
 					<ul class="nav nav-second-level">
 						<li>
 							<a href="{{ url('/admin/active-bans') }}">{{ trans('app.activeBans') }}</a>
+						</li>
+						<li>
+							<a href="{{ url('/admin/active-warnings') }}">{{ trans('app.activeWarnings') }}</a>
 						</li>
 						<li>
 							<a href="{{ url('/admin/active-mutes') }}">{{ trans('app.activeMutes') }}</a>

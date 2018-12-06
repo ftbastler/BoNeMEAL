@@ -13,26 +13,36 @@ class AdminController extends Controller {
 	public function index()
 	{
 		$data = \Cache::remember('dashboardData', 5, function() {
-			$activeBans = collect();
-			$activeMutes = collect();
-			$players = collect();
 
 			$servers = \App\Server::get();
-			$newAccounts = \App\User::needActivation()->get();
+			$newAccounts = \App\User::needActivation()->count();
+			$activePlayers = [];
 
 			$outdatedServers = [];
 
+			$activeBans = 0;
+			$activeMutes = 0;
+			$numPlayers = 0;
 			$numBans = 0;
 			$numMutes = 0;
 			$numWarnings = 0;
 			$numKicks = 0;
 			$numNotes = 0;
-			
-			foreach(\App\Server::get() as $server) {
-				$activeBans = $activeBans->merge(\App\PlayerBan::on($server->id)->active()->get());
-				$activeMutes = $activeMutes->merge(\App\PlayerMute::on($server->id)->active()->get());
-				$players = $players->merge(\App\Player::on($server->id)->get());
 
+			foreach(\App\Server::get() as $server) {
+
+				$activeBans += \App\PlayerBan::on($server->id)->active()->count();
+				$activeMutes += \App\PlayerMute::on($server->id)->active()->count();
+				array_push($activePlayers,
+					\App\Player::on($server->id)
+					->where('lastSeen', '>=', strtotime("-30 days"))
+					->where('lastSeen', '<=', strtotime("now"))
+					->selectRaw("count(*) as total_players, FROM_UNIXTIME(lastSeen, '%Y-%m-%d') as 'day'")
+					->groupBy('day')
+					->lists('total_players', 'day')
+				);
+
+				$numPlayers += \App\Player::on($server->id)->count();
 				$numBans += \App\PlayerBan::on($server->id)->count();
 				$numBans += \App\PlayerBanRecord::on($server->id)->count();
 				$numMutes += \App\PlayerMute::on($server->id)->count();
@@ -45,23 +55,17 @@ class AdminController extends Controller {
 					array_push($outdatedServers, $server->name);
 				elseif(\App\PlayerMute::on($server->id)->outdated()->count() > 0)
 					array_push($outdatedServers, $server->name);
+
 			}
 
-			$playerStats = $players->unique()->filter(function($item)
-			{
-    			return $item->lastSeen >= \Carbon\Carbon::now()->subDays(30) && $item->lastSeen <= \Carbon\Carbon::now();
-			})->groupBy(function($item) {
-				return \Carbon\Carbon::parse($item->lastSeen)->format('Y-m-d');
-			});
+			$lastSeenStats = array();
 
-			$playerStats = $playerStats->toArray();
-			$lastSeenStats = null;
 			for($i=30; $i>=0; $i--) {
 				$date = \Carbon\Carbon::now()->subDays($i);
-				$lastSeenStats[$date->formatLocalized('%d %B')] = isset($playerStats[$date->format('Y-m-d')]) ? count($playerStats[$date->format('Y-m-d')]) : 0;
+				$lastSeenStats[$date->formatLocalized('%d %B')] = array_sum(array_column($activePlayers, $date->format('Y-m-d'))) ?: 0;
 			}
 
-			return compact('activeMutes', 'activeBans', 'newAccounts', 'players', 'servers', 'outdatedServers', 'lastSeenStats', 'numBans', 'numMutes', 'numKicks', 'numWarnings', 'numNotes');
+			return compact('activeMutes', 'activeBans', 'newAccounts', 'numPlayers', 'servers', 'outdatedServers', 'lastSeenStats', 'numBans', 'numMutes', 'numKicks', 'numWarnings', 'numNotes');
 		});
 
 		return view('admin.index', $data, $this->fetchActivity());
@@ -72,7 +76,7 @@ class AdminController extends Controller {
 		$data = \Cache::remember('activeBansData', 1, function() {
 			$activeItems = collect();
 			foreach(\App\Server::get() as $server) {
-				$activeItems = $activeItems->merge(\App\PlayerBan::on($server->id)->active()->get());
+				$activeItems = $activeItems->merge(\App\PlayerBan::on($server->id)->with('actor','player')->active()->get());
 			}
 			$title = trans('app.activeBans');
 			return compact('activeItems', 'title');
@@ -86,9 +90,23 @@ class AdminController extends Controller {
 		$data = \Cache::remember('activeMutesData', 1, function() {
 			$activeItems = collect();
 			foreach(\App\Server::get() as $server) {
-				$activeItems = $activeItems->merge(\App\PlayerMute::on($server->id)->active()->get());
+				$activeItems = $activeItems->merge(\App\PlayerMute::on($server->id)->with('actor','player')->active()->get());
 			}
 			$title = trans('app.activeMutes');
+			return compact('activeItems', 'title');
+		});
+
+		return view('admin.activePunishments', $data);
+	}
+
+	public function activeWarnings()
+	{
+		$data = \Cache::remember('activeWarningsData', 1, function() {
+			$activeItems = collect();
+			foreach(\App\Server::get() as $server) {
+				$activeItems = $activeItems->merge(\App\PlayerWarning::on($server->id)->with('actor','player')->active()->get());
+			}
+			$title = trans('app.activeWarnings');
 			return compact('activeItems', 'title');
 		});
 
@@ -119,15 +137,15 @@ class AdminController extends Controller {
 			$recentNotes = collect();
 			$recentBanRecords = collect();
 			$recentMuteRecords = collect();
-			
+
 			foreach(\App\Server::get() as $server) {
-				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentMutes = $recentMutes->merge(\App\PlayerMute::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentMuteRecords = $recentMuteRecords->merge(\App\PlayerMuteRecord::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentKicks = $recentKicks->merge(\App\PlayerKick::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentNotes = $recentNotes->merge(\App\PlayerNote::on($server->id)->orderBy('created', 'desc')->take(25)->get());
-				$recentWarnings = $recentWarnings->merge(\App\PlayerWarning::on($server->id)->orderBy('created', 'desc')->take(25)->get());
+				$recentBans = $recentBans->merge(\App\PlayerBan::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentBanRecords = $recentBanRecords->merge(\App\PlayerBanRecord::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentMutes = $recentMutes->merge(\App\PlayerMute::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentMuteRecords = $recentMuteRecords->merge(\App\PlayerMuteRecord::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentKicks = $recentKicks->merge(\App\PlayerKick::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentNotes = $recentNotes->merge(\App\PlayerNote::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
+				$recentWarnings = $recentWarnings->merge(\App\PlayerWarning::on($server->id)->with('player')->orderBy('created', 'desc')->take(25)->get());
 			}
 
 			$activity = collect()->merge($recentBans)->merge($recentBanRecords)->merge($recentMutes)->merge($recentMuteRecords)->merge($recentKicks)->merge($recentWarnings)->merge($recentNotes);

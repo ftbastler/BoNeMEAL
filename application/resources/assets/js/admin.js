@@ -1,9 +1,6 @@
 // ADMIN SCRIPTS
 
 $(document).ready(function() {
-	$('[rel=dataTable]').DataTable({
-		responsive: true
-	});
 
 	moment.locale(window.navigator.language);
 
