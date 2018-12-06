@@ -61,6 +61,9 @@
 					<a href="{{ url('/admin/players') }}"><i class="fa fa-users fa-fw"></i> {{ trans('app.players') }}</a>
 				</li>
 				<li>
+					<a href="{{ url('/admin/notes') }}"><i class="fa fa-edit fa-fw"></i> {{ trans('app.allNotes') }}</a>
+				</li>
+				<li>
 					<a href="{{ url('/admin/users') }}"><i class="fa fa-user fa-fw"></i> {{ trans('app.users') }}</a>
 				</li>
 				<li>
