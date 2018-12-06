@@ -48,3 +48,14 @@
 		</div>
 	</div>
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+	$('[rel=dataTable]').DataTable({
+		responsive: true,
+		order: [[3, "desc"]] // Most recent server first
+	});
+});
+</script>
+@endsection
