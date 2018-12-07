@@ -26,7 +26,7 @@
 						<td><a href="{{ url('/admin/players', $note->player->uuid) }}">{{ $note->player->name }}</a></td>
 						<td>{{ $note->server }}</td>
 						<td>{{ $note->message }}</td>
-						<td>{{ $note->actor->name }}</td>
+						<td>{{ $note->actor->name ?? '' }}</td>
 						<td>{{ $note->created_at->toDayDateTimeString() }}</td>
 					</tr>
 					@empty
