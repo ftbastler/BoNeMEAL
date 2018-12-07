@@ -9,7 +9,7 @@
 
 @include('partials.validationErrors')
 
-{!! Form::open(array('url' => '/admin/notes/' . $server->id . '/' . $note->id, 'class' => 'pull-right')) !!}
+{!! Form::open(array('url' => '/admin/notes/' . $server->id . '/' . $note->id, 'class' => 'text-right')) !!}
 {!! Form::hidden('_method', 'DELETE') !!}
 {!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
 {!! Form::close() !!}

@@ -32,7 +32,7 @@
 						<td>{{ $item->db_database }}</td>
 						<td>{{ $item->created_at->diffForHumans() }}</td>
 						<td>
-							{!! Form::open(array('url' => '/admin/servers/' . $item->id, 'class' => 'pull-right')) !!}
+							{!! Form::open(array('url' => '/admin/servers/' . $item->id, 'class' => 'text-right')) !!}
 							{!! Form::hidden('_method', 'DELETE') !!}
 							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
 							{!! Form::close() !!}
