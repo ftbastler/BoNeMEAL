@@ -34,7 +34,7 @@
 						<td>{{ $item->created_at->diffForHumans() }}</td>
 						<td>
 						@if(\Auth::user()->role >= $item->role)
-							{!! Form::open(array('url' => '/admin/users/' . $item->id, 'class' => 'pull-right')) !!}
+							{!! Form::open(array('url' => '/admin/users/' . $item->id, 'class' => 'text-right')) !!}
 							{!! Form::hidden('_method', 'DELETE') !!}
 							{!! Form::submit(trans('app.remove'), array('class' => 'btn btn-warning confirmDelete')) !!}
 							{!! Form::close() !!}
