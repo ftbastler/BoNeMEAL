@@ -18,6 +18,7 @@ return [
 		"server"		=> "server|servers",
 		"activeBan"		=> "active ban|active bans",
 		"activeMute"	=> "active mute|active mutes",
+		"activeWarning"	=> "active warning|active warnings",
 		"newAccount"	=> "new user account|new user accounts",
 		"totalServer"	=> "total server|total servers",
 		"normalPlayer"	=> "normal player|normal players",
@@ -37,6 +38,7 @@ return [
 		"lastSeen"		=> "Last seen",
 		"server"		=> "Server",
 		"reason"		=> "Reason",
+		"note"			=> "Note",
 		"actor"			=> "Actor",
 		"expires"		=> "Expires",
 		"db_host"		=> "Database Host",
@@ -49,7 +51,7 @@ return [
 		"superuser" 		=> "Superuser",
 		"normalUser" 		=> "Normal User",
 		"moderator" 		=> "Moderator",
-		"admin" 		    => "Admin",
+		"admin" 			=> "Admin",
 	],
 
 	"bonemeal"					=> "BoNeMEAL",
@@ -64,7 +66,7 @@ return [
 	"email"						=> "E-Mail Address",
 	"password"					=> "Password",
 	"confirmPassword"			=> "Confirm Password",
-	"newPassword"					=> "New Password",
+	"newPassword"				=> "New Password",
 	"forgotPassword"			=> "Forgot password",
 	"resetPassword"				=> "Reset password",
 	"sendPasswordResetLink"		=> "Send password reset link",
@@ -78,7 +80,7 @@ return [
 	"about"						=> "About",
 	"aboutUs"					=> "About: BoNeMEAL",
 	"aboutUsLead"				=> "Managing a server is hard. Punishing players for misbehaviour shouldn't be.",
-	"aboutUsText"				=> "The ban management web app (BoNeMEAL) makes it easy to manage your server's bans, mutes, kicks and warnings. 
+	"aboutUsText"				=> "The ban management web app (BoNeMEAL) makes it easy to manage your server's bans, mutes, kicks and warnings.
 									It's designed to extend the <a href=\"http://dev.bukkit.org/bukkit-plugins/ban-management/\">Ban Management</a> Bukkit plugin created by confuserr by providing a clean, easy and responsive way to manage your bans - even across different servers.
 									The combination of the Ban-Management plugin together with BoNeMEAL is the best way of banning, kicking, muting and warning players for server netwoks of any scale.",
 	"learnMore"					=> "Learn more",
@@ -115,6 +117,8 @@ return [
 	"activePunishments"			=> "Active punishments",
 	"activeBans"				=> "Active bans",
 	"activeMutes"				=> "Active mutes",
+	"activeWarnings"			=> "Active warnings",
+	"allNotes"					=> "All Notes",
 	"app"						=> "Application",
 	"noData"					=> "No data.",
 	"adminPanel"				=> "Admin",
