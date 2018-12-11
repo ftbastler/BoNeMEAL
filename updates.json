@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.1.0",
-  "body": "<ul><li>Added German translation</li><li>Added button to delete punishments</li><li>Added auto-complete for player search</li><li>Added warning for outdated servers</li><li>Changed old timeline items to collapse</li><li>Changed required access-role for server configuration to superuser</li><li>Fixed latest punishments tables on dashboard</li></ul>"
+  "title": "BoNeMEAL v1.2.0",
+  "body": "<ul><li>Use eager loading on dashboard and punishment index pages for better performance</li><li>Added warning expiry on display</li><li>Added interface to view all player notes</li><li>Added interface to view all warnings</li><li>Support UUID with hyphens in player URLs (better compatibility with banmanager)</li><li>MineYourMind/BoNeMEAL@4ceb2fb: Actor name may be undefined</li><li>Other bugfixes</li></ul>"
 }
