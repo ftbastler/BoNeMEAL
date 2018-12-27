@@ -27,7 +27,7 @@ If applicable, add screenshots to help explain your problem.
  - OS: [e.g. Linux, Windows]
  - PHP Version: [e.g. 5.5.6, 7.1, etc]
 
-** Log Files (you can use https://paste.ubuntu.com/ and post the link here): **
+**Log Files (you can use https://paste.ubuntu.com/ and post the link here):**
 Please post your most recent log file if available.
 
 **Additional context**

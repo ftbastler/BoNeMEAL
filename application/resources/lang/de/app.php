@@ -176,7 +176,11 @@ return [
 	"updatedUser"				=> "Benutzer erfolgreich geändert",
 	"playerNotExist"			=> "Diesen Spieler gibt es nicht",
 	"playerAlreadyBanned"		=> "Dieser Spieler ist bereits gebannt",
-
+    "serverSSL"                 => "Server SSL Einstellungen",
+    "helpSSL"                   => "Wenn für Ihren Datenbankserver SSL erforderlich ist, um eine Verbindung herzustellen, können Sie hier die erforderlichen öffentlichen Schlüssel und Zertifikate hochladen.",
+    "helpCA"                    => "(Wahlweise) Eine Datei im PEM-Format, die eine Liste vertrauenswürdiger SSL-Zertifizierungsstellen enthält.",
+    "helpKey"                   => "(Erforderlich) Die SSL-Schlüsseldatei im PEM-Format, die zum Herstellen einer verschlüsselten Verbindung verwendet werden soll.",
+    "helpCert"                  => "(Erforderlich) Die SSL-Zertifikatsdatei im PEM-Format, die zum Herstellen einer verschlüsselten Verbindung verwendet werden soll.",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",

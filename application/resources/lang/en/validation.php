@@ -113,6 +113,13 @@ return [
 		"db_password" => "Database Password",
 		"db_database" => "Database Name",
 		"db_prefix" => "Database Prefix",
+        "db_port"   => "Database Port (default: 3306)",
+        "db_ssl"    => "Server Requires SSL",
+        "ssl"       => array(
+            "db_ca"     => "Database CA Cert",
+            "db_cert"   => "Database Public Certificate",
+            "db_key"    => "Database Public Key",
+        ),
 	],
 
 ];

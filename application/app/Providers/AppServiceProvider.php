@@ -28,14 +28,24 @@ class AppServiceProvider extends ServiceProvider {
 			foreach ($servers as $server) {
 				\Config::set('database.connections.'.$server->id.'.driver', 'mysql');
 				\Config::set('database.connections.'.$server->id.'.host', $server->db_host);
+				\Config::set('database.connections.'.$server->id.'.port', $server->db_port);
 				\Config::set('database.connections.'.$server->id.'.database', $server->db_database);
 				\Config::set('database.connections.'.$server->id.'.username', $server->db_username);
 				\Config::set('database.connections.'.$server->id.'.password', $server->db_password);
 				\Config::set('database.connections.'.$server->id.'.collation', 'utf8_unicode_ci');
 				\Config::set('database.connections.'.$server->id.'.charset', 'utf8');
-				\Config::set('database.connections.'.$server->id.'.strict', false);
-				\Config::set('database.connections.'.$server->id.'.prefix', $server->db_prefix);
-			}
+                \Config::set('database.connections.'.$server->id.'.prefix', $server->db_prefix);
+                if(isset($server->ssl)) {
+                    \Config::set('database.connections.'.$server->id.'.options', array(
+                        PDO::MYSQL_ATTR_SSL_CA      => $server->db_ca,
+                        PDO::MYSQL_ATTR_SSL_CERT    => $server->db_cert,
+                        PDO::MYSQL_ATTR_SSL_KEY     => $server->db_key,
+                    ));
+                    \Config::set('database.connections.'.$server->id.'.strict', true);
+                } else {
+                    \Config::set('database.connections.'.$server->id.'.strict', false);
+                }
+            }
 		}
 	}
 

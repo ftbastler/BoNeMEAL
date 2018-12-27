@@ -13,6 +13,7 @@ class PlayerBanRecordController extends Controller {
 		$this->middleware('auth');
 		$this->middleware('admin');
 		$this->middleware('servers');
+		$this->middleware('ssl');
 	}
 
 	/**

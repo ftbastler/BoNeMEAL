@@ -11,6 +11,7 @@ class PlayerAdminController extends Controller {
 		$this->middleware('auth');
 		$this->middleware('mod');
 		$this->middleware('servers');
+		$this->middleware('ssl');
 	}
 
 	public function index()
