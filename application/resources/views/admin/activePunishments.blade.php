@@ -27,7 +27,7 @@
 						<td><a href="{{ url('/admin/players', $item->player->uuid) }}">{{ $item->player->name }}</a></td>
 						<td>{{ $item->server }}</td>
 						<td>{{ $item->reason }}</td>
-						<td>{{ $item->actor->name ?? '' }}</td>
+						<td>{{ $item->actor->name ?: '' }}</td>
 						<td>{{ $item->expires->timestamp == 0 ? trans('app.never') : $item->expires->diffForHumans() }}</td>
 						<td>{{ $item->created_at->toDayDateTimeString() }}</td>
 					</tr>
