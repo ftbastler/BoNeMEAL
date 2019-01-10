@@ -3,3 +3,5 @@
 installed.lock
 database.sqlite
 .htaccess
+.editorconfig
+.idea/*
