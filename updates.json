@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.2.0",
-  "body": "<ul><li>Use eager loading on dashboard and punishment index pages for better performance</li><li>Added warning expiry on display</li><li>Added interface to view all player notes</li><li>Added interface to view all warnings</li><li>Support UUID with hyphens in player URLs (better compatibility with banmanager)</li><li>MineYourMind/BoNeMEAL@4ceb2fb: Actor name may be undefined</li><li>Other bugfixes</li></ul>"
+  "title": "BoNeMEAL v1.2.1",
+  "body": "<ul><li>Bugfix for older versions of PHP</li><li>Added 'read' indicator to Player Warnings</li><li>Bugfix for user administration/promotion</li></ul>"
 }
