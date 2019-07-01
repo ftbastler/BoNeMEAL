@@ -92,7 +92,7 @@ class UserController extends Controller {
 		$rules = array(
 			'name'       => 'required|min:3|max:255',
 			'role'      => 'required|numeric|role',
-			'email'		=> 'required|email|max:255|unique:users,'.$id,
+			'email'		=> 'required|email|max:255|unique:users,email',
 			'password' => 'confirmed|min:6'
 		);
 		
