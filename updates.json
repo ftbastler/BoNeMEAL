@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.2.1",
+  "title": "BoNeMEAL v1.2.2",
   "body": "<ul><li>Bugfix for older versions of PHP</li><li>Added 'read' indicator to Player Warnings</li><li>Bugfix for user administration/promotion</li></ul>"
 }
