@@ -204,6 +204,7 @@ return [
 	"updatedMute"				=> "Updated mute successfully.",
 	"updatedNote"				=> "Updated note successfully.",
 	"updatedServer"				=> "Server successfully updated.",
+	"updatedUser"				=> "Updated User successfully.",
 	"updatedWarning"			=> "Updated warning successfully.",
 	"user"						=> "User",
 	"username"					=> "Username",
