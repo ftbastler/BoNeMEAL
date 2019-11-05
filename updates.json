@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.2.2",
-  "body": "<ul><li>Bugfix for older versions of PHP</li><li>Added 'read' indicator to Player Warnings</li><li>Bugfix for user administration/promotion</li></ul>"
+  "title": "BoNeMEAL v1.3",
+  "body": "<strong>Minor Laravel version upgrade to support PHP versions 7+</strong><br>This should fix common installation issues and pave the way for version 2 of BoNeMEAL."
 }
