@@ -18,7 +18,7 @@ trait StreamedCopyTrait
     {
         $response = $this->readStream($path);
 
-        if ($response === false || !is_resource($response['stream'])) {
+        if ($response === false || ! is_resource($response['stream'])) {
             return false;
         }
 
@@ -35,11 +35,17 @@ trait StreamedCopyTrait
 
     /**
      * @param string $path
+     *
+     * @return resource
      */
     abstract public function readStream($path);
 
     /**
-     * @param string $path
+     * @param string   $path
+     * @param resource $resource
+     * @param Config   $config
+     *
+     * @return resource
      */
     abstract public function writeStream($path, $resource, Config $config);
 }

@@ -211,6 +211,11 @@
 				<small class="text-muted" data-toggle="tooltip" data-placement="top" title="{{ $item->created_at }}"><i class="fa fa-clock-o"></i> {{ $item->created_at->diffForHumans() }}</small>
 				<small class="text-muted"><i class="fa fa-user"></i> {{ $item->actor->name }}</small>
 				<small class="text-muted"><i class="fa fa-server"></i> {{ $item->server }}</small>
+				@if($item->read)
+					<small class="text-muted"><i class="fa fa-eye"></i> {{trans('app.warningRead')}}</small>
+				@else
+					<small class="text-muted"><i class="fa fa-eye-slash"></i> {{trans('app.warningUnread')}}</small>
+				@endif
 			</p>
 		</div>
 		<div class="timeline-body">
