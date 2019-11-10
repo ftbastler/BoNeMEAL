@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.3",
-  "body": "<strong>Minor Laravel version upgrade to support PHP versions 7+</strong><br>This should fix common installation issues and pave the way for version 2 of BoNeMEAL."
+  "title": "BoNeMEAL v1.4",
+  "body": "<strong>SSL Mysql Connection Support</strong><br>Allows you to connect to MySQL servers that require SSL connections"
 }
