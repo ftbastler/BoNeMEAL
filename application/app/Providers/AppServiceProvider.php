@@ -1,9 +1,11 @@
 <?php namespace App\Providers;
 
+use App\Server;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use \Carbon\Carbon;
+use PDO;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -25,7 +27,7 @@ class AppServiceProvider extends ServiceProvider {
 		}
 
 		if(Schema::connection('local')->hasTable('servers')) {
-			$servers = \App\Server::get();
+			$servers = Server::get();
 
 			foreach ($servers as $server) {
 				Config::set('database.connections.'.$server->id.'.driver', 'mysql');
@@ -37,7 +39,7 @@ class AppServiceProvider extends ServiceProvider {
 				Config::set('database.connections.'.$server->id.'.collation', 'utf8_unicode_ci');
 				Config::set('database.connections.'.$server->id.'.charset', 'utf8');
                 Config::set('database.connections.'.$server->id.'.prefix', $server->db_prefix);
-                if(isset($server->db_ssl)) {
+                if(isset($server->db_ssl) && $server->db_ssl === 1) {
                     Config::set('database.connections.'.$server->id.'.options', array(
                         PDO::MYSQL_ATTR_SSL_CA      => $server->db_ca,
                         PDO::MYSQL_ATTR_SSL_CERT    => $server->db_cert,

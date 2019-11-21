@@ -1,0 +1,4 @@
+{
+  "title": "BoNeMEAL v1.4.1",
+  "body": "<strong>SSL Mysql Connection Support</strong><br>Allows you to connect to MySQL servers that require SSL connections.<br>Various Bugfixes."
+}
