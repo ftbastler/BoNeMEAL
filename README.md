@@ -3,8 +3,6 @@
 
 The **b**a**n** **m**anagement w**e**b **a**pp**l**ication (BoNeMEAL) makes it easy to manage your server's bans, mutes, kicks and warnings. It's designed to extend the [Ban-Management Bukkit plugin](http://dev.bukkit.org/bukkit-plugins/ban-management/) created by confuser by providing a clean, easy and responsive way to manage your punishments.
 
-**PLEASE NOTE** This version currently only supports *BanManager 6 and below*. Schema changes introduced in Banmanager 7 have not been integrated into this application and are not currently supported.
-
 # About this project
 
 This project was started to offer an alternative or even a possible replacement for the clumsy "BanManager WebUI".
