@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.4.1",
-  "body": "<strong>SSL Mysql Connection Support</strong><br>Allows you to connect to MySQL servers that require SSL connections.<br>Various Bugfixes."
+  "title": "BoNeMEAL v1.4.2",
+  "body": "<strong>Support IPv6</strong><br>Ban Manager 7 supports players connecting via IPv6. If your database contains players with these addresses they will display properly."
 }
