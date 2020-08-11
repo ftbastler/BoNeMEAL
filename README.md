@@ -3,6 +3,8 @@
 
 The **b**a**n** **m**anagement w**e**b **a**pp**l**ication (BoNeMEAL) makes it easy to manage your server's bans, mutes, kicks and warnings. It's designed to extend the [Ban-Management Bukkit plugin](http://dev.bukkit.org/bukkit-plugins/ban-management/) created by confuser by providing a clean, easy and responsive way to manage your punishments.
 
+**IMPORTANT NOTE** This software currently does not support PHP > 7.3 due to the old version of Laravel it's running on. Working on a rewrite, but please note this is currently incompatible with PHP 7.4
+
 # About this project
 
 This project was started to offer an alternative or even a possible replacement for the clumsy "BanManager WebUI".
