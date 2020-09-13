@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Console\Tests\Helper;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -24,7 +23,7 @@ use Symfony\Component\Console\Question\Question;
 /**
  * @group tty
  */
-class QuestionHelperTest extends TestCase
+class QuestionHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testAskChoice()
     {
@@ -84,10 +83,6 @@ class QuestionHelperTest extends TestCase
         $question->setMultiselect(true);
 
         $this->assertEquals(array('Superman', 'Batman'), $questionHelper->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-
-        $question = new ChoiceQuestion('What is your favorite superhero?', $heroes, 0);
-        // We are supposed to get the default value since we are not in interactive mode
-        $this->assertEquals('Superman', $questionHelper->ask($this->createInputInterfaceMock(true), $this->createOutputInterface(), $question));
     }
 
     public function testAsk()
@@ -158,70 +153,6 @@ class QuestionHelperTest extends TestCase
 
         $this->assertEquals('AcmeDemoBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
         $this->assertEquals('AsseticBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-    }
-
-    public function testAskWithAutocompleteWithExactMatch()
-    {
-        if (!$this->hasSttyAvailable()) {
-            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
-        }
-
-        $inputStream = $this->getInputStream("b\n");
-
-        $possibleChoices = array(
-            'a' => 'berlin',
-            'b' => 'copenhagen',
-            'c' => 'amsterdam',
-        );
-
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($inputStream);
-        $dialog->setHelperSet(new HelperSet(array(new FormatterHelper())));
-
-        $question = new ChoiceQuestion('Please select a city', $possibleChoices);
-        $question->setMaxAttempts(1);
-
-        $this->assertSame('b', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-    }
-
-    public function testAutocompleteWithTrailingBackslash()
-    {
-        if (!$this->hasSttyAvailable()) {
-            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
-        }
-
-        $inputStream = $this->getInputStream('E');
-
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($inputStream);
-        $helperSet = new HelperSet(array(new FormatterHelper()));
-        $dialog->setHelperSet($helperSet);
-
-        $question = new Question('');
-        $expectedCompletion = 'ExampleNamespace\\';
-        $question->setAutocompleterValues(array($expectedCompletion));
-
-        $output = $this->createOutputInterface();
-        $dialog->ask($this->createInputInterfaceMock(), $output, $question);
-
-        $outputStream = $output->getStream();
-        rewind($outputStream);
-        $actualOutput = stream_get_contents($outputStream);
-
-        // Shell control (esc) sequences are not so important: we only care that
-        // <hl> tag is interpreted correctly and replaced
-        $irrelevantEscSequences = array(
-            "\0337" => '', // Save cursor position
-            "\0338" => '', // Restore cursor position
-            "\033[K" => '', // Clear line from cursor till the end
-        );
-
-        $importantActualOutput = strtr($actualOutput, $irrelevantEscSequences);
-
-        // Remove colors (e.g. "\033[30m", "\033[31;41m")
-        $importantActualOutput = preg_replace('/\033\[\d+(;\d+)?m/', '', $importantActualOutput);
-
-        $this->assertEquals($expectedCompletion, $importantActualOutput);
     }
 
     public function testAskHiddenResponse()
@@ -342,37 +273,6 @@ class QuestionHelperTest extends TestCase
     }
 
     /**
-     * @dataProvider specialCharacterInMultipleChoice
-     */
-    public function testSpecialCharacterChoiceFromMultipleChoiceList($providedAnswer, $expectedValue)
-    {
-        $possibleChoices = array(
-            '.',
-            'src',
-        );
-
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($this->getInputStream($providedAnswer."\n"));
-        $helperSet = new HelperSet(array(new FormatterHelper()));
-        $dialog->setHelperSet($helperSet);
-
-        $question = new ChoiceQuestion('Please select the directory', $possibleChoices);
-        $question->setMaxAttempts(1);
-        $question->setMultiselect(true);
-        $answer = $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question);
-
-        $this->assertSame($expectedValue, $answer);
-    }
-
-    public function specialCharacterInMultipleChoice()
-    {
-        return array(
-            array('.', array('.')),
-            array('., src', array('.', 'src')),
-        );
-    }
-
-    /**
      * @dataProvider mixedKeysChoiceListAnswerProvider
      */
     public function testChoiceFromChoicelistWithMixedKeys($providedAnswer, $expectedValue)
@@ -488,7 +388,7 @@ class QuestionHelperTest extends TestCase
             '  [<info>żółw  </info>] bar',
             '  [<info>łabądź</info>] baz',
         );
-        $output = $this->getMockBuilder('\Symfony\Component\Console\Output\OutputInterface')->getMock();
+        $output = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
         $output->method('getFormatter')->willReturn(new OutputFormatter());
 
         $dialog = new QuestionHelper();
@@ -500,80 +400,6 @@ class QuestionHelperTest extends TestCase
 
         $question = new ChoiceQuestion($question, $possibleChoices, 'foo');
         $dialog->ask($this->createInputInterfaceMock(), $output, $question);
-    }
-
-    /**
-     * @expectedException        \Symfony\Component\Console\Exception\RuntimeException
-     * @expectedExceptionMessage Aborted
-     */
-    public function testAskThrowsExceptionOnMissingInput()
-    {
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($this->getInputStream(''));
-
-        $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), new Question('What\'s your name?'));
-    }
-
-    /**
-     * @expectedException        \Symfony\Component\Console\Exception\RuntimeException
-     * @expectedExceptionMessage Aborted
-     */
-    public function testAskThrowsExceptionOnMissingInputWithValidator()
-    {
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($this->getInputStream(''));
-
-        $question = new Question('What\'s your name?');
-        $question->setValidator(function () {
-            if (!$value) {
-                throw new \Exception('A value is required.');
-            }
-        });
-
-        $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question);
-    }
-
-    /**
-     * @expectedException \LogicException
-     * @expectedExceptionMessage Choice question must have at least 1 choice available.
-     */
-    public function testEmptyChoices()
-    {
-        new ChoiceQuestion('Question', array(), 'irrelevant');
-    }
-
-    public function testTraversableAutocomplete()
-    {
-        if (!$this->hasSttyAvailable()) {
-            $this->markTestSkipped('`stty` is required to test autocomplete functionality');
-        }
-
-        // Acm<NEWLINE>
-        // Ac<BACKSPACE><BACKSPACE>s<TAB>Test<NEWLINE>
-        // <NEWLINE>
-        // <UP ARROW><UP ARROW><NEWLINE>
-        // <UP ARROW><UP ARROW><UP ARROW><UP ARROW><UP ARROW><TAB>Test<NEWLINE>
-        // <DOWN ARROW><NEWLINE>
-        // S<BACKSPACE><BACKSPACE><DOWN ARROW><DOWN ARROW><NEWLINE>
-        // F00<BACKSPACE><BACKSPACE>oo<TAB><NEWLINE>
-        $inputStream = $this->getInputStream("Acm\nAc\177\177s\tTest\n\n\033[A\033[A\n\033[A\033[A\033[A\033[A\033[A\tTest\n\033[B\nS\177\177\033[B\033[B\nF00\177\177oo\t\n");
-
-        $dialog = new QuestionHelper();
-        $dialog->setInputStream($inputStream);
-        $helperSet = new HelperSet(array(new FormatterHelper()));
-        $dialog->setHelperSet($helperSet);
-
-        $question = new Question('Please select a bundle', 'FrameworkBundle');
-        $question->setAutocompleterValues(new AutocompleteValues(array('irrelevant' => 'AcmeDemoBundle', 'AsseticBundle', 'SecurityBundle', 'FooBundle')));
-
-        $this->assertEquals('AcmeDemoBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('AsseticBundleTest', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('FrameworkBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('SecurityBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('FooBundleTest', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('AcmeDemoBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('AsseticBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
-        $this->assertEquals('FooBundle', $dialog->ask($this->createInputInterfaceMock(), $this->createOutputInterface(), $question));
     }
 
     protected function getInputStream($input)
@@ -592,7 +418,7 @@ class QuestionHelperTest extends TestCase
 
     protected function createInputInterfaceMock($interactive = true)
     {
-        $mock = $this->getMockBuilder('Symfony\Component\Console\Input\InputInterface')->getMock();
+        $mock = $this->getMock('Symfony\Component\Console\Input\InputInterface');
         $mock->expects($this->any())
             ->method('isInteractive')
             ->will($this->returnValue($interactive));
@@ -604,21 +430,6 @@ class QuestionHelperTest extends TestCase
     {
         exec('stty 2>&1', $output, $exitcode);
 
-        return 0 === $exitcode;
-    }
-}
-
-class AutocompleteValues implements \IteratorAggregate
-{
-    private $values;
-
-    public function __construct(array $values)
-    {
-        $this->values = $values;
-    }
-
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->values);
+        return $exitcode === 0;
     }
 }

@@ -5,8 +5,8 @@
 	"license": "cc-by-nc-sa 4.0",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.1.*",
-		"laravelcollective/html": "5.1.*"
+		"laravel/framework": "5.2.*",
+		"laravelcollective/html": "5.2.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -34,5 +34,7 @@
 		"preferred-install": "dist"
 	},
 	"require-dev": {
+		"symfony/dom-crawler": "~3.0",
+		"symfony/css-selector": "~3.0"
 	}
 }

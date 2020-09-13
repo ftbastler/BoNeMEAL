@@ -57,6 +57,18 @@ class HtmlDumper extends CliDumper
     /**
      * {@inheritdoc}
      */
+    public function setOutput($output)
+    {
+        if ($output !== $prev = parent::setOutput($output)) {
+            $this->headerIsDumped = false;
+        }
+
+        return $prev;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setStyles(array $styles)
     {
         $this->headerIsDumped = false;
@@ -99,7 +111,7 @@ class HtmlDumper extends CliDumper
      */
     protected function getDumpHeader()
     {
-        $this->headerIsDumped = null !== $this->outputStream ? $this->outputStream : $this->lineDumper;
+        $this->headerIsDumped = true;
 
         if (null !== $this->dumpHeader) {
             return $this->dumpHeader;
@@ -132,10 +144,10 @@ if (!doc.addEventListener) {
 function toggle(a, recursive) {
     var s = a.nextSibling || {}, oldClass = s.className, arrow, newClass;
 
-    if (/\bsf-dump-compact\b/.test(oldClass)) {
+    if ('sf-dump-compact' == oldClass) {
         arrow = '▼';
         newClass = 'sf-dump-expanded';
-    } else if (/\bsf-dump-expanded\b/.test(oldClass)) {
+    } else if ('sf-dump-expanded' == oldClass) {
         arrow = '▶';
         newClass = 'sf-dump-compact';
     } else {
@@ -143,13 +155,13 @@ function toggle(a, recursive) {
     }
 
     a.lastChild.innerHTML = arrow;
-    s.className = s.className.replace(/\bsf-dump-(compact|expanded)\b/, newClass);
+    s.className = newClass;
 
     if (recursive) {
         try {
             a = s.querySelectorAll('.'+oldClass);
             for (s = 0; s < a.length; ++s) {
-                if (-1 == a[s].className.indexOf(newClass)) {
+                if (a[s].className !== newClass) {
                     a[s].className = newClass;
                     a[s].previousSibling.lastChild.innerHTML = arrow;
                 }
@@ -205,7 +217,7 @@ return function (root) {
                 if (f && t && f[0] !== t[0]) {
                     r.innerHTML = r.innerHTML.replace(new RegExp('^'+f[0].replace(rxEsc, '\\$1'), 'mg'), t[0]);
                 }
-                if (/\bsf-dump-compact\b/.test(r.className)) {
+                if ('sf-dump-compact' == r.className) {
                     toggle(s, isCtrlKey(e));
                 }
             }
@@ -255,10 +267,10 @@ return function (root) {
             a.title = (a.title ? a.title+'\n[' : '[')+keyHint+'+click] Expand all children';
             a.innerHTML += '<span>▼</span>';
             a.className += ' sf-dump-toggle';
-            if (!/\bsf-dump\b/.test(elt.parentNode.className)) {
+            if ('sf-dump' != elt.parentNode.className) {
                 toggle(a);
             }
-        } else if (/\bsf-dump-ref\b/.test(elt.className) && (a = elt.getAttribute('href'))) {
+        } else if ("sf-dump-ref" == elt.className && (a = elt.getAttribute('href'))) {
             a = a.substr(1);
             elt.className += ' '+a;
 
@@ -288,7 +300,8 @@ return function (root) {
 };
 
 })(document);
-</script><style>
+</script>
+<style>
 pre.sf-dump {
     display: block;
     white-space: pre;
@@ -361,7 +374,7 @@ EOHTML;
             return '';
         }
 
-        $v = esc($value);
+        $v = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
         if ('ref' === $style) {
             if (empty($attr['count'])) {
@@ -372,18 +385,18 @@ EOHTML;
             return sprintf('<a class=sf-dump-ref href=#%s-ref%s title="%d occurrences">%s</a>', $this->dumpId, $r, 1 + $attr['count'], $v);
         }
 
-        if ('const' === $style && isset($attr['value'])) {
-            $style .= sprintf(' title="%s"', esc(is_scalar($attr['value']) ? $attr['value'] : json_encode($attr['value'])));
+        if ('const' === $style && array_key_exists('value', $attr)) {
+            $style .= sprintf(' title="%s"', htmlspecialchars(json_encode($attr['value']), ENT_QUOTES, 'UTF-8'));
         } elseif ('public' === $style) {
             $style .= sprintf(' title="%s"', empty($attr['dynamic']) ? 'Public property' : 'Runtime added dynamic property');
         } elseif ('str' === $style && 1 < $attr['length']) {
-            $style .= sprintf(' title="%d%s characters"', $attr['length'], $attr['binary'] ? ' binary or non-UTF-8' : '');
+            $style .= sprintf(' title="%s%s characters"', $attr['length'], $attr['binary'] ? ' binary or non-UTF-8' : '');
         } elseif ('note' === $style && false !== $c = strrpos($v, '\\')) {
             return sprintf('<abbr title="%s" class=sf-dump-%s>%s</abbr>', $v, $style, substr($v, $c + 1));
         } elseif ('protected' === $style) {
             $style .= ' title="Protected property"';
         } elseif ('private' === $style) {
-            $style .= sprintf(' title="Private property defined in class:&#10;`%s`"', esc($attr['class']));
+            $style .= sprintf(' title="Private property defined in class:&#10;`%s`"', $attr['class']);
         }
 
         $map = static::$controlCharsMap;
@@ -420,7 +433,7 @@ EOHTML;
         if (-1 === $this->lastDepth) {
             $this->line = sprintf($this->dumpPrefix, $this->dumpId, $this->indentPad).$this->line;
         }
-        if ($this->headerIsDumped !== (null !== $this->outputStream ? $this->outputStream : $this->lineDumper)) {
+        if (!$this->headerIsDumped) {
             $this->line = $this->getDumpHeader().$this->line;
         }
 
@@ -429,39 +442,11 @@ EOHTML;
         }
         $this->lastDepth = $depth;
 
-        // Replaces non-ASCII UTF-8 chars by numeric HTML entities
-        $this->line = preg_replace_callback(
-            '/[\x80-\xFF]+/',
-            function ($m) {
-                $m = unpack('C*', $m[0]);
-                $i = 1;
-                $entities = '';
-
-                while (isset($m[$i])) {
-                    if (0xF0 <= $m[$i]) {
-                        $c = (($m[$i++] - 0xF0) << 18) + (($m[$i++] - 0x80) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++] - 0x80;
-                    } elseif (0xE0 <= $m[$i]) {
-                        $c = (($m[$i++] - 0xE0) << 12) + (($m[$i++] - 0x80) << 6) + $m[$i++] - 0x80;
-                    } else {
-                        $c = (($m[$i++] - 0xC0) << 6) + $m[$i++] - 0x80;
-                    }
-
-                    $entities .= '&#'.$c.';';
-                }
-
-                return $entities;
-            },
-            $this->line
-        );
+        $this->line = mb_convert_encoding($this->line, 'HTML-ENTITIES', 'UTF-8');
 
         if (-1 === $depth) {
             AbstractDumper::dumpLine(0);
         }
         AbstractDumper::dumpLine($depth);
     }
-}
-
-function esc($str)
-{
-    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
