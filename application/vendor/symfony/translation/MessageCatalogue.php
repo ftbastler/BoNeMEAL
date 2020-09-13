@@ -14,6 +14,8 @@ namespace Symfony\Component\Translation;
 use Symfony\Component\Config\Resource\ResourceInterface;
 
 /**
+ * MessageCatalogue.
+ *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterface
@@ -26,6 +28,8 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
     private $parent;
 
     /**
+     * Constructor.
+     *
      * @param string $locale   The locale
      * @param array  $messages An array of messages classified by domain
      */
@@ -173,10 +177,6 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
         do {
             if ($c->getLocale() === $catalogue->getLocale()) {
                 throw new \LogicException(sprintf('Circular reference detected when adding a fallback catalogue for locale "%s".', $catalogue->getLocale()));
-            }
-
-            foreach ($catalogue->getResources() as $resource) {
-                $c->addResource($resource);
             }
         } while ($c = $c->parent);
 

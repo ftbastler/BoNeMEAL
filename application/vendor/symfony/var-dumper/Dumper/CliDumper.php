@@ -58,8 +58,8 @@ class CliDumper extends AbstractDumper
     {
         parent::__construct($output, $charset);
 
-        if ('\\' === DIRECTORY_SEPARATOR && !$this->isWindowsTrueColor()) {
-            // Use only the base 16 xterm colors when using ANSICON or standard Windows 10 CLI
+        if ('\\' === DIRECTORY_SEPARATOR && 'ON' !== @getenv('ConEmuANSI') && 'xterm' !== @getenv('TERM')) {
+            // Use only the base 16 xterm colors when using ANSICON or standard Windows 10 CLI 
             $this->setStyles(array(
                 'default' => '31',
                 'num' => '1;34',
@@ -91,9 +91,7 @@ class CliDumper extends AbstractDumper
      */
     public function setMaxStringWidth($maxStringWidth)
     {
-        if (function_exists('iconv')) {
-            $this->maxStringWidth = (int) $maxStringWidth;
-        }
+        $this->maxStringWidth = (int) $maxStringWidth;
     }
 
     /**
@@ -125,9 +123,9 @@ class CliDumper extends AbstractDumper
                 $style = 'num';
 
                 switch (true) {
-                    case INF === $value:  $value = 'INF'; break;
+                    case INF === $value:  $value = 'INF';  break;
                     case -INF === $value: $value = '-INF'; break;
-                    case is_nan($value):  $value = 'NAN'; break;
+                    case is_nan($value):  $value = 'NAN';  break;
                     default:
                         $value = (string) $value;
                         if (false === strpos($value, $this->decimalPoint)) {
@@ -171,7 +169,7 @@ class CliDumper extends AbstractDumper
             $this->dumpLine($cursor->depth, true);
         } else {
             $attr = array(
-                'length' => 0 <= $cut && function_exists('iconv_strlen') ? iconv_strlen($str, 'UTF-8') + $cut : 0,
+                'length' => 0 <= $cut ? mb_strlen($str, 'UTF-8') + $cut : 0,
                 'binary' => $bin,
             );
             $str = explode("\n", $str);
@@ -197,8 +195,8 @@ class CliDumper extends AbstractDumper
                 if ($i < $m) {
                     $str .= "\n";
                 }
-                if (0 < $this->maxStringWidth && $this->maxStringWidth < $len = iconv_strlen($str, 'UTF-8')) {
-                    $str = iconv_substr($str, 0, $this->maxStringWidth, 'UTF-8');
+                if (0 < $this->maxStringWidth && $this->maxStringWidth < $len = mb_strlen($str, 'UTF-8')) {
+                    $str = mb_substr($str, 0, $this->maxStringWidth, 'UTF-8');
                     $lineCut = $len - $this->maxStringWidth;
                 }
                 if ($m && 0 < $cursor->depth) {
@@ -247,7 +245,7 @@ class CliDumper extends AbstractDumper
             $class = $this->utf8Encode($class);
         }
         if (Cursor::HASH_OBJECT === $type) {
-            $prefix = 'stdClass' !== $class ? $this->style('note', $class).' {' : '{';
+            $prefix = $class && 'stdClass' !== $class ? $this->style('note', $class).' {' : '{';
         } elseif (Cursor::HASH_RESOURCE === $type) {
             $prefix = $this->style('note', $class.' resource').($hasChild ? ' {' : ' ');
         } else {
@@ -317,7 +315,6 @@ class CliDumper extends AbstractDumper
                 default:
                 case Cursor::HASH_INDEXED:
                     $style = 'index';
-                    // no break
                 case Cursor::HASH_ASSOC:
                     if (is_int($key)) {
                         $this->line .= $this->style($style, $key).' => ';
@@ -328,7 +325,7 @@ class CliDumper extends AbstractDumper
 
                 case Cursor::HASH_RESOURCE:
                     $key = "\0~\0".$key;
-                    // no break
+                    // No break;
                 case Cursor::HASH_OBJECT:
                     if (!isset($key[0]) || "\0" !== $key[0]) {
                         $this->line .= '+'.$bin.$this->style('public', $key).': ';
@@ -420,7 +417,7 @@ class CliDumper extends AbstractDumper
     protected function supportsColors()
     {
         if ($this->outputStream !== static::$defaultOutput) {
-            return $this->hasColorSupport($this->outputStream);
+            return @(is_resource($this->outputStream) && function_exists('posix_isatty') && posix_isatty($this->outputStream));
         }
         if (null !== static::$defaultColors) {
             return static::$defaultColors;
@@ -448,10 +445,22 @@ class CliDumper extends AbstractDumper
             }
         }
 
-        $h = stream_get_meta_data($this->outputStream) + array('wrapper_type' => null);
-        $h = 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? fopen('php://stdout', 'wb') : $this->outputStream;
+        if ('\\' === DIRECTORY_SEPARATOR) {
+            static::$defaultColors = @(
+                0 >= version_compare('10.0.10586', PHP_WINDOWS_VERSION_MAJOR.'.'.PHP_WINDOWS_VERSION_MINOR.'.'.PHP_WINDOWS_VERSION_BUILD)
+                || false !== getenv('ANSICON')
+                || 'ON' === getenv('ConEmuANSI')
+                || 'xterm' === getenv('TERM')
+            );
+        } elseif (function_exists('posix_isatty')) {
+            $h = stream_get_meta_data($this->outputStream) + array('wrapper_type' => null);
+            $h = 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? fopen('php://stdout', 'wb') : $this->outputStream;
+            static::$defaultColors = @posix_isatty($h);
+        } else {
+            static::$defaultColors = false;
+        }
 
-        return static::$defaultColors = $this->hasColorSupport($h);
+        return static::$defaultColors;
     }
 
     /**
@@ -463,70 +472,5 @@ class CliDumper extends AbstractDumper
             $this->line = sprintf("\033[%sm%s\033[m", $this->styles['default'], $this->line);
         }
         parent::dumpLine($depth);
-    }
-
-    /**
-     * Returns true if the stream supports colorization.
-     *
-     * Reference: Composer\XdebugHandler\Process::supportsColor
-     * https://github.com/composer/xdebug-handler
-     *
-     * @param mixed $stream A CLI output stream
-     *
-     * @return bool
-     */
-    private function hasColorSupport($stream)
-    {
-        if (!is_resource($stream) || 'stream' !== get_resource_type($stream)) {
-            return false;
-        }
-
-        if (DIRECTORY_SEPARATOR === '\\') {
-            return (function_exists('sapi_windows_vt100_support')
-                && @sapi_windows_vt100_support($stream))
-                || false !== getenv('ANSICON')
-                || 'ON' === getenv('ConEmuANSI')
-                || 'xterm' === getenv('TERM');
-        }
-
-        if (function_exists('stream_isatty')) {
-            return @stream_isatty($stream);
-        }
-
-        if (function_exists('posix_isatty')) {
-            return @posix_isatty($stream);
-        }
-
-        $stat = @fstat($stream);
-        // Check if formatted mode is S_IFCHR
-        return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
-    }
-
-    /**
-     * Returns true if the Windows terminal supports true color.
-     *
-     * Note that this does not check an output stream, but relies on environment
-     * variables from known implementations, or a PHP and Windows version that
-     * supports true color.
-     *
-     * @return bool
-     */
-    private function isWindowsTrueColor()
-    {
-        $result = 183 <= getenv('ANSICON_VER')
-            || 'ON' === getenv('ConEmuANSI')
-            || 'xterm' === getenv('TERM');
-
-        if (!$result && PHP_VERSION_ID >= 70200) {
-            $version = sprintf(
-                '%s.%s.%s',
-                PHP_WINDOWS_VERSION_MAJOR,
-                PHP_WINDOWS_VERSION_MINOR,
-                PHP_WINDOWS_VERSION_BUILD
-            );
-            $result = $version >= '10.0.15063';
-        }
-
-        return $result;
     }
 }

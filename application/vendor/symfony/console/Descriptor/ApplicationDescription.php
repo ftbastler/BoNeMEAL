@@ -13,6 +13,7 @@ namespace Symfony\Component\Console\Descriptor;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
@@ -23,7 +24,14 @@ class ApplicationDescription
 {
     const GLOBAL_NAMESPACE = '_global';
 
+    /**
+     * @var Application
+     */
     private $application;
+
+    /**
+     * @var null|string
+     */
     private $namespace;
 
     /**
@@ -41,6 +49,12 @@ class ApplicationDescription
      */
     private $aliases;
 
+    /**
+     * Constructor.
+     *
+     * @param Application $application
+     * @param string|null $namespace
+     */
     public function __construct(Application $application, $namespace = null)
     {
         $this->application = $application;
@@ -76,12 +90,12 @@ class ApplicationDescription
      *
      * @return Command
      *
-     * @throws \InvalidArgumentException
+     * @throws CommandNotFoundException
      */
     public function getCommand($name)
     {
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
-            throw new \InvalidArgumentException(sprintf('Command %s does not exist.', $name));
+            throw new CommandNotFoundException(sprintf('Command %s does not exist.', $name));
         }
 
         return isset($this->commands[$name]) ? $this->commands[$name] : $this->aliases[$name];
@@ -116,6 +130,8 @@ class ApplicationDescription
     }
 
     /**
+     * @param array $commands
+     *
      * @return array
      */
     private function sortCommands(array $commands)

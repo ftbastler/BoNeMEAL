@@ -11,23 +11,22 @@
 
 namespace Symfony\Component\Translation\Tests\Writer;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Dumper\DumperInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Writer\TranslationWriter;
 
-class TranslationWriterTest extends TestCase
+class TranslationWriterTest extends \PHPUnit_Framework_TestCase
 {
     public function testWriteTranslations()
     {
-        $dumper = $this->getMockBuilder('Symfony\Component\Translation\Dumper\DumperInterface')->getMock();
+        $dumper = $this->getMock('Symfony\Component\Translation\Dumper\DumperInterface');
         $dumper
             ->expects($this->once())
             ->method('dump');
 
         $writer = new TranslationWriter();
         $writer->addDumper('test', $dumper);
-        $writer->writeTranslations(new MessageCatalogue('en'), 'test');
+        $writer->writeTranslations(new MessageCatalogue(array()), 'test');
     }
 
     public function testDisableBackup()

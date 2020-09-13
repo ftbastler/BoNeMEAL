@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Process\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Exception\RuntimeException;
@@ -22,7 +21,7 @@ use Symfony\Component\Process\Process;
 /**
  * @author Robert Schönthal <seroscho@googlemail.com>
  */
-class ProcessTest extends TestCase
+class ProcessTest extends \PHPUnit_Framework_TestCase
 {
     private static $phpBin;
     private static $process;
@@ -288,24 +287,6 @@ class ProcessTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideLegacyInputValues
-     * @group legacy
-     */
-    public function testLegacyValidInput($expected, $value)
-    {
-        $process = $this->getProcess(self::$phpBin.' -v');
-        $process->setInput($value);
-        $this->assertSame($expected, $process->getInput());
-    }
-
-    public function provideLegacyInputValues()
-    {
-        return array(
-            array('stringifiable', new Stringifiable()),
-        );
-    }
-
     public function chainedCommandsOutputProvider()
     {
         if ('\\' === DIRECTORY_SEPARATOR) {
@@ -336,7 +317,7 @@ class ProcessTest extends TestCase
 
         $called = false;
         $p->run(function ($type, $buffer) use (&$called) {
-            $called = 'foo' === $buffer;
+            $called = $buffer === 'foo';
         });
 
         $this->assertTrue($called, 'The callback should be executed with the output');
@@ -561,7 +542,7 @@ class ProcessTest extends TestCase
     {
         $process = $this->getProcess('echo foo');
         $process->run();
-        $this->assertGreaterThan(0, strlen($process->getOutput()));
+        $this->assertTrue(strlen($process->getOutput()) > 0);
     }
 
     public function testGetExitCodeIsNullOnStart()
@@ -725,8 +706,8 @@ class ProcessTest extends TestCase
         // Ensure that both processed finished and the output is numeric
         $this->assertFalse($process1->isRunning());
         $this->assertFalse($process2->isRunning());
-        $this->assertInternalType('numeric', $process1->getOutput());
-        $this->assertInternalType('numeric', $process2->getOutput());
+        $this->assertTrue(is_numeric($process1->getOutput()));
+        $this->assertTrue(is_numeric($process2->getOutput()));
 
         // Ensure that restart returned a new process by check that the output is different
         $this->assertNotEquals($process1->getOutput(), $process2->getOutput());
@@ -927,14 +908,7 @@ class ProcessTest extends TestCase
     public function testMethodsThatNeedARunningProcess($method)
     {
         $process = $this->getProcess('foo');
-
-        if (method_exists($this, 'expectException')) {
-            $this->expectException('Symfony\Component\Process\Exception\LogicException');
-            $this->expectExceptionMessage(sprintf('Process must be started before calling %s.', $method));
-        } else {
-            $this->setExpectedException('Symfony\Component\Process\Exception\LogicException', sprintf('Process must be started before calling %s.', $method));
-        }
-
+        $this->setExpectedException('Symfony\Component\Process\Exception\LogicException', sprintf('Process must be started before calling %s.', $method));
         $process->{$method}();
     }
 
@@ -951,7 +925,7 @@ class ProcessTest extends TestCase
 
     /**
      * @dataProvider provideMethodsThatNeedATerminatedProcess
-     * @expectedException \Symfony\Component\Process\Exception\LogicException
+     * @expectedException Symfony\Component\Process\Exception\LogicException
      * @expectedExceptionMessage Process must be terminated before calling
      */
     public function testMethodsThatNeedATerminatedProcess($method)
@@ -1088,14 +1062,7 @@ class ProcessTest extends TestCase
     {
         $p = $this->getProcess('foo');
         $p->disableOutput();
-
-        if (method_exists($this, 'expectException')) {
-            $this->expectException($exception);
-            $this->expectExceptionMessage($exceptionMessage);
-        } else {
-            $this->setExpectedException($exception, $exceptionMessage);
-        }
-
+        $this->setExpectedException($exception, $exceptionMessage);
         if ('mustRun' === $startMethod) {
             $this->skipIfNotEnhancedSigchild();
         }
@@ -1264,22 +1231,9 @@ class ProcessTest extends TestCase
             if (!$expectException) {
                 $this->markTestSkipped('PHP is compiled with --enable-sigchild.');
             } elseif (self::$notEnhancedSigchild) {
-                if (method_exists($this, 'expectException')) {
-                    $this->expectException('Symfony\Component\Process\Exception\RuntimeException');
-                    $this->expectExceptionMessage('This PHP has been compiled with --enable-sigchild.');
-                } else {
-                    $this->setExpectedException('Symfony\Component\Process\Exception\RuntimeException', 'This PHP has been compiled with --enable-sigchild.');
-                }
+                $this->setExpectedException('Symfony\Component\Process\Exception\RuntimeException', 'This PHP has been compiled with --enable-sigchild.');
             }
         }
-    }
-}
-
-class Stringifiable
-{
-    public function __toString()
-    {
-        return 'stringifiable';
     }
 }
 

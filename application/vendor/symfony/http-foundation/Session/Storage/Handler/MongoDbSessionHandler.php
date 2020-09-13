@@ -12,10 +12,15 @@
 namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
+ * MongoDB session handler.
+ *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
 class MongoDbSessionHandler implements \SessionHandlerInterface
 {
+    /**
+     * @var \Mongo|\MongoClient|\MongoDB\Client
+     */
     private $mongo;
 
     /**
@@ -117,7 +122,7 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
      */
     public function gc($maxlifetime)
     {
-        $methodName = $this->mongo instanceof \MongoDB\Client ? 'deleteMany' : 'remove';
+        $methodName = $this->mongo instanceof \MongoDB\Client ? 'deleteOne' : 'remove';
 
         $this->getCollection()->$methodName(array(
             $this->options['expiry_field'] => array('$lt' => $this->createDateTime()),
@@ -209,8 +214,6 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
      * Return an instance of a MongoDate or \MongoDB\BSON\UTCDateTime
      *
      * @param int $seconds An integer representing UTC seconds since Jan 1 1970.  Defaults to now.
-     *
-     * @return \MongoDate|\MongoDB\BSON\UTCDateTime
      */
     private function createDateTime($seconds = null)
     {

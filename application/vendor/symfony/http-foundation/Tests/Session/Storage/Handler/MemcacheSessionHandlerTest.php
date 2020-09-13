@@ -11,18 +11,16 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler;
 
 /**
  * @requires extension memcache
  * @group time-sensitive
  */
-class MemcacheSessionHandlerTest extends TestCase
+class MemcacheSessionHandlerTest extends \PHPUnit_Framework_TestCase
 {
     const PREFIX = 'prefix_';
     const TTL = 1000;
-
     /**
      * @var MemcacheSessionHandler
      */
@@ -37,7 +35,7 @@ class MemcacheSessionHandlerTest extends TestCase
         }
 
         parent::setUp();
-        $this->memcache = $this->getMockBuilder('Memcache')->getMock();
+        $this->memcache = $this->getMock('Memcache');
         $this->storage = new MemcacheSessionHandler(
             $this->memcache,
             array('prefix' => self::PREFIX, 'expiretime' => self::TTL)
@@ -58,6 +56,12 @@ class MemcacheSessionHandlerTest extends TestCase
 
     public function testCloseSession()
     {
+        $this->memcache
+            ->expects($this->once())
+            ->method('close')
+            ->will($this->returnValue(true))
+        ;
+
         $this->assertTrue($this->storage->close());
     }
 

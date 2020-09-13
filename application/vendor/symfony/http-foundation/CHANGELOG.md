@@ -1,11 +1,16 @@
 CHANGELOG
 =========
 
-2.7.49
-------
+3.0.0
+-----
 
- * [BC BREAK] Support for the IIS-only `X_ORIGINAL_URL` and `X_REWRITE_URL`
-   HTTP headers has been dropped for security reasons.
+ * The precedence of parameters returned from `Request::get()` changed from "GET, PATH, BODY" to "PATH, GET, BODY"
+
+2.8.0
+-----
+
+ * Finding deep items in `ParameterBag::get()` is deprecated since version 2.8 and
+   will be removed in 3.0.
 
 2.6.0
 -----

@@ -15,15 +15,15 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RequestContext;
 
-class RedirectableUrlMatcherTest extends UrlMatcherTest
+class RedirectableUrlMatcherTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMissingTrailingSlash()
+    public function testRedirectWhenNoSlash()
     {
         $coll = new RouteCollection();
         $coll->add('foo', new Route('/foo/'));
 
-        $matcher = $this->getUrlMatcher($coll);
-        $matcher->expects($this->once())->method('redirect')->will($this->returnValue(array()));
+        $matcher = $this->getMockForAbstractClass('Symfony\Component\Routing\Matcher\RedirectableUrlMatcher', array($coll, new RequestContext()));
+        $matcher->expects($this->once())->method('redirect');
         $matcher->match('/foo');
     }
 
@@ -37,7 +37,7 @@ class RedirectableUrlMatcherTest extends UrlMatcherTest
 
         $context = new RequestContext();
         $context->setMethod('POST');
-        $matcher = $this->getUrlMatcher($coll, $context);
+        $matcher = $this->getMockForAbstractClass('Symfony\Component\Routing\Matcher\RedirectableUrlMatcher', array($coll, $context));
         $matcher->match('/foo');
     }
 
@@ -46,7 +46,7 @@ class RedirectableUrlMatcherTest extends UrlMatcherTest
         $coll = new RouteCollection();
         $coll->add('foo', new Route('/foo', array(), array(), array(), '', array('FTP', 'HTTPS')));
 
-        $matcher = $this->getUrlMatcher($coll);
+        $matcher = $this->getMockForAbstractClass('Symfony\Component\Routing\Matcher\RedirectableUrlMatcher', array($coll, new RequestContext()));
         $matcher
             ->expects($this->once())
             ->method('redirect')
@@ -56,39 +56,16 @@ class RedirectableUrlMatcherTest extends UrlMatcherTest
         $matcher->match('/foo');
     }
 
-    public function testNoSchemaRedirectIfOneOfMultipleSchemesMatches()
+    public function testNoSchemaRedirectIfOnOfMultipleSchemesMatches()
     {
         $coll = new RouteCollection();
         $coll->add('foo', new Route('/foo', array(), array(), array(), '', array('https', 'http')));
 
-        $matcher = $this->getUrlMatcher($coll);
+        $matcher = $this->getMockForAbstractClass('Symfony\Component\Routing\Matcher\RedirectableUrlMatcher', array($coll, new RequestContext()));
         $matcher
             ->expects($this->never())
-            ->method('redirect');
+            ->method('redirect')
+        ;
         $matcher->match('/foo');
-    }
-
-    public function testRedirectPreservesUrlEncoding()
-    {
-        $coll = new RouteCollection();
-        $coll->add('foo', new Route('/foo:bar/'));
-
-        $matcher = $this->getUrlMatcher($coll);
-        $matcher->expects($this->once())->method('redirect')->with('/foo%3Abar/')->willReturn(array());
-        $matcher->match('/foo%3Abar');
-    }
-
-    public function testSchemeRequirement()
-    {
-        $coll = new RouteCollection();
-        $coll->add('foo', new Route('/foo', array(), array(), array(), '', array('https')));
-        $matcher = $this->getUrlMatcher($coll, new RequestContext());
-        $matcher->expects($this->once())->method('redirect')->with('/foo', 'foo', 'https')->willReturn(array('_route' => 'foo'));
-        $this->assertSame(array('_route' => 'foo'), $matcher->match('/foo'));
-    }
-
-    protected function getUrlMatcher(RouteCollection $routes, RequestContext $context = null)
-    {
-        return $this->getMockForAbstractClass('Symfony\Component\Routing\Matcher\RedirectableUrlMatcher', array($routes, $context ?: new RequestContext()));
     }
 }

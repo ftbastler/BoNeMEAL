@@ -11,12 +11,10 @@
 
 namespace Symfony\Component\Routing\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 
-class RouterTest extends TestCase
+class RouterTest extends \PHPUnit_Framework_TestCase
 {
     private $router = null;
 
@@ -24,7 +22,7 @@ class RouterTest extends TestCase
 
     protected function setUp()
     {
-        $this->loader = $this->getMockBuilder('Symfony\Component\Config\Loader\LoaderInterface')->getMock();
+        $this->loader = $this->getMock('Symfony\Component\Config\Loader\LoaderInterface');
         $this->router = new Router($this->loader, 'routing.yml');
     }
 
@@ -84,7 +82,7 @@ class RouterTest extends TestCase
     {
         $this->router->setOption('resource_type', 'ResourceType');
 
-        $routeCollection = new RouteCollection();
+        $routeCollection = $this->getMock('Symfony\Component\Routing\RouteCollection');
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', 'ResourceType')
@@ -102,7 +100,7 @@ class RouterTest extends TestCase
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', null)
-            ->will($this->returnValue(new RouteCollection()));
+            ->will($this->returnValue($this->getMock('Symfony\Component\Routing\RouteCollection')));
 
         $this->assertInstanceOf('Symfony\\Component\\Routing\\Matcher\\UrlMatcher', $this->router->getMatcher());
     }
@@ -124,7 +122,7 @@ class RouterTest extends TestCase
 
         $this->loader->expects($this->once())
             ->method('load')->with('routing.yml', null)
-            ->will($this->returnValue(new RouteCollection()));
+            ->will($this->returnValue($this->getMock('Symfony\Component\Routing\RouteCollection')));
 
         $this->assertInstanceOf('Symfony\\Component\\Routing\\Generator\\UrlGenerator', $this->router->getGenerator());
     }
@@ -139,7 +137,7 @@ class RouterTest extends TestCase
 
     public function testMatchRequestWithUrlMatcherInterface()
     {
-        $matcher = $this->getMockBuilder('Symfony\Component\Routing\Matcher\UrlMatcherInterface')->getMock();
+        $matcher = $this->getMock('Symfony\Component\Routing\Matcher\UrlMatcherInterface');
         $matcher->expects($this->once())->method('match');
 
         $p = new \ReflectionProperty($this->router, 'matcher');
@@ -151,7 +149,7 @@ class RouterTest extends TestCase
 
     public function testMatchRequestWithRequestMatcherInterface()
     {
-        $matcher = $this->getMockBuilder('Symfony\Component\Routing\Matcher\RequestMatcherInterface')->getMock();
+        $matcher = $this->getMock('Symfony\Component\Routing\Matcher\RequestMatcherInterface');
         $matcher->expects($this->once())->method('matchRequest');
 
         $p = new \ReflectionProperty($this->router, 'matcher');

@@ -11,61 +11,90 @@
 
 namespace Symfony\Component\HttpKernel\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\DependencyInjection\FragmentRendererPass;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 
-class FragmentRendererPassTest extends TestCase
+class FragmentRendererPassTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @group legacy
-     */
-    public function testLegacyFragmentRedererWithoutAlias()
-    {
-        $builder = new ContainerBuilder();
-        $fragmentHandlerDefinition = $builder->register('fragment.handler');
-        $builder->register('my_content_renderer', 'Symfony\Component\HttpKernel\Tests\DependencyInjection\RendererService')
-            ->addTag('kernel.fragment_renderer');
-
-        $pass = new FragmentRendererPass();
-        $pass->process($builder);
-
-        $this->assertEquals(array(array('addRenderer', array(new Reference('my_content_renderer')))), $fragmentHandlerDefinition->getMethodCalls());
-    }
-
-    /**
      * Tests that content rendering not implementing FragmentRendererInterface
-     * triggers an exception.
+     * trigger an exception.
      *
      * @expectedException \InvalidArgumentException
      */
     public function testContentRendererWithoutInterface()
     {
-        $builder = new ContainerBuilder();
-        $fragmentHandlerDefinition = $builder->register('fragment.handler');
-        $builder->register('my_content_renderer', 'Symfony\Component\DependencyInjection\Definition')
-            ->addTag('kernel.fragment_renderer', array('alias' => 'foo'));
+        // one service, not implementing any interface
+        $services = array(
+            'my_content_renderer' => array(array('alias' => 'foo')),
+        );
+
+        $definition = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+
+        $builder = $this->getMock(
+            'Symfony\Component\DependencyInjection\ContainerBuilder',
+            array('hasDefinition', 'findTaggedServiceIds', 'getDefinition')
+        );
+        $builder->expects($this->any())
+            ->method('hasDefinition')
+            ->will($this->returnValue(true));
+
+        // We don't test kernel.fragment_renderer here
+        $builder->expects($this->atLeastOnce())
+            ->method('findTaggedServiceIds')
+            ->will($this->returnValue($services));
+
+        $builder->expects($this->atLeastOnce())
+            ->method('getDefinition')
+            ->will($this->returnValue($definition));
 
         $pass = new FragmentRendererPass();
         $pass->process($builder);
-
-        $this->assertEquals(array(array('addRendererService', array('foo', 'my_content_renderer'))), $fragmentHandlerDefinition->getMethodCalls());
     }
 
     public function testValidContentRenderer()
     {
-        $builder = new ContainerBuilder();
-        $fragmentHandlerDefinition = $builder->register('fragment.handler');
-        $builder->register('my_content_renderer', 'Symfony\Component\HttpKernel\Tests\DependencyInjection\RendererService')
-            ->addTag('kernel.fragment_renderer', array('alias' => 'foo'));
+        $services = array(
+            'my_content_renderer' => array(array('alias' => 'foo')),
+        );
+
+        $renderer = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $renderer
+            ->expects($this->once())
+            ->method('addMethodCall')
+            ->with('addRendererService', array('foo', 'my_content_renderer'))
+        ;
+
+        $definition = $this->getMock('Symfony\Component\DependencyInjection\Definition');
+        $definition->expects($this->atLeastOnce())
+            ->method('getClass')
+            ->will($this->returnValue('Symfony\Component\HttpKernel\Tests\DependencyInjection\RendererService'));
+        $definition
+            ->expects($this->once())
+            ->method('isPublic')
+            ->will($this->returnValue(true))
+        ;
+
+        $builder = $this->getMock(
+            'Symfony\Component\DependencyInjection\ContainerBuilder',
+            array('hasDefinition', 'findTaggedServiceIds', 'getDefinition')
+        );
+        $builder->expects($this->any())
+            ->method('hasDefinition')
+            ->will($this->returnValue(true));
+
+        // We don't test kernel.fragment_renderer here
+        $builder->expects($this->atLeastOnce())
+            ->method('findTaggedServiceIds')
+            ->will($this->returnValue($services));
+
+        $builder->expects($this->atLeastOnce())
+            ->method('getDefinition')
+            ->will($this->onConsecutiveCalls($renderer, $definition));
 
         $pass = new FragmentRendererPass();
         $pass->process($builder);
-
-        $this->assertEquals(array(array('addRendererService', array('foo', 'my_content_renderer'))), $fragmentHandlerDefinition->getMethodCalls());
     }
 }
 
