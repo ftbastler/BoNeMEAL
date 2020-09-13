@@ -18,7 +18,7 @@ use Raven_Client;
 
 /**
  * Handler to send messages to a Sentry (https://github.com/getsentry/sentry) server
- * using raven-php (https://github.com/getsentry/raven-php)
+ * using sentry-php (https://github.com/getsentry/sentry-php)
  *
  * @author Marc Abramowitz <marc@marc-abramowitz.com>
  */
@@ -27,7 +27,7 @@ class RavenHandler extends AbstractProcessingHandler
     /**
      * Translates Monolog log levels to Raven log levels.
      */
-    private $logLevels = array(
+    protected $logLevels = array(
         Logger::DEBUG     => Raven_Client::DEBUG,
         Logger::INFO      => Raven_Client::INFO,
         Logger::NOTICE    => Raven_Client::INFO,
@@ -37,6 +37,12 @@ class RavenHandler extends AbstractProcessingHandler
         Logger::ALERT     => Raven_Client::FATAL,
         Logger::EMERGENCY => Raven_Client::FATAL,
     );
+
+    /**
+     * @var string should represent the current version of the calling
+     *             software. Can be any string (git commit, version number)
+     */
+    protected $release;
 
     /**
      * @var Raven_Client the client object that sends the message to the server
@@ -50,11 +56,13 @@ class RavenHandler extends AbstractProcessingHandler
 
     /**
      * @param Raven_Client $ravenClient
-     * @param integer      $level       The minimum logging level at which this handler will be triggered
-     * @param Boolean      $bubble      Whether the messages that are handled can bubble up the stack or not
+     * @param int          $level       The minimum logging level at which this handler will be triggered
+     * @param bool         $bubble      Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct(Raven_Client $ravenClient, $level = Logger::DEBUG, $bubble = true)
     {
+        @trigger_error('The Monolog\Handler\RavenHandler class is deprecated. You should rather upgrade to the sentry/sentry 2.x and use Sentry\Monolog\Handler, see https://github.com/getsentry/sentry-php/blob/master/src/Monolog/Handler.php', E_USER_DEPRECATED);
+
         parent::__construct($level, $bubble);
 
         $this->ravenClient = $ravenClient;
@@ -78,7 +86,7 @@ class RavenHandler extends AbstractProcessingHandler
 
         // the record with the highest severity is the "main" one
         $record = array_reduce($records, function ($highest, $record) {
-            if ($record['level'] >= $highest['level']) {
+            if ($record['level'] > $highest['level']) {
                 return $record;
             }
 
@@ -139,6 +147,10 @@ class RavenHandler extends AbstractProcessingHandler
             $options['tags'] = array_merge($options['tags'], $record['context']['tags']);
             unset($record['context']['tags']);
         }
+        if (!empty($record['context']['fingerprint'])) {
+            $options['fingerprint'] = $record['context']['fingerprint'];
+            unset($record['context']['fingerprint']);
+        }
         if (!empty($record['context']['logger'])) {
             $options['logger'] = $record['context']['logger'];
             unset($record['context']['logger']);
@@ -165,8 +177,12 @@ class RavenHandler extends AbstractProcessingHandler
             $options['extra']['extra'] = $record['extra'];
         }
 
-        if (isset($record['context']['exception']) && $record['context']['exception'] instanceof \Exception) {
-            $options['extra']['message'] = $record['formatted'];
+        if (!empty($this->release) && !isset($options['release'])) {
+            $options['release'] = $this->release;
+        }
+
+        if (isset($record['context']['exception']) && ($record['context']['exception'] instanceof \Exception || (PHP_VERSION_ID >= 70000 && $record['context']['exception'] instanceof \Throwable))) {
+            $options['message'] = $record['formatted'];
             $this->ravenClient->captureException($record['context']['exception'], $options);
         } else {
             $this->ravenClient->captureMessage($record['formatted'], array(), $options);
@@ -202,6 +218,17 @@ class RavenHandler extends AbstractProcessingHandler
      */
     protected function getExtraParameters()
     {
-        return array('checksum', 'release');
+        return array('contexts', 'checksum', 'release', 'event_id');
+    }
+
+    /**
+     * @param string $value
+     * @return self
+     */
+    public function setRelease($value)
+    {
+        $this->release = $value;
+
+        return $this;
     }
 }

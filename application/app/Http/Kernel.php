@@ -33,6 +33,7 @@ class Kernel extends HttpKernel {
 		'install' => 'App\Http\Middleware\VerifyNotInstalled',
 		'installed' => 'App\Http\Middleware\VerifyInstalled',
 		'servers' => 'App\Http\Middleware\VerifyServers',
+        'ssl' => 'App\Http\Middleware\VerifyServersUpgraded',
 	];
 
 }

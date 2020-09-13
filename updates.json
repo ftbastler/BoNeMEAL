@@ -1,0 +1,4 @@
+{
+  "title": "BoNeMEAL v1.4.2",
+  "body": "<strong>Support IPv6</strong><br>Ban Manager 7 supports players connecting via IPv6. If your database contains players with these addresses they will display properly."
+}

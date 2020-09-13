@@ -18,6 +18,8 @@ use Monolog\Formatter\NormalizerFormatter;
  * Class to record a log on a NewRelic application.
  * Enabling New Relic High Security mode may prevent capture of useful information.
  *
+ * This handler requires a NormalizerFormatter to function and expects an array in $record['formatted']
+ *
  * @see https://docs.newrelic.com/docs/agents/php-agent
  * @see https://docs.newrelic.com/docs/accounts-partnerships/accounts/security/high-security
  */
@@ -41,16 +43,16 @@ class NewRelicHandler extends AbstractProcessingHandler
      * Some context and extra data is passed into the handler as arrays of values. Do we send them as is
      * (useful if we are using the API), or explode them for display on the NewRelic RPM website?
      *
-     * @var boolean
+     * @var bool
      */
     protected $explodeArrays;
 
     /**
      * {@inheritDoc}
      *
-     * @param string  $appName
-     * @param boolean $explodeArrays
-     * @param string  $transactionName
+     * @param string $appName
+     * @param bool   $explodeArrays
+     * @param string $transactionName
      */
     public function __construct(
         $level = Logger::ERROR,
@@ -84,30 +86,34 @@ class NewRelicHandler extends AbstractProcessingHandler
             unset($record['formatted']['context']['transaction_name']);
         }
 
-        if (isset($record['context']['exception']) && $record['context']['exception'] instanceof \Exception) {
+        if (isset($record['context']['exception']) && ($record['context']['exception'] instanceof \Exception || (PHP_VERSION_ID >= 70000 && $record['context']['exception'] instanceof \Throwable))) {
             newrelic_notice_error($record['message'], $record['context']['exception']);
             unset($record['formatted']['context']['exception']);
         } else {
             newrelic_notice_error($record['message']);
         }
 
-        foreach ($record['formatted']['context'] as $key => $parameter) {
-            if (is_array($parameter) && $this->explodeArrays) {
-                foreach ($parameter as $paramKey => $paramValue) {
-                    $this->setNewRelicParameter('context_' . $key . '_' . $paramKey, $paramValue);
+        if (isset($record['formatted']['context']) && is_array($record['formatted']['context'])) {
+            foreach ($record['formatted']['context'] as $key => $parameter) {
+                if (is_array($parameter) && $this->explodeArrays) {
+                    foreach ($parameter as $paramKey => $paramValue) {
+                        $this->setNewRelicParameter('context_' . $key . '_' . $paramKey, $paramValue);
+                    }
+                } else {
+                    $this->setNewRelicParameter('context_' . $key, $parameter);
                 }
-            } else {
-                $this->setNewRelicParameter('context_' . $key, $parameter);
             }
         }
 
-        foreach ($record['formatted']['extra'] as $key => $parameter) {
-            if (is_array($parameter) && $this->explodeArrays) {
-                foreach ($parameter as $paramKey => $paramValue) {
-                    $this->setNewRelicParameter('extra_' . $key . '_' . $paramKey, $paramValue);
+        if (isset($record['formatted']['extra']) && is_array($record['formatted']['extra'])) {
+            foreach ($record['formatted']['extra'] as $key => $parameter) {
+                if (is_array($parameter) && $this->explodeArrays) {
+                    foreach ($parameter as $paramKey => $paramValue) {
+                        $this->setNewRelicParameter('extra_' . $key . '_' . $paramKey, $paramValue);
+                    }
+                } else {
+                    $this->setNewRelicParameter('extra_' . $key, $parameter);
                 }
-            } else {
-                $this->setNewRelicParameter('extra_' . $key, $parameter);
             }
         }
     }

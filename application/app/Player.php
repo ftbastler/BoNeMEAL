@@ -49,10 +49,19 @@ class Player extends Model {
 		return $this->hasManyRelation('App\PlayerMuteRecord');
 	}
 
+	public function getIpAttribute() {
+	    // Unpack varbinary
+	    $ip = unpack('C*', $this->attributes['ip']);
+	    // Format IPv4 and IPv6 correctly
+	    $glue = count($ip) == 4 ? "." : ":";
+	    return implode($glue, $ip);
+    }
+
 	public function getUuidAttribute()
 	{	
 		$this->attributes['uuid'] = id_to_uuid($this->attributes['id']);
-		return $this->attributes['uuid'];
+		// Fixes #109 when uuid not set
+		return $this->attributes['uuid'] ?: 'unset';
 	}
 
 	public function setUuidAttribute($value)

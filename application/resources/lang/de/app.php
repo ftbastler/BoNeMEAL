@@ -160,8 +160,8 @@ return [
 	"unmuted"					=> "Entmuted",
 	"unmutedBy"					=> "Entmuted :time von :actor.",
 	"updateCheck"				=> "Nach Updates suchen",
-	"updatedServer"				=> "Server erfolgreich geupdated.",
-	"updatedUser"				=> "Benutzer erfolgreich geändert",
+	"updatedServer"				=> "Server erfolgreich geändert.",
+	"updatedUser"				=> "Benutzer erfolgreich geändert.",
 	"username"					=> "Benutzername",
 	"userName"					=> "Benutzername",
 	"userRole"					=> "Rolle des Benutzers",
@@ -173,7 +173,11 @@ return [
 	"warningUnread"				=> "Warnung ungelesen",
 	"warnPlayer"				=> "Spieler verwarnen",
 	"whoops"					=> "Hoppla!",
-
+    "serverSSL"                 => "Server SSL Einstellungen",
+    "helpSSL"                   => "Wenn für Ihren Datenbankserver SSL erforderlich ist, um eine Verbindung herzustellen, können Sie hier die erforderlichen öffentlichen Schlüssel und Zertifikate hochladen.",
+    "helpCA"                    => "(Wahlweise) Eine Datei im PEM-Format, die eine Liste vertrauenswürdiger SSL-Zertifizierungsstellen enthält.",
+    "helpKey"                   => "(Erforderlich) Die SSL-Schlüsseldatei im PEM-Format, die zum Herstellen einer verschlüsselten Verbindung verwendet werden soll.",
+    "helpCert"                  => "(Erforderlich) Die SSL-Zertifikatsdatei im PEM-Format, die zum Herstellen einer verschlüsselten Verbindung verwendet werden soll.",
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
 	"copyright"					=> "BoNeMEAL",

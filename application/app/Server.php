@@ -8,6 +8,7 @@ class Server extends Model {
 
 	protected $table = 'servers';
 
-	protected $hidden = ['db_host', 'db_username', 'db_password'];
+    protected $visible = ['name', 'db_database', 'db_prefix', 'created_at', 'updated_at'];
 
+    protected $guarded = [];
 }

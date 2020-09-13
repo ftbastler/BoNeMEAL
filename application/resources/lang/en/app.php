@@ -204,6 +204,7 @@ return [
 	"updatedMute"				=> "Updated mute successfully.",
 	"updatedNote"				=> "Updated note successfully.",
 	"updatedServer"				=> "Server successfully updated.",
+	"updatedUser"				=> "Updated User successfully.",
 	"updatedWarning"			=> "Updated warning successfully.",
 	"user"						=> "User",
 	"username"					=> "Username",
@@ -216,6 +217,12 @@ return [
 	"warningUnread"				=> "Player has NOT seen this Warning",
 	"warnPlayer"				=> "Warn player",
 	"whoops"					=> "Whoops!",
+    "serverSSL"                 => "Server SSL Settings",
+    "helpSSL"                   => "If your database server requires SSL to connect, you can upload the public keys and certificates required here.",
+    "helpCA"                    => "A file in PEM format that contains a list of trusted SSL Certificate Authorities. (Optional)",
+    "helpKey"                   => "The SSL key file in PEM format to use for establishing an encrypted connection. (Required if SSL Enabled)",
+    "helpCert"                  => "The SSL certificate file in PEM format to use for establishing an encrypted connection. (Required if SSL Enabled)",
+
 
 
 	// A lot of time has been put into this app - and still it's completely free. Please give us some credit and leave this copyright notice in return. Thanks.
