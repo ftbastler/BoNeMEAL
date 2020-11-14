@@ -1,0 +1,71 @@
+version: '3'
+
+networks:
+  laravel:
+
+services:
+  site:
+    build:
+      context: .
+      dockerfile: ./docker/nginx.dockerfile
+    container_name: nginx
+    ports:
+      - "8080:80"
+      # Port for xdebug (ensure this matches the remote_port in the xdebug.ini)
+      - "9001:9001"
+    volumes:
+      - ./:/var/www/html:delegated
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php.dockerfile
+    container_name: php
+    volumes:
+      - ./:/var/www/html:delegated
+      # Enable xdebug
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    ports:
+      - "9000:9000"
+    networks:
+      - laravel
+
+  composer:
+    build:
+      context: .
+      dockerfile: ./docker/composer.dockerfile
+    container_name: composer
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: laravel
+    networks:
+      - laravel
+    entrypoint: ['composer', '--ignore-platform-reqs']
+
+  npm:
+    image: node:13.7
+    container_name: npm
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+
+  artisan:
+    build:
+      context: .
+      dockerfile: ./docker/php.dockerfile
+    container_name: artisan
+    volumes:
+      - ./:/var/www/html:delegated
+    working_dir: /var/www/html
+    user: laravel
+    entrypoint: ['php', '/var/www/html/artisan']
+    networks:
+      - laravel
