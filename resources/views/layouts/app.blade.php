@@ -14,7 +14,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @yield('styles')
 </head>
-<body>
+<body id="layout">
     <div id="app">
         @include('partials.navigation')
 

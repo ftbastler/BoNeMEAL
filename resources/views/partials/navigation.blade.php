@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-primary shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{asset('img/bone.png')}}" alt="BoNeMEAL" style="width: 25px; display:inline; margin-right: 5px;">
+            <img src="{{asset('img/bone.png')}}" alt="{{ config('app.name', 'BoNeMEAL') }}" style="width: 25px; display:inline; margin-right: 5px;">
             {{ config('app.name', 'BoNeMEAL') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

@@ -39,7 +39,6 @@
         Punishments
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePunishments" aria-expanded="true" aria-controls="collapsePunishments">
             <i class="fas fa-fw fa-cog"></i>
@@ -54,7 +53,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePunish" aria-expanded="true" aria-controls="collapsePunish">
             <i class="fas fa-fw fa-hammer"></i>
@@ -70,14 +68,12 @@
         </div>
     </li>
 
-    <!-- Divider -->
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
         Settings
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConfig" aria-expanded="true" aria-controls="collapseConfig">
             <i class="fas fa-fw fa-cog"></i>
@@ -93,19 +89,19 @@
         </div>
     </li>
 
-    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
 
-    <!-- Sidebar Message -->
-    <div class="sidebar-card">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+    {{--    Update Available!--}}
+    <div class="d-none d-sm-block">
+        <div class="sidebar-card">
+            <img class="sidebar-card-illustration mb-2" src="{{ asset('img/rocket.png') }}" alt="">
+            <p class="text-center mb-2"><strong>Upgrade Available</strong> Lorem ipsum dolor set amet </p>
+            <a class="btn btn-success btn-sm" href="https://github.com/ftbastler/BoNeMEAL">Upgrade Now!</a>
+        </div>
     </div>
 
 </ul>
