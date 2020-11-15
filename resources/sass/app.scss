@@ -1,1 +1,17 @@
-//
+@import '~startbootstrap-sb-admin-2/scss/sb-admin-2';
+@import '~bootstrap4-dialog/dist/css/bootstrap-dialog.css';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+body {
+    margin-top: 3.5rem;
+}
+
+.pattern-bg {
+    background-image: url('../img/random_grey_variations.png');
+    /* 1.25 dpr */
+    @media
+    (-webkit-min-device-pixel-ratio: 1.25),
+    (min-resolution: 120dpi){
+        background-image: url('../img/random_grey_variations_@2X.png');
+    }
+}
