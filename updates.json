@@ -1,4 +1,4 @@
 {
-  "title": "BoNeMEAL v1.4.2",
-  "body": "<strong>Support IPv6</strong><br>Ban Manager 7 supports players connecting via IPv6. If your database contains players with these addresses they will display properly."
+  "title": "BoNeMEAL v1.5",
+  "body": "<strong>Support for PHP 7.3+</strong> Updated base software version to allow support for PHP versions 7.3+"
 }
