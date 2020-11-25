@@ -33,9 +33,7 @@ class PlayerBanController extends Controller {
 	 */
 	public function create($player = null)
 	{
-		if($player == null)
-			unset($player);
-		else
+		if(!$player == null)
 			$player = $player[0];
 
 		foreach(\App\Server::get() as $server) {
@@ -63,7 +61,7 @@ class PlayerBanController extends Controller {
 			'player' => 'required',
 			'expires' => 'future'
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {
@@ -141,7 +139,7 @@ class PlayerBanController extends Controller {
 			'player' => 'required',
 			'expires' => 'future'
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {

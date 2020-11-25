@@ -12,8 +12,10 @@ class RecordBaseModel extends Model {
 
 	public $timestamps = false;
 
+	public $incrementing = false;
+
 	public function getPlayerUuidAttribute()
-	{	
+	{
 		$this->attributes['player_uuid'] = id_to_uuid($this->attributes['player_id']);
 		return $this->attributes['player_uuid'];
 	}
@@ -25,7 +27,7 @@ class RecordBaseModel extends Model {
 	}
 
 	public function getActorUuidAttribute()
-	{	
+	{
 		$this->attributes['actor_uuid'] = id_to_uuid($this->attributes['actor_id']);
 		return $this->attributes['actor_uuid'];
 	}
@@ -78,10 +80,10 @@ class RecordBaseModel extends Model {
 	}
 
 	public function getDurationAttribute()
-	{	
+	{
 		if($this->expires->timestamp == 0)
 			return null;
-		
+
 		return $this->expires->diffForHumans($this->created, true);
 	}
 

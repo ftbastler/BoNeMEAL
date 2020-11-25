@@ -33,9 +33,7 @@ class PlayerWarningController extends Controller {
 	 */
 	public function create($player = null)
 	{
-		if($player == null)
-			unset($player);
-		else
+		if(!$player == null)
 			$player = $player[0];
 
 		foreach(\App\Server::get() as $server) {
@@ -57,7 +55,7 @@ class PlayerWarningController extends Controller {
 			'reason' => 'required',
 			'player' => 'required',
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {
@@ -120,7 +118,7 @@ class PlayerWarningController extends Controller {
 			'reason' => 'required',
 			'player' => 'required',
 			);
-		
+
 		$validator = \Validator::make(\Input::all(), $rules);
 
 		if ($validator->fails()) {

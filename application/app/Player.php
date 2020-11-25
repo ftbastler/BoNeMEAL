@@ -14,6 +14,8 @@ class Player extends Model {
 
 	public $timestamps = false;
 
+	public $incrementing = false;
+
 	public function bans()
 	{
 		return $this->hasManyRelation('App\PlayerBan');
