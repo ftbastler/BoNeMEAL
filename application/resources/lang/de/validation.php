@@ -72,6 +72,7 @@ return [
 	],
 	"unique"               => ":attribute wird bereits verwendet.",
 	"url"                  => ":attribute ist ungültig.",
+    "custom_url"           => ":attribute ist ungültig.",
 	"timezone"             => ":attribute muss eine gültige Zeitzone sein.",
 	"role"                 => ":attribute muss eine gültige Benutzer-Rolle sein.",
 	"future"               => ":attribute muss eine gültige Zeit bzw. Datum sein.",
