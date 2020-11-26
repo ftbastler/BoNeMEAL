@@ -72,6 +72,7 @@ return [
 	],
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
+    "custom_url"           => "The :attribute format is invalid.",
 	"timezone"             => "The :attribute must be a valid zone.",
 	"role"                 => "The :attribute has to be a valid user role.",
 	"future"               => "The :attribute has to be a valid expire datetime.",
