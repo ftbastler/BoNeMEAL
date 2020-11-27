@@ -7,10 +7,13 @@ class PlayerWarning extends RecordBaseModel {
 
 	protected $table = 'player_warnings';
 
-	public function scopeActive($query)
-	{
-		return $query->where('expires', '>=', Carbon::now()->timestamp)->orWhere('expires', '=', 0);
-	}
+    public function scopeActive($query)
+    {
+        return $query->where(function ($query) {
+            $query->where('expires', '>=', Carbon::now()->timestamp)
+                ->orWhere('expires', '=', 0);
+        });
+    }
 
 	public function scopeOutdated($query)
 	{

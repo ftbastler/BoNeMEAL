@@ -23,8 +23,8 @@ class StatsController extends Controller {
 
 			foreach($servers as $server) {
 				$players[$server->id] = \App\Player::on($server->id)->count();
-				$activeBans[$server->id] = \App\PlayerBan::on($server->id)->active()->count();
-				$activeMutes[$server->id] = \App\PlayerMute::on($server->id)->active()->count();
+				$activeBans[$server->id] = \App\PlayerBan::on($server->id)->whereRaw('1=1')->active()->count();
+				$activeMutes[$server->id] = \App\PlayerMute::on($server->id)->whereRaw('1=1')->active()->count();
 
 				$numBans += \App\PlayerBan::on($server->id)->count();
 				$numBans += \App\PlayerBanRecord::on($server->id)->count();

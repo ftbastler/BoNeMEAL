@@ -33,7 +33,7 @@ class VerifyServers {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if (\App\Server::get()->count() <= 0)
+		if (\App\Server::count() <= 0)
 		{
 			return redirect('/admin/servers/create')->with('message', trans('app.addServerFirst'));
 		}

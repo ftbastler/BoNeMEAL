@@ -11,47 +11,12 @@
 
 namespace Symfony\Component\Translation\Loader;
 
-use Symfony\Component\Translation\Exception\InvalidResourceException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
-use Symfony\Component\Config\Resource\FileResource;
-
 /**
  * @copyright Copyright (c) 2010, Union of RAD http://union-of-rad.org (http://lithify.me/)
  * @copyright Copyright (c) 2012, Clemens Tolboom
  */
-class PoFileLoader extends ArrayLoader
+class PoFileLoader extends FileLoader
 {
-    public function load($resource, $locale, $domain = 'messages')
-    {
-        if (!stream_is_local($resource)) {
-            throw new InvalidResourceException(sprintf('This is not a local file "%s".', $resource));
-        }
-
-        if (!file_exists($resource)) {
-            throw new NotFoundResourceException(sprintf('File "%s" not found.', $resource));
-        }
-
-        $messages = $this->parse($resource);
-
-        // empty file
-        if (null === $messages) {
-            $messages = array();
-        }
-
-        // not an array
-        if (!is_array($messages)) {
-            throw new InvalidResourceException(sprintf('The file "%s" must contain a valid po file.', $resource));
-        }
-
-        $catalogue = parent::load($messages, $locale, $domain);
-
-        if (class_exists('Symfony\Component\Config\Resource\FileResource')) {
-            $catalogue->addResource(new FileResource($resource));
-        }
-
-        return $catalogue;
-    }
-
     /**
      * Parses portable object (PO) format.
      *
@@ -93,11 +58,9 @@ class PoFileLoader extends ArrayLoader
      *
      * Items with an empty id are ignored.
      *
-     * @param resource $resource
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    private function parse($resource)
+    protected function loadResource($resource)
     {
         $stream = fopen($resource, 'r');
 
@@ -113,24 +76,24 @@ class PoFileLoader extends ArrayLoader
         while ($line = fgets($stream)) {
             $line = trim($line);
 
-            if ('' === $line) {
+            if ($line === '') {
                 // Whitespace indicated current item is done
                 if (!in_array('fuzzy', $flags)) {
                     $this->addMessage($messages, $item);
                 }
                 $item = $defaults;
                 $flags = array();
-            } elseif ('#,' === substr($line, 0, 2)) {
+            } elseif (substr($line, 0, 2) === '#,') {
                 $flags = array_map('trim', explode(',', substr($line, 2)));
-            } elseif ('msgid "' === substr($line, 0, 7)) {
+            } elseif (substr($line, 0, 7) === 'msgid "') {
                 // We start a new msg so save previous
                 // TODO: this fails when comments or contexts are added
                 $this->addMessage($messages, $item);
                 $item = $defaults;
                 $item['ids']['singular'] = substr($line, 7, -1);
-            } elseif ('msgstr "' === substr($line, 0, 8)) {
+            } elseif (substr($line, 0, 8) === 'msgstr "') {
                 $item['translated'] = substr($line, 8, -1);
-            } elseif ('"' === $line[0]) {
+            } elseif ($line[0] === '"') {
                 $continues = isset($item['translated']) ? 'translated' : 'ids';
 
                 if (is_array($item[$continues])) {
@@ -139,9 +102,9 @@ class PoFileLoader extends ArrayLoader
                 } else {
                     $item[$continues] .= substr($line, 1, -1);
                 }
-            } elseif ('msgid_plural "' === substr($line, 0, 14)) {
+            } elseif (substr($line, 0, 14) === 'msgid_plural "') {
                 $item['ids']['plural'] = substr($line, 14, -1);
-            } elseif ('msgstr[' === substr($line, 0, 7)) {
+            } elseif (substr($line, 0, 7) === 'msgstr[') {
                 $size = strpos($line, ']');
                 $item['translated'][(int) substr($line, 7, 1)] = substr($line, $size + 3, -1);
             }
@@ -160,6 +123,9 @@ class PoFileLoader extends ArrayLoader
      *
      * A .po file could contain by error missing plural indexes. We need to
      * fix these before saving them.
+     *
+     * @param array $messages
+     * @param array $item
      */
     private function addMessage(array &$messages, array $item)
     {

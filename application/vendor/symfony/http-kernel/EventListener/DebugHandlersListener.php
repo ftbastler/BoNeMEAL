@@ -36,7 +36,6 @@ class DebugHandlersListener implements EventSubscriberInterface
     private $scream;
     private $fileLinkFormat;
     private $firstCall = true;
-    private $hasTerminatedWithException;
 
     /**
      * @param callable|null        $exceptionHandler A handler that will be called on Exception
@@ -46,31 +45,31 @@ class DebugHandlersListener implements EventSubscriberInterface
      * @param bool                 $scream           Enables/disables screaming mode, where even silenced errors are logged
      * @param string               $fileLinkFormat   The format for links to source files
      */
-    public function __construct($exceptionHandler, LoggerInterface $logger = null, $levels = null, $throwAt = -1, $scream = true, $fileLinkFormat = null)
+    public function __construct(callable $exceptionHandler = null, LoggerInterface $logger = null, $levels = E_ALL, $throwAt = E_ALL, $scream = true, $fileLinkFormat = null)
     {
         $this->exceptionHandler = $exceptionHandler;
         $this->logger = $logger;
-        $this->levels = $levels;
-        $this->throwAt = is_numeric($throwAt) ? (int) $throwAt : (null === $throwAt ? null : ($throwAt ? -1 : null));
+        $this->levels = null === $levels ? E_ALL : $levels;
+        $this->throwAt = is_numeric($throwAt) ? (int) $throwAt : (null === $throwAt ? null : ($throwAt ? E_ALL : null));
         $this->scream = (bool) $scream;
         $this->fileLinkFormat = $fileLinkFormat ?: ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
     }
 
     /**
      * Configures the error handler.
+     *
+     * @param Event|null $event The triggering event
      */
     public function configure(Event $event = null)
     {
-        if (!$event instanceof KernelEvent ? !$this->firstCall : !$event->isMasterRequest()) {
+        if (!$this->firstCall) {
             return;
         }
-        $this->firstCall = $this->hasTerminatedWithException = false;
-
-        $handler = set_exception_handler('var_dump');
-        $handler = is_array($handler) ? $handler[0] : null;
-        restore_exception_handler();
-
+        $this->firstCall = false;
         if ($this->logger || null !== $this->throwAt) {
+            $handler = set_error_handler('var_dump');
+            $handler = is_array($handler) ? $handler[0] : null;
+            restore_error_handler();
             if ($handler instanceof ErrorHandler) {
                 if ($this->logger) {
                     $handler->setDefaultLogger($this->logger, $this->levels);
@@ -80,7 +79,7 @@ class DebugHandlersListener implements EventSubscriberInterface
                             $scream |= $type;
                         }
                     } else {
-                        $scream = null === $this->levels ? E_ALL | E_STRICT : $this->levels;
+                        $scream = $this->levels;
                     }
                     if ($this->scream) {
                         $handler->screamAt($scream);
@@ -94,16 +93,8 @@ class DebugHandlersListener implements EventSubscriberInterface
         }
         if (!$this->exceptionHandler) {
             if ($event instanceof KernelEvent) {
-                if (method_exists($kernel = $event->getKernel(), 'terminateWithException')) {
-                    $request = $event->getRequest();
-                    $hasRun = &$this->hasTerminatedWithException;
-                    $this->exceptionHandler = function (\Exception $e) use ($kernel, $request, &$hasRun) {
-                        if ($hasRun) {
-                            throw $e;
-                        }
-                        $hasRun = true;
-                        $kernel->terminateWithException($e, $request);
-                    };
+                if (method_exists($event->getKernel(), 'terminateWithException')) {
+                    $this->exceptionHandler = array($event->getKernel(), 'terminateWithException');
                 }
             } elseif ($event instanceof ConsoleEvent && $app = $event->getCommand()->getApplication()) {
                 $output = $event->getOutput();
@@ -116,14 +107,13 @@ class DebugHandlersListener implements EventSubscriberInterface
             }
         }
         if ($this->exceptionHandler) {
+            $handler = set_exception_handler('var_dump');
+            $handler = is_array($handler) ? $handler[0] : null;
+            restore_exception_handler();
             if ($handler instanceof ErrorHandler) {
-                $h = $handler->setExceptionHandler('var_dump');
-                if (is_array($h) && $h[0] instanceof ExceptionHandler) {
-                    $handler->setExceptionHandler($h);
-                    $handler = $h[0];
-                } else {
-                    $handler->setExceptionHandler($this->exceptionHandler);
-                }
+                $h = $handler->setExceptionHandler('var_dump') ?: $this->exceptionHandler;
+                $handler->setExceptionHandler($h);
+                $handler = is_array($h) ? $h[0] : null;
             }
             if ($handler instanceof ExceptionHandler) {
                 $handler->setHandler($this->exceptionHandler);

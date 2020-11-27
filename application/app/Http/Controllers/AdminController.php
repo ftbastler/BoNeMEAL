@@ -16,7 +16,7 @@ class AdminController extends Controller {
 		$data = \Cache::remember('dashboardData', 5, function() {
 
 			$servers = \App\Server::get();
-			$newAccounts = \App\User::needActivation()->count();
+			$newAccounts = \App\User::whereRaw('1=1')->needActivation()->count();
 			$activePlayers = [];
 
 			$outdatedServers = [];
@@ -32,8 +32,8 @@ class AdminController extends Controller {
 
 			foreach(\App\Server::get() as $server) {
 
-				$activeBans += \App\PlayerBan::on($server->id)->active()->count();
-				$activeMutes += \App\PlayerMute::on($server->id)->active()->count();
+				$activeBans += \App\PlayerBan::on($server->id)->whereRaw('1=1')->active()->count();
+				$activeMutes += \App\PlayerMute::on($server->id)->whereRaw('1=1')->active()->count();
 				array_push($activePlayers,
 					\App\Player::on($server->id)
 					->where('lastSeen', '>=', strtotime("-30 days"))
@@ -52,9 +52,9 @@ class AdminController extends Controller {
 				$numKicks += \App\PlayerKick::on($server->id)->count();
 				$numNotes += \App\PlayerNote::on($server->id)->count();
 
-				if(\App\PlayerBan::on($server->id)->outdated()->count() > 0)
+				if(\App\PlayerBan::on($server->id)->whereRaw('1=1')->outdated()->count() > 0)
 					array_push($outdatedServers, $server->name);
-				elseif(\App\PlayerMute::on($server->id)->outdated()->count() > 0)
+				elseif(\App\PlayerMute::on($server->id)->whereRaw('1=1')->outdated()->count() > 0)
 					array_push($outdatedServers, $server->name);
 
 			}
@@ -77,7 +77,7 @@ class AdminController extends Controller {
 		$data = \Cache::remember('activeBansData', 1, function() {
 			$activeItems = collect();
 			foreach(\App\Server::get() as $server) {
-				$activeItems = $activeItems->merge(\App\PlayerBan::on($server->id)->with('actor','player')->active()->get());
+				$activeItems = $activeItems->merge(\App\PlayerBan::on($server->id)->with('actor','player')->whereRaw('1=1')->active()->get());
 			}
 			$title = trans('app.activeBans');
 			return compact('activeItems', 'title');
@@ -91,7 +91,7 @@ class AdminController extends Controller {
 		$data = \Cache::remember('activeMutesData', 1, function() {
 			$activeItems = collect();
 			foreach(\App\Server::get() as $server) {
-				$activeItems = $activeItems->merge(\App\PlayerMute::on($server->id)->with('actor','player')->active()->get());
+				$activeItems = $activeItems->merge(\App\PlayerMute::on($server->id)->with('actor','player')->whereRaw('1=1')->active()->get());
 			}
 			$title = trans('app.activeMutes');
 			return compact('activeItems', 'title');
@@ -105,7 +105,7 @@ class AdminController extends Controller {
 		$data = \Cache::remember('activeWarningsData', 1, function() {
 			$activeItems = collect();
 			foreach(\App\Server::get() as $server) {
-				$activeItems = $activeItems->merge(\App\PlayerWarning::on($server->id)->with('actor','player')->active()->get());
+				$activeItems = $activeItems->merge(\App\PlayerWarning::on($server->id)->with('actor','player')->whereRaw('1=1')->active()->get());
 			}
 			$title = trans('app.activeWarnings');
 			return compact('activeItems', 'title');

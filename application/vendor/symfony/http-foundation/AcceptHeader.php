@@ -32,6 +32,8 @@ class AcceptHeader
     private $sorted = true;
 
     /**
+     * Constructor.
+     *
      * @param AcceptHeaderItem[] $items
      */
     public function __construct(array $items)
@@ -46,7 +48,7 @@ class AcceptHeader
      *
      * @param string $headerValue
      *
-     * @return self
+     * @return AcceptHeader
      */
     public static function fromString($headerValue)
     {
@@ -97,7 +99,9 @@ class AcceptHeader
     /**
      * Adds an item.
      *
-     * @return $this
+     * @param AcceptHeaderItem $item
+     *
+     * @return AcceptHeader
      */
     public function add(AcceptHeaderItem $item)
     {
@@ -124,7 +128,7 @@ class AcceptHeader
      *
      * @param string $pattern
      *
-     * @return self
+     * @return AcceptHeader
      */
     public function filter($pattern)
     {
@@ -151,7 +155,7 @@ class AcceptHeader
     private function sort()
     {
         if (!$this->sorted) {
-            uasort($this->items, function (AcceptHeaderItem $a, AcceptHeaderItem $b) {
+            uasort($this->items, function ($a, $b) {
                 $qA = $a->getQuality();
                 $qB = $b->getQuality();
 

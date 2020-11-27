@@ -42,9 +42,7 @@ class PlayerNoteController extends Controller {
 	 */
 	public function create($player = null)
 	{
-		if($player == null)
-			unset($player);
-		else
+		if(!$player == null)
 			$player = $player[0];
 
 		foreach(\App\Server::get() as $server) {

@@ -23,6 +23,8 @@ class ExecutableFinder
 
     /**
      * Replaces default suffixes of executable.
+     *
+     * @param array $suffixes
      */
     public function setSuffixes(array $suffixes)
     {
@@ -58,7 +60,7 @@ class ExecutableFinder
                 if (@is_dir($path)) {
                     $dirs[] = $path;
                 } else {
-                    if (basename($path) == $name && @is_executable($path)) {
+                    if (basename($path) == $name && is_executable($path)) {
                         return $path;
                     }
                 }
@@ -73,11 +75,11 @@ class ExecutableFinder
         $suffixes = array('');
         if ('\\' === DIRECTORY_SEPARATOR) {
             $pathExt = getenv('PATHEXT');
-            $suffixes = array_merge($suffixes, $pathExt ? explode(PATH_SEPARATOR, $pathExt) : $this->suffixes);
+            $suffixes = $pathExt ? explode(PATH_SEPARATOR, $pathExt) : $this->suffixes;
         }
         foreach ($suffixes as $suffix) {
             foreach ($dirs as $dir) {
-                if (@is_file($file = $dir.DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === DIRECTORY_SEPARATOR || @is_executable($file))) {
+                if (is_file($file = $dir.DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === DIRECTORY_SEPARATOR || is_executable($file))) {
                     return $file;
                 }
             }

@@ -14,6 +14,8 @@ class Player extends Model {
 
 	public $timestamps = false;
 
+	public $incrementing = false;
+
 	public function bans()
 	{
 		return $this->hasManyRelation('App\PlayerBan');
@@ -58,7 +60,7 @@ class Player extends Model {
     }
 
 	public function getUuidAttribute()
-	{	
+	{
 		$this->attributes['uuid'] = id_to_uuid($this->attributes['id']);
 		// Fixes #109 when uuid not set
 		return $this->attributes['uuid'] ?: 'unset';

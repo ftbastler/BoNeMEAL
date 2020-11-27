@@ -21,6 +21,11 @@ use Symfony\Component\Translation\Dumper\DumperInterface;
  */
 class TranslationWriter
 {
+    /**
+     * Dumpers used for export.
+     *
+     * @var array
+     */
     private $dumpers = array();
 
     /**

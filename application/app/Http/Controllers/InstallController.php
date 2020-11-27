@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class InstallController extends Controller {
 
 	public function __construct()
@@ -8,12 +10,12 @@ class InstallController extends Controller {
 	}
 
 	public function index()
-	{	
+	{
 		return view('install.index');
 	}
 
 	public function config()
-	{	
+	{
 		$host  = @( $_SERVER["HTTPS"] != 'on' ) ? 'http://'.$_SERVER["SERVER_NAME"] :  'https://'.$_SERVER["SERVER_NAME"];
 		$host .= ( $_SERVER["SERVER_PORT"] != 80 ) ? ":".$_SERVER["SERVER_PORT"] : "";
 
@@ -24,36 +26,28 @@ class InstallController extends Controller {
 		return view('install.config', compact('host', 'secKey', 'langs'));
 	}
 
-	public function install() {
-		$rules = [
-		'host' => 'required|url',
-		'locale' => 'required',
-		'timezone' => 'required',
-		'key' => 'required|min:32|max:32',
+	public function install(Request $request) {
 
-		'name' => 'required|min:3|max:255',
-		'email' => 'required|email|max:255', //unique:users removed, as user table does not yet exist
-		'password' => 'required|confirmed|min:6',
-		];
+	    $this->validate($request, [
+            'host' => 'required|custom_url',
+            'locale' => 'required',
+            'timezone' => 'required',
+            'key' => 'required|min:32|max:32',
 
-		$validator = \Validator::make(\Input::all(), $rules);
-
-		if($validator->fails()) {
-			return redirect('/install/config')
-			->withErrors($validator)
-			->withInput(\Input::except('password'));
-		}
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|max:255', //unique:users removed, as user table does not yet exist
+            'password' => 'required|confirmed|min:6',
+        ]);
 
 		echo view('install.run');
 
 		try {
 			define('STDIN', fopen("php://stdin","r"));
 
-			//\Artisan::call('migrate:install');
-			\Artisan::call('migrate', [
+			\Artisan::call('migrate:refresh', [
 				'--path' => 'database/migrations',
 				'--env' => 'install',
-				'--quiet' => true, 
+				'--quiet' => true,
 				'--force' => true
 				]);
 		} catch(\Exception $e) {
